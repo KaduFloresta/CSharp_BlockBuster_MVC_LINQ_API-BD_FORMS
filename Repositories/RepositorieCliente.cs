@@ -7,25 +7,7 @@ namespace Repositories
     {
         // Lista de CLientes
         public static List<ClienteModels> clientes = new List<ClienteModels>();
-
-
-        /* Lista com 5 Clientes
-        Adriano Medeiros Sá
-        21/01/1978
-
-        João Pedro Silva
-        13/08/1945"
-
-        Maria de Fátima Antunes
-        02/12/2001
-
-        Letícia Eugenia Soares
-        11/02/1988"
-
-        Belmiro Schmmitt
-        15/07/1995
-        */
-
+        
         // Retorno dos Clientes da Lista
         public static List<ClienteModels> Clientes()
         {

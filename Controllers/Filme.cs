@@ -34,25 +34,10 @@ namespace Controllers
             );
         }
 
-        // Retorno do Valor do Filme
-        public string GetFilme(FilmeModels filme)
-        {
-            string filmeValue = filme.ToString();
-
-            return filmeValue;
-        }
-
         // Retorno da Lista de Filmes
         public static List<FilmeModels> GetFilmes()
         {
             return FilmeModels.GetFilmes();
         }
-
-        // Retorno do Filme pelo ID 
-        public static FilmeModels GetFilme(int idFilme)
-        {
-            return FilmeModels.GetFilme(idFilme);
-        }
-
     }
 }

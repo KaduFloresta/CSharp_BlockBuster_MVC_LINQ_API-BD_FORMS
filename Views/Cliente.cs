@@ -8,43 +8,48 @@ namespace View
 {
     public class ClienteView
     {
+        // Criação do Cliente
         public static void CadastrarCliente()
         {
             Console.WriteLine("---===[ CADASTRO DO CLIENTE ]===---");
             Console.WriteLine("Nome: ");
-            String nomeCliente = Console.ReadLine();
-            Console.WriteLine("Data de Nascimento (dd/mm/yyyy): ");
-            String dataNascimento = Console.ReadLine();
-            Console.WriteLine("C.P.F.: ");
-            String cpfCLiente = Console.ReadLine();
-            Console.WriteLine("Dias P/ devolução: ");
+            string nomeCliente = Console.ReadLine();
+            Console.WriteLine("\nData de Nascimento (dd/mm/yyyy): ");
+            string dataNascimento = Console.ReadLine();
+            Console.WriteLine("\nC.P.F.: ");
+            string cpfCLiente = Console.ReadLine();
+            Console.WriteLine("\nDias P/ Devolução: ");
             int diasDevolucao = Convert.ToInt32(Console.ReadLine());
 
             ClienteController.CadastrarCliente(nomeCliente, dataNascimento, cpfCLiente, diasDevolucao);
         }
 
-        // Relação de Clientes da Lista
+        // Lista de Clientes Cadastrados
         public static void ListarClientes()
         {
             Console.WriteLine("=================[ LISTA DE CLIENTES ]=================");
             ClienteController.GetClientes().ForEach(filme => Console.WriteLine(filme));
         }
 
-        // Teste Consulta LINQ
+        // Consulta Cliente pelo ID via LINQ
         public static void ConsultarCliente()
         {
             Console.WriteLine("Digite o ID do Cliente: ");
             int idCliente = Convert.ToInt32(Console.ReadLine());
-
-            IEnumerable query =
-            from cliente in ClienteController.GetClientes()
-            where cliente.IdCliente == idCliente
-            select cliente.ToString();
-
-            foreach (string cliente in query)
+            try
             {
+                ClienteModels cliente =
+                (from cliente1 in ClienteController.GetClientes()
+                 where cliente1.IdCliente == idCliente
+                 select cliente1).First();
+
+
                 Console.WriteLine("=================[ CONSULTA CLIENTE ]==================");
                 Console.WriteLine(cliente.ToString());
+            }
+            catch
+            {
+                Console.WriteLine("==> CLIENTE NÃO EXISTE!");
             }
         }
     }

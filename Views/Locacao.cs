@@ -9,11 +9,6 @@ namespace View
 {
     public class LocacaoView
     {
-        public void addLocacao(ClienteModels cliente)
-        {
-            LocacaoController.addLocacao(cliente);
-        }
-
         // Listando os CLientes da Lista
         public static void ListarLocacao()
         {
@@ -30,7 +25,6 @@ namespace View
             List<ClienteModels> clientes = ClienteController.GetClientes();
             List<FilmeModels> filmes = FilmeController.GetFilmes();
 
-
             int idCliente = 0;
 
             Console.WriteLine("\nDigite o ID Cliente:");
@@ -39,7 +33,6 @@ namespace View
             if (idCliente <= 5)
             {
                 ClienteModels cliente = clientes.Find(cliente => cliente.IdCliente == idCliente);
-
                 LocacaoModels locacao = LocacaoController.addLocacao(cliente);
 
                 int idFilme = 0;
@@ -61,21 +54,25 @@ namespace View
             }
         }
 
-        //Teste Consulta LINQ
+        // Consulta Locacao pelo ID via LINQ
         public static void ConsultarLocacao()
         {
             Console.WriteLine("Digite o ID da Locação: ");
             int idLocacao = Convert.ToInt32(Console.ReadLine());
 
-            IEnumerable query =
-            from locacao in LocacaoController.GetLocacao()
-            where locacao.IdLocacao == idLocacao
-            select locacao.ToString();
-
-            foreach (string locacoes in query)
+            try
             {
+                LocacaoModels locacao =
+                (from locacao1 in LocacaoController.GetLocacao()
+                 where locacao1.IdLocacao == idLocacao
+                 select locacao1).First();
+
                 Console.WriteLine("\n=================[ CONSULTA LOCAÇÕES ]=================");
-                Console.WriteLine(locacoes.ToString());
+                Console.WriteLine(locacao.ToString());
+            }
+            catch
+            {
+                Console.WriteLine("==> LOCAÇÃO NÃO EXISTE!");
             }
         }
     }

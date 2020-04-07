@@ -1,16 +1,22 @@
-using System;
-using Repositories;
+using System.Linq;
+using DbRespositorie;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Models
 {
     public class ClienteModels
     {
         // Atributos
+        [Key]
         public int IdCliente { get; set; }
-        public String NomeCliente { get; set; }
-        public String DataNascimento { get; set; }
-        public String CpfCliente { get; set; }
+        [Required]
+        public string NomeCliente { get; set; }
+        [Required]
+        public string DataNascimento { get; set; }
+        [Required]
+        public string CpfCliente { get; set; }
+        [Required]
         public int DiasDevolucao { get; set; }
 
         public List<LocacaoModels> locacoes = new List<LocacaoModels>();
@@ -18,20 +24,29 @@ namespace Models
         // Construtor
         public ClienteModels(string nomeCliente, string dataNascimento, string cpfCliente, int diasDevolucao)
         {
-            IdCliente = ClienteRepositories.GetId();
             NomeCliente = nomeCliente;
             DataNascimento = dataNascimento;
             CpfCliente = cpfCliente;
             DiasDevolucao = diasDevolucao;
             locacoes = new List<LocacaoModels>();
 
-            ClienteRepositories.clientes.Add(this);
+            var db = new Context();
+            db.Clientes.Add(this);
+            db.SaveChanges();
+        }
+
+        public ClienteModels()
+        {
+
         }
 
         // Retorno do Cliente pelo ID
         public static ClienteModels GetCliente(int idCliente)
         {
-            return ClienteRepositories.Clientes().Find(cliente => cliente.IdCliente == idCliente);
+            var db = new Context();
+            return (from cliente in db.Clientes
+            where cliente.IdCliente == idCliente
+            select cliente).First();
         }
 
         // Método com a Quantidade de Filmes Locados
@@ -61,7 +76,8 @@ namespace Models
         // Retorno da Lista de Cliente
         public static List<ClienteModels> GetClientes()
         {
-            return Repositories.ClienteRepositories.clientes;
+            var db = new Context();
+            return db.Clientes.ToList();
         }
     }
 }

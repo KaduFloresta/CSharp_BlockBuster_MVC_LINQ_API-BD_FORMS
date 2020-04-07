@@ -7,9 +7,7 @@ namespace Controllers
     public class LocacaoController
     {
         // Adição da Locação
-        public static LocacaoModels addLocacao(
-            ClienteModels cliente
-        )
+        public static LocacaoModels addLocacao (ClienteModels cliente)
         {
             return new LocacaoModels(cliente, DateTime.Now);
         }
@@ -25,6 +23,7 @@ namespace Controllers
             return ValorTotal;
         }
 
+        // Solid = O kkkkk
         // Calculo Data de Devolução
         public static DateTime CalculoDataDevolucao(LocacaoModels locacao)
         {

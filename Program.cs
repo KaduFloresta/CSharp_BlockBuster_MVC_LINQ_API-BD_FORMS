@@ -1,6 +1,5 @@
 using System;
 using View;
-using Repositories;
 
 /**
  *  @author Kadu Floresta
@@ -20,6 +19,7 @@ namespace Locadora_MVC_LinQ
             int menu = 0;
             do
             {
+                // Mostrar Opções do Menu
                 Console.WriteLine("\n|***********************************|");
                 Console.WriteLine("|=============[ MENU ]==============|");
                 Console.WriteLine("|***********************************|");
@@ -50,6 +50,7 @@ namespace Locadora_MVC_LinQ
                     menu = 99;
                 }
 
+                // Seleção das Opções do Menu
                 switch (menu)
                 {
                     case 1: // Adicionar CLiente
