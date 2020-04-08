@@ -27,9 +27,9 @@ namespace Models
 
         public List<LocacaoModels> locacoes = new List<LocacaoModels>();
 
-        public FilmeModels ()
+        public FilmeModels()
         {
-            
+
         }
 
         // Construtor
@@ -57,29 +57,30 @@ namespace Models
         {
             var db = new Context();
             return (from filme in db.Filmes
-            where filme.IdFilme == idFilme
-            select filme).First();
-        }
-
-        // Método com a Quantidade de locações Realizadas
-        public void QtdeFilmeLocado()
-        {
-            EstoqueFilme -= 1;
-            FilmeLocado += 1;
+                    where filme.IdFilme == idFilme
+                    select filme).First();
         }
 
         // Impressão Dados do Filme
         public override string ToString()
         {
-            return $"------------------------===[ FILME ]===------------------------------------------------------------------------------------------------\n" +
+            var db = new Context();
+
+            int qtdFilme = (
+                from filme in db.LocacaoFilme
+                where filme.IdFilme == IdFilme
+                select filme
+                ).Count();
+
+            return  $"------------------------===[ FILME ]===------------------------------------------------------------------------------------------\n" +
                     $"--> Nº ID DO FILME: {IdFilme}\n" +
                     $"-> TÍTULO: {Titulo}\n" +
                     $"-> DATA DE LANÇAMENTO: {DataLancamento}\n" +
                     $"-> SINOPSE: {Sinopse}\n" +
                     $"-> VALOR DA LOCAÇÃO: {ValorLocacaoFilme.ToString("C")}\n" +
                     $"-> QTDE EM ESTOQUE: {EstoqueFilme}\n" +
-                    $"-> QTDE DE LOCAÇÕES REALIZADAS: {FilmeLocado}\n" +
-                    $"---------------------------------------------------------------------------------------------------------------------------------------";
+                    $"-> QTDE DE LOCAÇÕES REALIZADAS: {qtdFilme}\n" +
+                    $"---------------------------------------------------------------------------------------------------------------------------------\n";
         }
 
         // Retorno da Lista de Filmes

@@ -1,10 +1,10 @@
 using System;
 using System.Linq;
 using Controllers;
-using Repositories;
 using DbRespositorie;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Models
 {
@@ -13,23 +13,24 @@ namespace Models
         // Atributos
         [Key]
         public int IdLocacao { get; set; }
-        [Required]
         public ClienteModels Cliente { get; set; }
+        [ForeignKey("clientes")]
+        public int IdCliente { get; set; }
         [Required]
         public DateTime DataLocacao { get; set; }
 
         // Lista de Filmes da Locação
         public List<FilmeModels> filmes = new List<FilmeModels>();
 
-        public LocacaoModels ()
+        public LocacaoModels()
         {
-            
+
         }
 
         // Construtor
         public LocacaoModels(ClienteModels cliente, DateTime dataLocacao)
         {
-            Cliente = cliente;
+            IdCliente = cliente.IdCliente;
             DataLocacao = dataLocacao;
             filmes = new List<FilmeModels>();
             cliente.AdicionarLocacao(this);
@@ -42,35 +43,59 @@ namespace Models
         // Adição de Filmes
         public void AdicionarFilme(FilmeModels filme)
         {
-            filmes.Add(filme);
-            filme.AtribuirLocacao(this);
+            var db = new Context();
+            LocacaoFilmeModels locacaoFilme = new LocacaoFilmeModels()
+            {
+                IdFilme = filme.IdFilme,
+                IdLocacao = IdLocacao
+            };
+
+            db.LocacaoFilme.Add(locacaoFilme);
+            db.SaveChanges();
         }
 
         // Informações da Locação
         public override string ToString()
         {
-            string retorno = Cliente +
+            var db = new Context();
+            
+            IEnumerable<int> filmes =
+            from filme in db.LocacaoFilme
+            where filme.IdLocacao == IdLocacao
+            select filme.IdFilme;
+
+            ClienteModels cliente = ClienteModels.GetCliente(IdCliente);
+
+            string retorno = cliente +
                 $"\n----------------===[ DADOS LOCAÇÃO ]===----------------\n" +
-                $"-> PREÇO TOTAL DAS LOCAÇÕES: R$ {LocacaoController.PrecoTotalLocaçoes(this)}\n" +
-                $"-> DATA DE DEVOLUÇÃO: {LocacaoController.CalculoDataDevolucao(this)}\n" +
-                $"-> QTDE TOTAL DE FILMES: {LocacaoController.TotalFilmes(filmes)}\n" +
-                $"-------------------------------------------------------\n\n" +
-                $"===================[ FILMES LOCADOS ]==================\n";
+                $"-> DATA DE LOCAÇÃO: {DataLocacao}\n" +
+                $"-> DATA DE DEVOLUÇÃO: {LocacaoController.CalculoDataDevolucao(DataLocacao, cliente)}\n" +
+                $"-> QTDE TOTAL DE FILMES: {filmes.Count()}\n";
+                
+               
+            
+            double ValorTotal = 0;
+            string strFilmes = "";
 
-
-            if (filmes.Count > 0)
+            if (filmes.Count() > 0)
             {
-                filmes.ForEach(
-                    filme => retorno +=
-                    $"--> ID do Filme: {filme.IdFilme}  " +
-                    $" Título: {filme.Titulo}\n"
-                );
+                foreach (int id in filmes)
+                {
+                    FilmeModels filme = FilmeModels.GetFilme(id);
+                    strFilmes += filme;
+                    ValorTotal += filme.ValorLocacaoFilme;
+                }
             }
             else
             {
-                retorno += "    NÃO HÁ FILMES!";
+                strFilmes += "    NÃO HÁ FILMES!";
             }
-            return retorno +
+
+            retorno += $"-> PREÇO TOTAL DAS LOCAÇÕES: R$ {ValorTotal}\n" +
+            $"-------------------------------------------------------\n\n" +
+            $"===================[ FILMES LOCADOS ]==================\n";
+            return retorno + strFilmes +
+            
             $"=======================================================\n";
         }
 
@@ -85,8 +110,8 @@ namespace Models
         {
             var db = new Context();
             return (from locacao in db.Locacoes
-            where locacao.IdLocacao == idLocacao
-            select locacao).First();
+                    where locacao.IdLocacao == idLocacao
+                    select locacao).First();
         }
     }
 }

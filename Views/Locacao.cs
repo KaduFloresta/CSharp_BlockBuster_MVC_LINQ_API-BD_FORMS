@@ -9,7 +9,9 @@ namespace View
 {
     public class LocacaoView
     {
-        // Listando os CLientes da Lista
+        /// <summary>
+        /// Rental report
+        /// </summary>
         public static void ListarLocacao()
         {
             Console.WriteLine("\n===================[ LISTA LOCAÇÕES ]==================");
@@ -18,7 +20,9 @@ namespace View
             locacoes.ForEach(locacao => Console.WriteLine(locacao));
         }
 
-        // Adicionando Locação na Lista pelo ID do CLiente
+        /// <summary>
+        /// Creating rental by Customer ID and Movies ID
+        /// </summary>
         public static void CadastrarLocacao()
         {
             Console.WriteLine("---===[ CADASTRO DA LOCAÇÃO ]===---");
@@ -37,7 +41,10 @@ namespace View
 
                 int idFilme = 0;
 
-                // Eqto IdFilme não for ZERO continua adicionando Locação                           
+                /// <summary>
+                /// As long as IdFilm is not ZERO, it continues adding movies
+                /// </summary>
+                /// <value></value>                           
                 do
                 {
                     Console.WriteLine("\nDigite o ID Filme: ");
@@ -54,7 +61,9 @@ namespace View
             }
         }
 
-        // Consulta Locacao pelo ID via LINQ
+        /// <summary>
+        /// Query the rent by ID (LINQ)
+        /// </summary>
         public static void ConsultarLocacao()
         {
             Console.WriteLine("Digite o ID da Locação: ");

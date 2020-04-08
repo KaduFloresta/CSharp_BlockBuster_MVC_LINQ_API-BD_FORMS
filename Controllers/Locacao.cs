@@ -7,28 +7,15 @@ namespace Controllers
     public class LocacaoController
     {
         // Adição da Locação
-        public static LocacaoModels addLocacao (ClienteModels cliente)
+        public static LocacaoModels addLocacao(ClienteModels cliente)
         {
             return new LocacaoModels(cliente, DateTime.Now);
         }
 
-        // Método com o Valor Total das Locações (Preço)
-        public static double PrecoTotalLocaçoes(LocacaoModels locacao)
-        {
-            double ValorTotal = 0;
-
-            locacao.filmes.ForEach(
-                filme => ValorTotal += filme.ValorLocacaoFilme
-            );
-            return ValorTotal;
-        }
-
-        // Solid = O kkkkk
         // Calculo Data de Devolução
-        public static DateTime CalculoDataDevolucao(LocacaoModels locacao)
+        public static DateTime CalculoDataDevolucao(DateTime DtLocacao, ClienteModels Cliente)
         {
-            //Data.AddDays(ClienteModels.Dias);
-            return locacao.DataLocacao.AddDays(locacao.Cliente.DiasDevolucao);
+            return DtLocacao.AddDays(Cliente.DiasDevolucao);
         }
 
         // Total de Filmes da Lista

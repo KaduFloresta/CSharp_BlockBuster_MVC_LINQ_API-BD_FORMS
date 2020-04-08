@@ -14,12 +14,15 @@ namespace Locadora_MVC_LinQ
         public static void Main(String[] args)
         {
             Console.WriteLine("LOCADORA DE FILMES MVC - LinQ - API");
-
-            // Menu Principal - Inserir - Consultar - Listar
+    
+            /// <summary>
+            /// Main menu: Create, Read and Query
+            /// </summary>
             int menu = 0;
             do
             {
-                // Mostrar Opções do Menu
+
+                // Menu options
                 Console.WriteLine("\n|***********************************|");
                 Console.WriteLine("|=============[ MENU ]==============|");
                 Console.WriteLine("|***********************************|");
@@ -50,34 +53,34 @@ namespace Locadora_MVC_LinQ
                     menu = 99;
                 }
 
-                // Seleção das Opções do Menu
+                // Selecting Menu Options
                 switch (menu)
                 {
-                    case 1: // Adicionar CLiente
+                    case 1: // Create
                         ClienteView.CadastrarCliente();
                         break;
-                    case 2: // Consultar Cliente pelo ID
+                    case 2: // Query
                         ClienteView.ConsultarCliente();
                         break;
-                    case 3: // Listar Todos os Clientes 
+                    case 3: // List
                         ClienteView.ListarClientes();
                         break;
-                    case 4: // Adicionar Filme
+                    case 4: 
                         FilmeView.CadastrarFilme();
                         break;
-                    case 5: // Consultar Filme pelo ID
+                    case 5: 
                         FilmeView.ConsultarFilme();
                         break;
-                    case 6: // Listar Todos os Filmes
+                    case 6: 
                         FilmeView.ListarFilmes();
                         break;
-                    case 7: // Adicionar Locacao
+                    case 7: 
                         LocacaoView.CadastrarLocacao();
                         break;
-                    case 8: // Consultar Locação pelo ID
+                    case 8: 
                         LocacaoView.ConsultarLocacao();
                         break;
-                    case 9: // Lista de Todas as Locação
+                    case 9: 
                         LocacaoView.ListarLocacao();
                         break;
                 }
