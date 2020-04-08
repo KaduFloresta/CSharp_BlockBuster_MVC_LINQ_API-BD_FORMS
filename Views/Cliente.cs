@@ -8,7 +8,9 @@ namespace View
 {
     public class ClienteView
     {
-        // Criação do Cliente
+        /// <summary>
+        /// Creating customer
+        /// </summary>
         public static void CadastrarCliente()
         {
             Console.WriteLine("---===[ CADASTRO DO CLIENTE ]===---");
@@ -24,14 +26,18 @@ namespace View
             ClienteController.CadastrarCliente(nomeCliente, dataNascimento, cpfCLiente, diasDevolucao);
         }
 
-        // Lista de Clientes Cadastrados
+        /// <summary>
+        /// Customers report
+        /// </summary>
         public static void ListarClientes()
         {
             Console.WriteLine("=================[ LISTA DE CLIENTES ]=================");
             ClienteController.GetClientes().ForEach(filme => Console.WriteLine(filme));
         }
 
-        // Consulta Cliente pelo ID via LINQ
+        /// <summary>
+        /// Query the customer by ID (LINQ)
+        /// </summary>
         public static void ConsultarCliente()
         {
             Console.WriteLine("Digite o ID do Cliente: ");

@@ -8,7 +8,9 @@ namespace View
 {
     public class FilmeView
     {
-        // Criação do Filme
+        /// <summary>
+        /// Creating movie
+        /// </summary>
         public static void CadastrarFilme()
         {
             Console.WriteLine("---===[ CADASTRO DO FILME ]===---");
@@ -32,14 +34,18 @@ namespace View
             );
         }
 
-        // Lista de Filmes Cadastrados
+        /// <summary>
+        /// Movies report
+        /// </summary>
         public static void ListarFilmes()
         {
-            Console.WriteLine("=====================[ LISTA DE FILMES ]===============================================================================================");
+            Console.WriteLine("=====================[ LISTA DE FILMES ]=========================================================================================");
             FilmeController.GetFilmes().ForEach(filme => Console.WriteLine(filme));
         }
 
-        // Consulta Filme pelo ID via LINQ
+        /// <summary>
+        /// Query the movie by ID (LINQ)
+        /// </summary>
         public static void ConsultarFilme()
         {
             Console.WriteLine("Digite o ID do Filme: ");
@@ -52,7 +58,7 @@ namespace View
                  where filme1.IdFilme == idFilme
                  select filme1).First();
 
-                Console.WriteLine("=====================[ CONSULTA FILMES ]===============================================================================================");
+                Console.WriteLine("=====================[ CONSULTA FILMES ]=========================================================================================");
                 Console.WriteLine(filme.ToString());
             }
             catch

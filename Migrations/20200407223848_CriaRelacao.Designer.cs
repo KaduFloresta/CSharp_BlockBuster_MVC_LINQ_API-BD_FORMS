@@ -3,14 +3,16 @@ using System;
 using DbRespositorie;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LocadoraMVC.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20200407223848_CriaRelacao")]
+    partial class CriaRelacao
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -108,14 +110,11 @@ namespace LocadoraMVC.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int?>("ClienteIdCliente")
+                    b.Property<int>("ClienteIdCliente")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("DataLocacao")
                         .HasColumnType("datetime(6)");
-
-                    b.Property<int>("IdCliente")
-                        .HasColumnType("int");
 
                     b.HasKey("IdLocacao");
 
@@ -139,7 +138,9 @@ namespace LocadoraMVC.Migrations
                 {
                     b.HasOne("Models.ClienteModels", "Cliente")
                         .WithMany()
-                        .HasForeignKey("ClienteIdCliente");
+                        .HasForeignKey("ClienteIdCliente")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }
