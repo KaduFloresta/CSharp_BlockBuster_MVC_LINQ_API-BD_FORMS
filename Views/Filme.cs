@@ -2,14 +2,13 @@ using System;
 using Models;
 using Controllers;
 using System.Linq;
-using System.Collections;
 
 namespace View
 {
     public class FilmeView
     {
         /// <summary>
-        /// Creating movie
+        /// Creating movies
         /// </summary>
         public static void CadastrarFilme()
         {
@@ -35,7 +34,7 @@ namespace View
         }
 
         /// <summary>
-        /// Movies report
+        /// Listing movies
         /// </summary>
         public static void ListarFilmes()
         {
@@ -44,7 +43,7 @@ namespace View
         }
 
         /// <summary>
-        /// Query the movie by ID (LINQ)
+        /// Consulting a movie by ID (LINQ)
         /// </summary>
         public static void ConsultarFilme()
         {

@@ -7,6 +7,13 @@ namespace Controllers
 
     public class ClienteController
     {
+        /// <summary>
+        /// Insert customer into the database
+        /// </summary>
+        /// <param name="nomeCliente"></param>
+        /// <param name="dataNascimento"></param>
+        /// <param name="cpfCliente"></param>
+        /// <param name="diasDevolucao"></param>
         public static void CadastrarCliente(
             string nomeCliente,
             string dataNascimento,
@@ -32,40 +39,10 @@ namespace Controllers
                 diasDevolucao);
         }
 
-        // Adição de Locações
-        public string getCliente(ClienteModels cliente)
-        {
-            string clienteValue = cliente.ToString();
-
-            clienteValue += $"-> QTDE LOCAÇÕES: {this.getLocacoes(cliente)}\n";
-            clienteValue += "----------------------------------------";
-
-            return clienteValue;
-        }
-
-        // Retorno da Quantidade de Locações por Cliente
-        public int getLocacoes(ClienteModels cliente)
-        {
-            int qtd = 0;
-
-            foreach (LocacaoModels locacao in cliente.locacoes)
-            {
-                foreach (FilmeModels filme in locacao.filmes)
-                {
-                    qtd++;
-                }
-            }
-
-            return qtd;
-        }
-
-        // Retorno do Cliente pelo ID 
-        public static ClienteModels GetCliente(int idCliente)
-        {
-            return ClienteModels.GetCliente(idCliente);
-        }
-
-        // Retorno da Lista de Clientes
+        /// <summary>
+        /// Access all customers
+        /// </summary>
+        /// <returns></returns>
         public static List<ClienteModels> GetClientes()
         {
             return ClienteModels.GetClientes();

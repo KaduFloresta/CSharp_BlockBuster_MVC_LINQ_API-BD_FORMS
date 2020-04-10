@@ -10,7 +10,7 @@ namespace View
     public class LocacaoView
     {
         /// <summary>
-        /// Rental report
+        /// Listing rentals
         /// </summary>
         public static void ListarLocacao()
         {
@@ -21,7 +21,7 @@ namespace View
         }
 
         /// <summary>
-        /// Creating rental by Customer ID and Movies ID
+        /// Creating rentals by Customer ID and Movies ID
         /// </summary>
         public static void CadastrarLocacao()
         {
@@ -31,38 +31,36 @@ namespace View
 
             int idCliente = 0;
 
+            // Insert costumer by ID
             Console.WriteLine("\nDigite o ID Cliente:");
             idCliente = Convert.ToInt32(Console.ReadLine());
 
-            if (idCliente <= 5)
+            if (idCliente != 0)
             {
                 ClienteModels cliente = clientes.Find(cliente => cliente.IdCliente == idCliente);
                 LocacaoModels locacao = LocacaoController.addLocacao(cliente);
 
                 int idFilme = 0;
 
-                /// <summary>
-                /// As long as IdFilm is not ZERO, it continues adding movies
-                /// </summary>
-                /// <value></value>                           
+                // As long as IdFilm is not ZERO, it continues adding movies in rent                       
                 do
                 {
                     Console.WriteLine("\nDigite o ID Filme: ");
                     Console.WriteLine("DIGITE ZERO (0) P/ FINALIZAR!");
                     idFilme = Convert.ToInt32(Console.ReadLine());
 
-                    if (idFilme != 0)
+                    if (idFilme != 0) // If movie ID is nonzero
                     {
                         FilmeModels filme = filmes.Find(filme => filme.IdFilme == idFilme);
 
-                        locacao.AdicionarFilme(filme);
+                        locacao.AdicionarFilme(filme); // Add movie in rent
                     }
-                } while (idFilme != 0);
+                } while (idFilme != 0); //Looping while movie ID is nonzero
             }
         }
 
         /// <summary>
-        /// Query the rent by ID (LINQ)
+        /// Consulting a rent by ID (LINQ)
         /// </summary>
         public static void ConsultarLocacao()
         {

@@ -6,34 +6,34 @@ namespace Controllers
 {
     public class LocacaoController
     {
-        // Adição da Locação
+        /// <summary>
+        /// Add a rent
+        /// </summary>
+        /// <param name="cliente"></param>
+        /// <returns></returns>
         public static LocacaoModels addLocacao(ClienteModels cliente)
         {
             return new LocacaoModels(cliente, DateTime.Now);
         }
 
-        // Calculo Data de Devolução
+        /// <summary>
+        /// Return date calculation 
+        /// </summary>
+        /// <param name="DtLocacao"></param>
+        /// <param name="Cliente"></param>
+        /// <returns></returns>
         public static DateTime CalculoDataDevolucao(DateTime DtLocacao, ClienteModels Cliente)
         {
             return DtLocacao.AddDays(Cliente.DiasDevolucao);
         }
 
-        // Total de Filmes da Lista
-        public static double TotalFilmes(List<FilmeModels> filmes)
-        {
-            return filmes.Count;
-        }
-
-        // Retorno da Lista de Locações
+        /// <summary>
+        /// Access find a customer rental
+        /// </summary>
+        /// <returns></returns>
         public static List<LocacaoModels> GetLocacao()
         {
             return LocacaoModels.GetLocacao();
-        }
-
-        // Retorno da Locação pelo ID
-        public static LocacaoModels GetLocacao(int idLocacao)
-        {
-            return LocacaoModels.GetLocacao(idLocacao);
         }
     }
 }
