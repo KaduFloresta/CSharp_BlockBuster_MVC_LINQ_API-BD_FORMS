@@ -1,11 +1,7 @@
 using System;
 using View;
 
-/**
- *  @author Kadu Floresta
- * 
- * 
-*/
+// @author Kadu Floresta
 
 namespace Locadora_MVC_LinQ
 {
@@ -14,14 +10,12 @@ namespace Locadora_MVC_LinQ
         public static void Main(String[] args)
         {
             Console.WriteLine("LOCADORA DE FILMES MVC - LinQ - API");
-    
-            /// <summary>
-            /// Main menu: Create, Read and Query
-            /// </summary>
+
+
+            // Main menu: Create, Read and Query
             int menu = 0;
             do
             {
-
                 // Menu options
                 Console.WriteLine("\n|***********************************|");
                 Console.WriteLine("|=============[ MENU ]==============|");
@@ -53,6 +47,7 @@ namespace Locadora_MVC_LinQ
                     menu = 99;
                 }
 
+
                 // Selecting Menu Options
                 switch (menu)
                 {
@@ -62,25 +57,25 @@ namespace Locadora_MVC_LinQ
                     case 2: // Query
                         ClienteView.ConsultarCliente();
                         break;
-                    case 3: // List
+                    case 3: // List/Read
                         ClienteView.ListarClientes();
                         break;
-                    case 4: 
+                    case 4:
                         FilmeView.CadastrarFilme();
                         break;
-                    case 5: 
+                    case 5:
                         FilmeView.ConsultarFilme();
                         break;
-                    case 6: 
+                    case 6:
                         FilmeView.ListarFilmes();
                         break;
-                    case 7: 
+                    case 7:
                         LocacaoView.CadastrarLocacao();
                         break;
-                    case 8: 
+                    case 8:
                         LocacaoView.ConsultarLocacao();
                         break;
-                    case 9: 
+                    case 9:
                         LocacaoView.ListarLocacao();
                         break;
                 }

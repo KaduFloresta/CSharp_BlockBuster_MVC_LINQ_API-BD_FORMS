@@ -10,24 +10,30 @@ namespace Models
 {
     public class LocacaoModels
     {
-        // Atributos
-        [Key]
+        /* 
+            Getters and Setters 
+        */
+
+        /// <value> Get and Set the value of IdLocacao </value>
+        [Key] // Data Annotations - Main key
         public int IdLocacao { get; set; }
+        /// <value> Get and Set the value of Cliente </value>
         public ClienteModels Cliente { get; set; }
-        [ForeignKey("clientes")]
+        /// <value> Get and Set the value of IdCliente </value>
+        [ForeignKey("clientes")] // Data Annotations - Foreign Key
         public int IdCliente { get; set; }
-        [Required]
+        /// <value> Get and Set the value of DataLocacao </value>
+        [Required] // Data Annotations - Mandatory data entry
         public DateTime DataLocacao { get; set; }
 
-        // Lista de Filmes da Locação
+        /// <value> Get and Set the value of filmes </value>
         public List<FilmeModels> filmes = new List<FilmeModels>();
 
-        public LocacaoModels()
-        {
-
-        }
-
-        // Construtor
+        /// <summary>
+        /// Constructor - LocacaoModels Object
+        /// </summary>
+        /// <param name="cliente"></param>
+        /// <param name="dataLocacao"></param>
         public LocacaoModels(ClienteModels cliente, DateTime dataLocacao)
         {
             IdCliente = cliente.IdCliente;
@@ -40,7 +46,18 @@ namespace Models
             db.SaveChanges();
         }
 
-        // Adição de Filmes
+        /// <summary>
+        /// 2nd Constructor - LocacaoModels Object
+        /// </summary>
+        public LocacaoModels()
+        {
+
+        }
+
+        /// <summary>
+        /// Add movies
+        /// </summary>
+        /// <param name="filme"></param>
         public void AdicionarFilme(FilmeModels filme)
         {
             var db = new Context();
@@ -54,11 +71,14 @@ namespace Models
             db.SaveChanges();
         }
 
-        // Informações da Locação
+        /// <summary>
+        /// String convertion
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             var db = new Context();
-            
+
             IEnumerable<int> filmes =
             from filme in db.LocacaoFilme
             where filme.IdLocacao == IdLocacao
@@ -71,9 +91,8 @@ namespace Models
                 $"-> DATA DE LOCAÇÃO: {DataLocacao}\n" +
                 $"-> DATA DE DEVOLUÇÃO: {LocacaoController.CalculoDataDevolucao(DataLocacao, cliente)}\n" +
                 $"-> QTDE TOTAL DE FILMES: {filmes.Count()}\n";
-                
-               
-            
+
+
             double ValorTotal = 0;
             string strFilmes = "";
 
@@ -95,17 +114,25 @@ namespace Models
             $"-------------------------------------------------------\n\n" +
             $"===================[ FILMES LOCADOS ]==================\n";
             return retorno + strFilmes +
-            
+
             $"=======================================================\n";
         }
 
-        // Retorno da Lista de Locações
+        /// <summary>
+        /// To find a rent
+        /// </summary>
+        /// <returns></returns>
         public static List<LocacaoModels> GetLocacao()
         {
             var db = new Context();
             return db.Locacoes.ToList();
         }
-        // Retorno da Locação pelo ID
+
+        /// <summary>
+        /// To find a rent by ID (LinQ)
+        /// </summary>
+        /// <param name="idLocacao"></param>
+        /// <returns></returns>
         public static LocacaoModels GetLocacao(int idLocacao)
         {
             var db = new Context();

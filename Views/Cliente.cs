@@ -2,14 +2,13 @@ using System;
 using Models;
 using Controllers;
 using System.Linq;
-using System.Collections;
 
 namespace View
 {
     public class ClienteView
     {
         /// <summary>
-        /// Creating customer
+        /// Creating customers
         /// </summary>
         public static void CadastrarCliente()
         {
@@ -23,26 +22,33 @@ namespace View
             Console.WriteLine("\nDias P/ Devolução: ");
             int diasDevolucao = Convert.ToInt32(Console.ReadLine());
 
-            ClienteController.CadastrarCliente(nomeCliente, dataNascimento, cpfCLiente, diasDevolucao);
+            ClienteController.CadastrarCliente(
+                nomeCliente, 
+                dataNascimento, 
+                cpfCLiente, 
+                diasDevolucao
+            );
         }
 
         /// <summary>
-        /// Customers report
+        /// Listing customers
         /// </summary>
         public static void ListarClientes()
         {
             Console.WriteLine("=================[ LISTA DE CLIENTES ]=================");
-            ClienteController.GetClientes().ForEach(filme => Console.WriteLine(filme));
+            ClienteController.GetClientes().ForEach(cliente => Console.WriteLine(cliente));
         }
 
         /// <summary>
-        /// Query the customer by ID (LINQ)
+        /// Consulting a customer by ID (LINQ)
         /// </summary>
         public static void ConsultarCliente()
         {
             Console.WriteLine("Digite o ID do Cliente: ");
             int idCliente = Convert.ToInt32(Console.ReadLine());
-            try
+            
+
+            try 
             {
                 ClienteModels cliente =
                 (from cliente1 in ClienteController.GetClientes()

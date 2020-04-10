@@ -6,7 +6,14 @@ namespace Controllers
 {
     public class FilmeController
     {
-        // Adição de Filme
+        /// <summary>
+        /// Insert movie into the database
+        /// </summary>
+        /// <param name="titulo"></param>
+        /// <param name="dataLancamento"></param>
+        /// <param name="sinopse"></param>
+        /// <param name="valorLocacaoFilme"></param>
+        /// <param name="estoqueFilme"></param>
         public static void CadastrarFilme(
             string titulo,
             string dataLancamento,
@@ -34,7 +41,10 @@ namespace Controllers
             );
         }
 
-        // Retorno da Lista de Filmes
+        /// <summary>
+        /// Access all movies
+        /// </summary>
+        /// <returns></returns>
         public static List<FilmeModels> GetFilmes()
         {
             return FilmeModels.GetFilmes();
