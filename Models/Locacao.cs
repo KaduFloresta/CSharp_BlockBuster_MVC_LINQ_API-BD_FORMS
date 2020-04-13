@@ -88,7 +88,7 @@ namespace Models
 
             string retorno = cliente +
                 $"\n----------------===[ DADOS LOCAÇÃO ]===----------------\n" +
-                $"-> DATA DE LOCAÇÃO: {DataLocacao}\n" +
+                $"-> DATA DE LOCAÇÃO: {DataLocacao.ToString("dd/MM/yyyy")}\n" +
                 $"-> DATA DE DEVOLUÇÃO: {LocacaoController.CalculoDataDevolucao(DataLocacao, cliente)}\n" +
                 $"-> QTDE TOTAL DE FILMES: {filmes.Count()}\n";
 
@@ -110,9 +110,10 @@ namespace Models
                 strFilmes += "    NÃO HÁ FILMES!";
             }
 
-            retorno += $"-> PREÇO TOTAL DAS LOCAÇÕES: R$ {ValorTotal}\n" +
+            retorno += $"-> PREÇO TOTAL DAS LOCAÇÕES: R$ {ValorTotal.ToString("C2")}\n" +
             $"-------------------------------------------------------\n\n" +
             $"===================[ FILMES LOCADOS ]==================\n";
+    
             return retorno + strFilmes +
 
             $"=======================================================\n";
