@@ -3,7 +3,6 @@ using DbRespositorie;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-
 namespace Models
 {
     public class FilmeModels
@@ -93,7 +92,7 @@ namespace Models
                 select filme
                 ).Count();
 
-            return $"------------------------===[ FILME ]===------------------------------------------------------------------------------------------\n" +
+            return $"--------------------===[ FILME ]===----------------------------------------------------------------------------------------------\n" +
                     $"--> Nº ID DO FILME: {IdFilme}\n" +
                     $"-> TÍTULO: {Titulo}\n" +
                     $"-> DATA DE LANÇAMENTO: {DataLancamento}\n" +
