@@ -1,12 +1,14 @@
 using System;
 using Models;
 using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace Controllers
 {
 
     public class ClienteController
     {
+
         /// <summary>
         /// Insert customer into the database
         /// </summary>
@@ -16,15 +18,19 @@ namespace Controllers
         /// <param name="diasDevolucao"></param>
         public static void CadastrarCliente(
             string nomeCliente,
-            string dataNascimento,
+            int dataNascDia,
+            int dataNascMes,
+            int dataNascAno,
             string cpfCliente,
             int diasDevolucao
             )
+            
         {
+            string dataNascimento = "" + dataNascDia + "/" + dataNascMes + "/" + dataNascAno;
             DateTime dtNasc;
             try
-            {
-                dtNasc = Convert.ToDateTime(dataNascimento);
+            {                
+                dtNasc = Convert.ToDateTime(dataNascimento);                
             }
             catch
             {
@@ -46,6 +52,11 @@ namespace Controllers
         public static List<ClienteModels> GetClientes()
         {
             return ClienteModels.GetClientes();
+        }
+
+        internal static void CadastrarCliente(string text, decimal value1, decimal value2, decimal value3, MaskedTextBox mtxt_CpfCLiente, ComboBox cb_DiasDevol)
+        {
+            throw new NotImplementedException();
         }
     }
 }
