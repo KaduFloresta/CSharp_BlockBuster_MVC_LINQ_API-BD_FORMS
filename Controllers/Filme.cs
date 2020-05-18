@@ -1,6 +1,7 @@
 using System;
 using Models;
 using System.Collections.Generic;
+using System.Windows.Forms;
 
 namespace Controllers
 {
@@ -48,6 +49,11 @@ namespace Controllers
         public static List<FilmeModels> GetFilmes()
         {
             return FilmeModels.GetFilmes();
+        }
+
+        internal static void CadastrarFilme(RichTextBox rtxt_Titulo, NumericUpDown num_AnoLancamento, RichTextBox rtxt_Sinopse, ComboBox cb_ValorLocacao, NumericUpDown num_QtdeEstoque)
+        {
+            throw new NotImplementedException();
         }
     }
 }
