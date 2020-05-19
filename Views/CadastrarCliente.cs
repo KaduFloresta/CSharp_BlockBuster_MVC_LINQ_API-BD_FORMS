@@ -27,16 +27,18 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
         ComboBox cb_DiasDevol;
         Button btn_Confirmar;
         Button btn_Cancelar;
+        Form parent;
 
         // GUIDE FOR LOCATION n SIZE (X Y) 
         // Location (X = Horizontal - Y = Vertical)
         // Size     (X = Largura    - Y = Altura) 
 
-        public CadastroCliente () 
+        public CadastroCliente (Form parent) 
         {
             this.BackColor = ColorTranslator.FromHtml("#6d6a75");
             this.Font = new Font(this.Font, FontStyle.Bold);
             this.Size = new Size(500,400);
+            this.parent = parent;
 
             // Image to Bloclbuster
             pb_Cadastro = new PictureBox();
@@ -44,7 +46,7 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             pb_Cadastro.Size = new Size(480 , 100);
             pb_Cadastro.ClientSize = new Size (460 , 60);
             pb_Cadastro.BackColor = Color.Black;
-            pb_Cadastro.Load ("cadastra.jpg");
+            pb_Cadastro.Load ("./Views/assets/cadastra.jpg");
             pb_Cadastro.SizeMode = PictureBoxSizeMode.StretchImage;
             this.Controls.Add(pb_Cadastro);         
             
@@ -79,7 +81,7 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             rtxt_NomeCliente.Size = new Size(300, 20);       
             this.Controls.Add(rtxt_NomeCliente);            
 
-             // Numeric Up and Down - Date of birth selection
+            // Numeric Up and Down - Date of birth selection
             num_DataNascDia = new NumericUpDown();
             num_DataNascDia.Location = new Point (150, 140);    
             num_DataNascDia.Size = new Size(50, 20);
@@ -142,20 +144,31 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
         {
             ClienteController.CadastrarCliente( 
                 rtxt_NomeCliente.Text, 
-                num_DataNascDia.Value, 
-                num_DataNascMes.Value,
-                num_DataNascAno.Value,
-                mtxt_CpfCLiente, 
-                cb_DiasDevol
+                (int)num_DataNascDia.Value, 
+                (int)num_DataNascMes.Value,
+                (int)num_DataNascMes.Value,
+                mtxt_CpfCLiente.Text, 
+
+                cb_DiasDevol.Text == "2 Dias"
+                    ? 2
+                    : cb_DiasDevol.Text == "3 Dias"
+                        ? 3
+                        : cb_DiasDevol.Text == "4 Dias"
+                            ? 4
+                            : cb_DiasDevol.Text == "5 Dias"
+                                ? 5
+                                : 10
             );
-        }
+            MessageBox.Show ("CADASTRADO!");
+            this.Close ();
+            this.parent.Show ();
+        }        
 
         private void btn_CancelarClick(object sender, EventArgs e)
         {
-            MessageBox.Show("Cancelado!!");
-            this.Close();
-            TelaInicial telaInicial = new TelaInicial();
-            telaInicial.Show();        
+            MessageBox.Show ("CANCELADO!");
+            this.Close ();
+            this.parent.Show ();    
         }
     }
 }

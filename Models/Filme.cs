@@ -37,11 +37,6 @@ namespace Models
         /// <summary>
         /// Constructor - FilmeModels Object
         /// </summary>
-        /// <param name="titulo"></param>
-        /// <param name="dataLancamento"></param>
-        /// <param name="sinopse"></param>
-        /// <param name="valorLocacaoFilme"></param>
-        /// <param name="estoqueFilme"></param>
         public FilmeModels(string titulo, string dataLancamento, string sinopse, double valorLocacaoFilme, int estoqueFilme)
         {
             Titulo = titulo;
@@ -57,14 +52,6 @@ namespace Models
         }
 
         /// <summary>
-        /// 2nd Constructor - FilmeModels Object
-        /// </summary>
-        public FilmeModels()
-        {
-
-        }
-
-        /// <summary>
         /// To find a movie (LinQ)
         /// </summary>
         /// <param name="idFilme"></param>
@@ -75,32 +62,6 @@ namespace Models
             return (from filme in db.Filmes
                     where filme.IdFilme == idFilme
                     select filme).First();
-        }
-
-        /// <summary>
-        /// String convertion
-        /// </summary>
-        /// <returns></returns>
-        public override string ToString()
-        {
-            var db = new Context();
-
-            // Included method number of movies in rent
-            int qtdFilme = (
-                from filme in db.LocacaoFilme
-                where filme.IdFilme == IdFilme
-                select filme
-                ).Count();
-
-            return $"--------------------===[ FILME ]===----------------------------------------------------------------------------------------------\n" +
-                    $"--> Nº ID DO FILME: {IdFilme}\n" +
-                    $"-> TÍTULO: {Titulo}\n" +
-                    $"-> DATA DE LANÇAMENTO: {DataLancamento}\n" +
-                    $"-> SINOPSE: {Sinopse}\n" +
-                    $"-> VALOR DA LOCAÇÃO: {ValorLocacaoFilme.ToString("C")}\n" +
-                    $"-> QTDE EM ESTOQUE: {EstoqueFilme}\n" +
-                    $"-> QTDE DE LOCAÇÕES REALIZADAS: {qtdFilme}\n" +
-                    $"---------------------------------------------------------------------------------------------------------------------------------\n";
         }
 
         /// <summary>

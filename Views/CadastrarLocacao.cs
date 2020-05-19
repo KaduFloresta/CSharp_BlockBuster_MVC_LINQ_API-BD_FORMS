@@ -18,6 +18,8 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
         RichTextBox rtxt_BuscaFilme;
         ListView lv_ListaClientes;
         ListView lv_ListaFilmes;
+        CheckedListBox clb_ListaCliente;
+        CheckedListBox clb_ListaFilme;
         GroupBox gb_ListaCliente;
         GroupBox gb_ListaFilme;
         Button btn_Confirmar;
@@ -69,6 +71,17 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             rtxt_BuscaFilme.Size = new Size (300, 20);            
             this.Controls.Add(rtxt_BuscaFilme);
 
+            // CheckedListBox
+            clb_ListaCliente = new CheckedListBox();
+            clb_ListaCliente.Location = new Point(40, 130);
+            clb_ListaCliente.Size = new Size(400, 120);
+            string[] listaClientes = { "Dinheiro", "Cartão Débito", "Cartão Crédito", "Boleto", "Cheque"};
+            clb_ListaCliente.Items.AddRange (listaClientes);
+            clb_ListaCliente.ItemCheck += new ItemCheckEventHandler(this.clb_ListaCliente_ItemCheck);
+            clb_ListaCliente.SelectionMode = SelectionMode.One;
+            clb_ListaCliente.CheckOnClick = true;
+            this.Controls.Add(clb_ListaCliente);
+
             // ListView
             lv_ListaClientes = new ListView();
             lv_ListaClientes.Location = new Point(40, 130);
@@ -105,7 +118,18 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             gb_ListaCliente.Size = new Size(420, 150);
             gb_ListaCliente.Text= "LISTA DE CLIENTES";
             gb_ListaCliente.ForeColor = ColorTranslator.FromHtml("#dfb841");
-            this.Controls.Add(gb_ListaCliente);            
+            this.Controls.Add(gb_ListaCliente); 
+
+            // CheckedListBox
+            clb_ListaFilme = new CheckedListBox();
+            clb_ListaFilme.Location = new Point(40, 320);
+            clb_ListaFilme.Size = new Size(400, 120);
+            string[] listaFilmes = { "Dinheiro", "Cartão Débito", "Cartão Crédito", "Boleto", "Cheque"};
+            clb_ListaFilme.Items.AddRange (listaFilmes);
+            clb_ListaFilme.ItemCheck += new ItemCheckEventHandler(this.clb_ListaFilme_ItemCheck);
+            clb_ListaFilme.SelectionMode = SelectionMode.MultiExtended;
+            clb_ListaFilme.CheckOnClick = true;
+            this.Controls.Add(clb_ListaFilme);           
 
             // ListView
             lv_ListaFilmes = new ListView();
@@ -163,6 +187,18 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             btn_Cancelar.Click += new EventHandler (this.btn_CancelarClick);
             this.Controls.Add(btn_Cancelar);
         }
+
+        private void clb_ListaCliente_ItemCheck(object sender,ItemCheckEventArgs e)
+                {
+                    for(int i = 0; i < clb_ListaCliente.Items.Count; i ++)
+                        if (i != e.Index) clb_ListaCliente.SetItemChecked(i, false);
+                }
+
+        private void clb_ListaFilme_ItemCheck(object sender,ItemCheckEventArgs e)
+                {
+                    for(int i = 0; i < clb_ListaFilme.Items.Count; i ++)
+                        if (i != e.Index) clb_ListaFilme.SetItemChecked(i, false);
+                }
 
         private void btn_ConfirmarClick (object sender, EventArgs e) {
             MessageBox.Show (

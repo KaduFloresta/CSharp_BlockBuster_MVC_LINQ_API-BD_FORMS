@@ -9,29 +9,27 @@ namespace Controllers
     {
         /// <summary>
         /// Insert movie into the database
-        /// </summary>
-        /// <param name="titulo"></param>
-        /// <param name="dataLancamento"></param>
-        /// <param name="sinopse"></param>
-        /// <param name="valorLocacaoFilme"></param>
-        /// <param name="estoqueFilme"></param>
+        /// <summary>
         public static void CadastrarFilme(
             string titulo,
-            string dataLancamento,
+            int dataLancDia,
+            int dataLancMes,
+            int dataLancAno,
             string sinopse,
             double valorLocacaoFilme,
             int estoqueFilme
         )
         {
-            DateTime dtLancamento;
+            string dataLancamento = "" + dataLancDia + "/" + dataLancMes + "/" + dataLancAno;
+            DateTime dtLanc;
             try
             {
-                dtLancamento = Convert.ToDateTime(dataLancamento);
+                dtLanc = Convert.ToDateTime(dataLancamento);
             }
             catch
             {
                 Console.WriteLine("FORMATO iNVÁLIDO!");
-                dtLancamento = DateTime.Now;
+                dtLanc = DateTime.Now;
             }
             new FilmeModels(
                 titulo,
@@ -45,15 +43,9 @@ namespace Controllers
         /// <summary>
         /// Access all movies
         /// </summary>
-        /// <returns></returns>
         public static List<FilmeModels> GetFilmes()
         {
             return FilmeModels.GetFilmes();
-        }
-
-        internal static void CadastrarFilme(RichTextBox rtxt_Titulo, NumericUpDown num_AnoLancamento, RichTextBox rtxt_Sinopse, ComboBox cb_ValorLocacao, NumericUpDown num_QtdeEstoque)
-        {
-            throw new NotImplementedException();
         }
     }
 }

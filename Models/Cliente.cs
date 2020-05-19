@@ -32,10 +32,6 @@ namespace Models
         /// <summary>
         /// Constructor - ClienteModels Object
         /// </summary>
-        /// <param name="nomeCliente"></param>
-        /// <param name="dataNascimento"></param>
-        /// <param name="cpfCliente"></param>
-        /// <param name="diasDevolucao"></param>
         public ClienteModels(string nomeCliente, string dataNascimento, string cpfCliente, int diasDevolucao)
         {
             NomeCliente = nomeCliente;
@@ -49,19 +45,9 @@ namespace Models
             db.SaveChanges();
         } 
 
-        // <summary>
-        /// 2nd Constructor - ClienteModels Object
-        /// </summary>
-        public ClienteModels()
-        {
-
-        }
-
         /// <summary>
         ///  To find a customer (LinQ)
         /// </summary>
-        /// <param name="idCliente"></param>
-        /// <returns></returns>
         public static ClienteModels GetCliente(int idCliente)
         {
             var db = new Context();
@@ -71,24 +57,8 @@ namespace Models
         }
 
         /// <summary>
-        ///  String convertion 
-        /// </summary>
-        /// <returns></returns>
-        public override string ToString()
-        {
-            return $"-------------------===[ CLIENTE ]===-------------------\n" +
-                    $"--> Nº ID DO CLIENTE: {IdCliente}\n" +
-                    $"-> NOME COMPLETO: {NomeCliente}\n" +
-                    $"-> DATA DE NASCIMENTO: {DataNascimento}\n" +
-                    $"-> CPF: {CpfCliente}\n" +
-                    $"-> DIAS P/ DEVOLUÇÃO: {DiasDevolucao}\n" +
-                    $"-------------------------------------------------------";
-        }  
-
-        /// <summary>
         /// Add rent
         /// </summary>
-        /// <param name="locacao"></param>
         public void AdicionarLocacao(LocacaoModels locacao)
         {
             locacoes.Add(locacao);
@@ -97,7 +67,6 @@ namespace Models
         /// <summary>
         /// Return customer list from DB
         /// </summary>
-        /// <returns></returns>
         public static List<ClienteModels> GetClientes()
         {
             var db = new Context();
