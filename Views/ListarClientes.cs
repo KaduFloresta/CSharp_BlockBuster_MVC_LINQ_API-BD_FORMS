@@ -46,7 +46,8 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             lv_ListaClientes.Size = new Size(440, 400);
             lv_ListaClientes.View = Details;
             ListViewItem clientes = new ListViewItem();
-            foreach (ClienteModels cliente in ClienteController.GetClientes())
+            List<ClienteModels> clientesLista = ClienteController.GetClientes();
+            foreach (var cliente in clientesLista)
             {
                 ListViewItem lv_ListaCliente = new ListViewItem(cliente.IdCliente.ToString());                
                 lv_ListaCliente.SubItems.Add(cliente.NomeCliente);
@@ -60,7 +61,7 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             lv_ListaClientes.AllowColumnReorder = true;
             lv_ListaClientes.Sorting = SortOrder.Ascending;
             lv_ListaClientes.Columns.Add("ID", -2, HorizontalAlignment.Center);
-            lv_ListaClientes.Columns.Add("Nome", -2, HorizontalAlignment.Center);
+            lv_ListaClientes.Columns.Add("Nome", -2, HorizontalAlignment.Left);
             lv_ListaClientes.Columns.Add("Data Nascimento", -2, HorizontalAlignment.Center);
             lv_ListaClientes.Columns.Add("CPF", -2, HorizontalAlignment.Center);
             lv_ListaClientes.Columns.Add("Dias Devolução", -2, HorizontalAlignment.Center);

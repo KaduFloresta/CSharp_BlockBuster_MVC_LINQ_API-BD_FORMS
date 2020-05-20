@@ -47,5 +47,10 @@ namespace Controllers
         {
             return FilmeModels.GetFilmes();
         }
+        
+        public static FilmeModels GetFilme (int idFilme)
+        {
+            return FilmeModels.GetFilme(idFilme);
+        }
     }
 }

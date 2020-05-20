@@ -51,21 +51,21 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
                 ListViewItem lv_ListaFilme = new ListViewItem(filme.IdFilme.ToString());                
                 lv_ListaFilme.SubItems.Add(filme.Titulo);
                 lv_ListaFilme.SubItems.Add(filme.DataLancamento);
-                lv_ListaFilme.SubItems.Add(filme.Sinopse);
                 lv_ListaFilme.SubItems.Add(filme.ValorLocacaoFilme.ToString());
                 lv_ListaFilme.SubItems.Add(filme.EstoqueFilme.ToString());
-                //lv_ListaFilmes.Items.Add(lv_ListaFilme);
+                lv_ListaFilme.SubItems.Add(filme.Sinopse);
+                lv_ListaFilmes.Items.Add(lv_ListaFilme);
             }         
             lv_ListaFilmes.FullRowSelect = true;
             lv_ListaFilmes.GridLines = true;
             lv_ListaFilmes.AllowColumnReorder = true;
             lv_ListaFilmes.Sorting = SortOrder.Ascending;
             lv_ListaFilmes.Columns.Add("ID", -2, HorizontalAlignment.Center);
-            lv_ListaFilmes.Columns.Add("Título", -2, HorizontalAlignment.Center);
+            lv_ListaFilmes.Columns.Add("Título", -2, HorizontalAlignment.Left);
             lv_ListaFilmes.Columns.Add("Data Lançamento", -2, HorizontalAlignment.Center);
-            lv_ListaFilmes.Columns.Add("Sinopse", -2, HorizontalAlignment.Center);
             lv_ListaFilmes.Columns.Add("Valor", -2, HorizontalAlignment.Center);
             lv_ListaFilmes.Columns.Add("Estoque", -2, HorizontalAlignment.Center);
+            lv_ListaFilmes.Columns.Add("Sinopse", -2, HorizontalAlignment.Left);
             this.Controls.Add(lv_ListaFilmes);
 
             // Movie grouping box

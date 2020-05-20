@@ -18,22 +18,22 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
         RichTextBox rtxt_BuscaFilme;
         ListView lv_ListaClientes;
         ListView lv_ListaFilmes;
-        CheckedListBox clb_ListaCliente;
-        CheckedListBox clb_ListaFilme;
         GroupBox gb_ListaCliente;
         GroupBox gb_ListaFilme;
         Button btn_Confirmar;
         Button btn_Cancelar;    
+        Form parent;
 
         // GUIDE FOR LOCATION n SIZE (X Y) 
         // Location (X = Horizontal - Y = Vertical)
         // Size     (X = Largura    - Y = Altura)     
 
-        public CadastroLocacao ()         
+        public CadastroLocacao (Form parent)         
         {
             this.BackColor = ColorTranslator.FromHtml("#6d6a75");
             this.Font = new Font(this.Font, FontStyle.Bold);
             this.Size = new Size(500, 580);
+            this.parent = parent;
 
             // Image to Bloclbuster
             pb_Cadastro = new PictureBox();
@@ -41,7 +41,7 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             pb_Cadastro.Size = new Size(480 , 100);
             pb_Cadastro.ClientSize = new Size (460 , 60);
             pb_Cadastro.BackColor = Color.Black;
-            pb_Cadastro.Load ("cadastra.jpg");
+            pb_Cadastro.Load ("./Views/assets/cadastra.jpg");
             pb_Cadastro.SizeMode = PictureBoxSizeMode.StretchImage;
             this.Controls.Add(pb_Cadastro); 
 
@@ -71,22 +71,11 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             rtxt_BuscaFilme.Size = new Size (300, 20);            
             this.Controls.Add(rtxt_BuscaFilme);
 
-            // CheckedListBox
-            clb_ListaCliente = new CheckedListBox();
-            clb_ListaCliente.Location = new Point(40, 130);
-            clb_ListaCliente.Size = new Size(400, 120);
-            string[] listaClientes = { "Dinheiro", "Cartão Débito", "Cartão Crédito", "Boleto", "Cheque"};
-            clb_ListaCliente.Items.AddRange (listaClientes);
-            clb_ListaCliente.ItemCheck += new ItemCheckEventHandler(this.clb_ListaCliente_ItemCheck);
-            clb_ListaCliente.SelectionMode = SelectionMode.One;
-            clb_ListaCliente.CheckOnClick = true;
-            this.Controls.Add(clb_ListaCliente);
-
             // ListView
             lv_ListaClientes = new ListView();
             lv_ListaClientes.Location = new Point(40, 130);
             lv_ListaClientes.Size = new Size(400, 120);
-            //lv_ListaClientes.View = View.Details;
+            lv_ListaClientes.View = View.Details;
             ListViewItem cliente1 = new ListViewItem("Joao Silva");
             cliente1.SubItems.Add("12/01/1976");
             cliente1.SubItems.Add("111.111.111-11");            
@@ -118,24 +107,14 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             gb_ListaCliente.Size = new Size(420, 150);
             gb_ListaCliente.Text= "LISTA DE CLIENTES";
             gb_ListaCliente.ForeColor = ColorTranslator.FromHtml("#dfb841");
-            this.Controls.Add(gb_ListaCliente); 
-
-            // CheckedListBox
-            clb_ListaFilme = new CheckedListBox();
-            clb_ListaFilme.Location = new Point(40, 320);
-            clb_ListaFilme.Size = new Size(400, 120);
-            string[] listaFilmes = { "Dinheiro", "Cartão Débito", "Cartão Crédito", "Boleto", "Cheque"};
-            clb_ListaFilme.Items.AddRange (listaFilmes);
-            clb_ListaFilme.ItemCheck += new ItemCheckEventHandler(this.clb_ListaFilme_ItemCheck);
-            clb_ListaFilme.SelectionMode = SelectionMode.MultiExtended;
-            clb_ListaFilme.CheckOnClick = true;
-            this.Controls.Add(clb_ListaFilme);           
+            this.Controls.Add(gb_ListaCliente);            
 
             // ListView
             lv_ListaFilmes = new ListView();
             lv_ListaFilmes.Location = new Point(40, 320);
             lv_ListaFilmes.Size = new Size(400, 120);
-            //lv_ListaFilmes.View = View.Details;
+            lv_ListaFilmes.View = View.Details;
+            lv_ListaFilmes.CheckBoxes = true;
             ListViewItem filme1 = new ListViewItem("Ben-Hur");
             filme1.SubItems.Add("1959");
             filme1.SubItems.Add("5");            
@@ -188,17 +167,7 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             this.Controls.Add(btn_Cancelar);
         }
 
-        private void clb_ListaCliente_ItemCheck(object sender,ItemCheckEventArgs e)
-                {
-                    for(int i = 0; i < clb_ListaCliente.Items.Count; i ++)
-                        if (i != e.Index) clb_ListaCliente.SetItemChecked(i, false);
-                }
-
-        private void clb_ListaFilme_ItemCheck(object sender,ItemCheckEventArgs e)
-                {
-                    for(int i = 0; i < clb_ListaFilme.Items.Count; i ++)
-                        if (i != e.Index) clb_ListaFilme.SetItemChecked(i, false);
-                }
+       
 
         private void btn_ConfirmarClick (object sender, EventArgs e) {
             MessageBox.Show (
@@ -206,15 +175,15 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
                 $"IdFilme.:> {rtxt_BuscaFilme.Text}\n",
                 "Locacao",
                 MessageBoxButtons.OK
+                // Objeto. CheckedItems
             );
         }
 
         private void btn_CancelarClick (object sender, EventArgs e) 
         {
-            MessageBox.Show("Cancelado!!");
-            this.Close();
-            TelaInicial telaInicial = new TelaInicial();
-            telaInicial.Show();
+            MessageBox.Show ("CANCELADO!");
+            this.Close ();
+            this.parent.Show ();
         }        
     }
 }

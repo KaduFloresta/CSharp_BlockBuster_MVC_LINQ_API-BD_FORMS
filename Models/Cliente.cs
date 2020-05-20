@@ -43,7 +43,15 @@ namespace Models
             var db = new Context();
             db.Clientes.Add(this);
             db.SaveChanges();
-        } 
+        }
+        /// <summary>
+        /// 2nd Constructor - ClienteModels Object
+        /// Using on Entity Framework DONT REMOVE!!!
+        /// </summary>
+        public ClienteModels()
+        {
+
+        }
 
         /// <summary>
         ///  To find a customer (LinQ)

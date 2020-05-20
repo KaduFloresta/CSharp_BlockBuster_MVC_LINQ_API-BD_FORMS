@@ -48,5 +48,10 @@ namespace Controllers
         {
         return ClienteModels.GetClientes();
         }
+
+        public static ClienteModels GetCliente (int idCliente)
+        {
+            return ClienteModels.GetCliente(idCliente);
+        }
     }
 }

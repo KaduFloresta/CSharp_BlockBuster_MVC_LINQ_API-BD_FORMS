@@ -18,6 +18,7 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
         RichTextBox rtxt_ConsultaCliente;
         ListView lv_ListaClientes;
         GroupBox gb_ListaClientes;
+        Button btn_ListaConsulta;
         Button btn_ListaSair;
         Form parent;
 
@@ -25,11 +26,11 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
         // Location (X = Horizontal - Y = Vertical)
         // Size     (X = Largura    - Y = Altura) 
 
-        public ConsultaCliente(Form parent)
+        public ConsultaCliente (Form parent)
         {
             this.BackColor = ColorTranslator.FromHtml("#6d6a75");
             this.Font = new Font(this.Font, FontStyle.Bold);
-            this.Size = new Size(500, 430);
+            this.Size = new Size(500, 620);
             this.parent = parent;
 
             // Image to Bloclbuster
@@ -38,7 +39,7 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             pb_Consulta.Size = new Size(480, 100);
             pb_Consulta.ClientSize = new Size(460, 60);
             pb_Consulta.BackColor = Color.Black;
-            pb_Consulta.Load("consulta.jpg");
+            pb_Consulta.Load("./Views/assets/consulta.jpg");
             pb_Consulta.SizeMode = PictureBoxSizeMode.StretchImage;
             this.Controls.Add(pb_Consulta);
 
@@ -61,9 +62,10 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
 
             // ListView
             lv_ListaClientes = new ListView();
-            lv_ListaClientes.Location = new Point(20, 100);
-            lv_ListaClientes.Size = new Size(440, 400);
+            lv_ListaClientes.Location = new Point(20, 130);
+            lv_ListaClientes.Size = new Size(440, 350);
             lv_ListaClientes.View = Details;
+            List<ClienteModels> listaCliente = (from cliente in ClienteController.GetClientes() where cliente.NomeCliente.Contains(rtxt_ConsultaCliente.Text) select cliente).ToList();
             ListViewItem clientes = new ListViewItem();
             foreach (ClienteModels cliente in ClienteController.GetClientes())
             {
@@ -77,25 +79,37 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             lv_ListaClientes.FullRowSelect = true;
             lv_ListaClientes.GridLines = true;
             lv_ListaClientes.AllowColumnReorder = true;
-            lv_ListaClientes.Sorting = SortOrder.Ascending;
+            lv_ListaClientes.Sorting = SortOrder.None;
             lv_ListaClientes.Columns.Add("ID", -2, HorizontalAlignment.Center);
-            lv_ListaClientes.Columns.Add("Nome", -2, HorizontalAlignment.Center);
+            lv_ListaClientes.Columns.Add("Nome", -2, HorizontalAlignment.Left);
             lv_ListaClientes.Columns.Add("Data Nascimento", -2, HorizontalAlignment.Center);
             lv_ListaClientes.Columns.Add("CPF", -2, HorizontalAlignment.Center);
             lv_ListaClientes.Columns.Add("Dias Devolução", -2, HorizontalAlignment.Center);
             this.Controls.Add(lv_ListaClientes);
 
+            Task t = new Task(new Action(() => { RefreshForm(); }));
+            t.Start();
+
             // Movie grouping box
             gb_ListaClientes = new GroupBox();
-            gb_ListaClientes.Location = new Point(30, 110);
-            gb_ListaClientes.Size = new Size(420, 170);
+            gb_ListaClientes.Location = new Point(10, 110);
+            gb_ListaClientes.Size = new Size(460, 380);
             gb_ListaClientes.Text = "LISTA DE CLIENTES";
             gb_ListaClientes.ForeColor = ColorTranslator.FromHtml("#dfb841");
-            this.Controls.Add(gb_ListaClientes);
+            this.Controls.Add(gb_ListaClientes);          
 
             // Descision Buttons
+            btn_ListaConsulta = new Button();
+            btn_ListaConsulta.Location = new Point(80, 510);
+            btn_ListaConsulta.Size = new Size(150, 50);
+            btn_ListaConsulta.Text = "CONSULTA";
+            this.btn_ListaConsulta.BackColor = ColorTranslator.FromHtml("#dfb841");
+            this.btn_ListaConsulta.ForeColor = Color.Black;
+            btn_ListaConsulta.Click += new EventHandler(btn_ListaConsultaClick);
+            this.Controls.Add(btn_ListaConsulta);
+
             btn_ListaSair = new Button();
-            btn_ListaSair.Location = new Point(160, 530);
+            btn_ListaSair.Location = new Point(260, 510);
             btn_ListaSair.Size = new Size(150, 50);
             btn_ListaSair.Text = "SAIR";
             this.btn_ListaSair.BackColor = ColorTranslator.FromHtml("#dfb841");
@@ -104,14 +118,40 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             this.Controls.Add(btn_ListaSair);
         }
 
+        public void RefreshForm()
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new MethodInvoker(this.RefreshForm));
+            }
+            Application.DoEvents();
+        }
         private void keypressed(Object o, KeyPressEventArgs e)
         {
-            if (e.KeyChar == (char)Keys.Return)
+            lv_ListaClientes.Items.Clear();
+            List<ClienteModels> listaCliente = (from cliente in ClienteController.GetClientes() where cliente.NomeCliente.Contains(rtxt_ConsultaCliente.Text, StringComparison.OrdinalIgnoreCase) select cliente).ToList();
+            ListViewItem clientes = new ListViewItem();
+            foreach (ClienteModels cliente in listaCliente)
             {
-                e.Handled = true;
+                ListViewItem lv_ListaCliente = new ListViewItem(cliente.IdCliente.ToString());
+                lv_ListaCliente.SubItems.Add(cliente.NomeCliente);
+                lv_ListaCliente.SubItems.Add(cliente.DataNascimento);
+                lv_ListaCliente.SubItems.Add(cliente.CpfCliente);
+                lv_ListaCliente.SubItems.Add(cliente.DiasDevolucao.ToString());
+                lv_ListaClientes.Items.Add(lv_ListaCliente);
             }
+            this.Refresh();
+            Application.DoEvents();
         }
-        private void btn_ListaSairClick(object sender, EventArgs e)
+
+        private void btn_ListaConsultaClick (object sender, EventArgs e) 
+        {
+            string IdCliente = this.lv_ListaClientes.SelectedItems[0].Text;
+            ClienteModels cliente = ClienteController.GetCliente(Int32.Parse(IdCliente));
+            ClienteDetalhe btn_ListaConsultaClick = new ClienteDetalhe(this, cliente);
+            btn_ListaConsultaClick.Show();
+        }
+        private void btn_ListaSairClick (object sender, EventArgs e)
         {
             MessageBox.Show("CONCLUÍDO!");
             this.Close();

@@ -211,9 +211,8 @@ namespace Locadora_MVC_LINQ_API_BD_IF
         // Access to movie consultation
         private void btn_ConsultaFilmeClick(object sender, EventArgs e)
         {            
-            // ConsultaFilme consultarFilmeClick = new ConsultaFilme();
-            // consultarFilmeClick.Show();
-            // this.Hide();
+            ConsultaFilme consultarFilmeClick = new ConsultaFilme(this);
+            consultarFilmeClick.Show();
         }
 
         // Access to list movies
@@ -226,9 +225,8 @@ namespace Locadora_MVC_LINQ_API_BD_IF
         // Access to the rental register
         private void btn_CadastroLocacaoClick(object sender, EventArgs e)
         {            
-            // CadastroLocacao cadastrarLocacaoClick = new CadastroLocacao();
-            // cadastrarLocacaoClick.Show();
-            // this.Hide();
+            CadastroLocacao cadastrarLocacaoClick = new CadastroLocacao(this);
+            cadastrarLocacaoClick.Show();
         }
 
         // Access to rental consultation

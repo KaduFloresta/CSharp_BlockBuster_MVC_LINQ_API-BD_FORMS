@@ -52,6 +52,15 @@ namespace Models
         }
 
         /// <summary>
+        /// 2nd Constructor - FilmeModels Object
+        /// Using on Entity Framework DONT REMOVE!!!
+        /// </summary>
+        public FilmeModels()
+        {
+
+        }
+
+        /// <summary>
         /// To find a movie (LinQ)
         /// </summary>
         /// <param name="idFilme"></param>

@@ -20,15 +20,17 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
         GroupBox gb_ListaLocacoes;
         Button btn_Confirmar;
         Button btn_Cancelar; 
+        Form parent;
 
             // GUIDE FOR LOCATION n SIZE (X Y) 
             // Location (X = Horizontal - Y = Vertical)
             // Size     (X = Largura    - Y = Altura)
 
-        public ConsultaLocacao () {
+        public ConsultaLocacao (Form parent) {
             this.BackColor = ColorTranslator.FromHtml("#6d6a75");
             this.Font = new Font(this.Font, FontStyle.Bold);
             this.Size = new Size(500, 500);
+            this.parent = parent;
 
             // Image to Bloclbuster
             pb_Consulta = new PictureBox();
@@ -70,7 +72,7 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             lv_ListaLocacoes = new ListView();
             lv_ListaLocacoes.Location = new Point(30, 210);
             lv_ListaLocacoes.Size = new Size(420, 140);
-            //lv_ListaLocacoes.View = View.Details;
+            lv_ListaLocacoes.View = View.Details;
             ListViewItem locacao1 = new ListViewItem("275");
             locacao1.SubItems.Add("Valeria Antonio");
             locacao1.SubItems.Add("2");            
@@ -153,10 +155,9 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
 
         private void btn_CancelarClick (object sender, EventArgs e) 
         {
-            MessageBox.Show("Cancelado!!");
+            MessageBox.Show("CONCLUÍDO!");
             this.Close();
-            TelaInicial telaInicial = new TelaInicial();
-            telaInicial.Show();  
+            this.parent.Show();  
         }
     }
 }
