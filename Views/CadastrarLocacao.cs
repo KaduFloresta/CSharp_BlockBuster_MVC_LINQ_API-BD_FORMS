@@ -22,16 +22,18 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
         GroupBox gb_ListaFilme;
         Button btn_Confirmar;
         Button btn_Cancelar;    
+        Form parent;
 
         // GUIDE FOR LOCATION n SIZE (X Y) 
         // Location (X = Horizontal - Y = Vertical)
         // Size     (X = Largura    - Y = Altura)     
 
-        public CadastroLocacao ()         
+        public CadastroLocacao (Form parent)         
         {
             this.BackColor = ColorTranslator.FromHtml("#6d6a75");
             this.Font = new Font(this.Font, FontStyle.Bold);
             this.Size = new Size(500, 580);
+            this.parent = parent;
 
             // Image to Bloclbuster
             pb_Cadastro = new PictureBox();
@@ -39,7 +41,7 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             pb_Cadastro.Size = new Size(480 , 100);
             pb_Cadastro.ClientSize = new Size (460 , 60);
             pb_Cadastro.BackColor = Color.Black;
-            pb_Cadastro.Load ("cadastra.jpg");
+            pb_Cadastro.Load ("./Views/assets/cadastra.jpg");
             pb_Cadastro.SizeMode = PictureBoxSizeMode.StretchImage;
             this.Controls.Add(pb_Cadastro); 
 
@@ -73,7 +75,7 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             lv_ListaClientes = new ListView();
             lv_ListaClientes.Location = new Point(40, 130);
             lv_ListaClientes.Size = new Size(400, 120);
-            //lv_ListaClientes.View = View.Details;
+            lv_ListaClientes.View = View.Details;
             ListViewItem cliente1 = new ListViewItem("Joao Silva");
             cliente1.SubItems.Add("12/01/1976");
             cliente1.SubItems.Add("111.111.111-11");            
@@ -111,7 +113,8 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             lv_ListaFilmes = new ListView();
             lv_ListaFilmes.Location = new Point(40, 320);
             lv_ListaFilmes.Size = new Size(400, 120);
-            //lv_ListaFilmes.View = View.Details;
+            lv_ListaFilmes.View = View.Details;
+            lv_ListaFilmes.CheckBoxes = true;
             ListViewItem filme1 = new ListViewItem("Ben-Hur");
             filme1.SubItems.Add("1959");
             filme1.SubItems.Add("5");            
@@ -164,21 +167,23 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             this.Controls.Add(btn_Cancelar);
         }
 
+       
+
         private void btn_ConfirmarClick (object sender, EventArgs e) {
             MessageBox.Show (
                 $"IdCliente.:> {rtxt_BuscaCliente.Text}\n" +
                 $"IdFilme.:> {rtxt_BuscaFilme.Text}\n",
                 "Locacao",
                 MessageBoxButtons.OK
+                // Objeto. CheckedItems
             );
         }
 
         private void btn_CancelarClick (object sender, EventArgs e) 
         {
-            MessageBox.Show("Cancelado!!");
-            this.Close();
-            TelaInicial telaInicial = new TelaInicial();
-            telaInicial.Show();
+            MessageBox.Show ("CANCELADO!");
+            this.Close ();
+            this.parent.Show ();
         }        
     }
 }

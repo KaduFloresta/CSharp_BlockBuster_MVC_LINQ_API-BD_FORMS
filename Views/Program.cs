@@ -26,7 +26,7 @@ namespace Locadora_MVC_LINQ_API_BD_IF
             // Grouping by class
             GroupBox gb_Cliente;
             GroupBox gb_Filme;
-            GroupBox gb_Locação;
+            GroupBox gb_Locaçao;
             // Choice buttons
             Button btn_CadastroCliente;
             Button btn_ConsultaCliente;
@@ -52,7 +52,7 @@ namespace Locadora_MVC_LINQ_API_BD_IF
             pb_Menu.Size = new Size(560 , 100);
             pb_Menu.ClientSize = new Size (560 , 120);
             pb_Menu.BackColor = Color.Goldenrod;
-            pb_Menu.Load ("menu.jpg");
+            pb_Menu.Load ("./Views/assets/menu.jpg");
             pb_Menu.SizeMode = PictureBoxSizeMode.Zoom;
             this.Controls.Add(pb_Menu);
 
@@ -74,7 +74,7 @@ namespace Locadora_MVC_LINQ_API_BD_IF
             this.btn_ConsultaCliente.BackColor = ColorTranslator.FromHtml("#de9d35");
             this.btn_ConsultaCliente.ForeColor = Color.Black;
             this.Controls.Add(btn_ConsultaCliente);
-            //btn_ConsultaCliente.Click += new EventHandler(btn_ConsultaClienteClick);
+            btn_ConsultaCliente.Click += new EventHandler(btn_ConsultaClienteClick);
 
             // Selection button for customer data list
             btn_ListaClientes = new Button();
@@ -84,7 +84,7 @@ namespace Locadora_MVC_LINQ_API_BD_IF
             this.btn_ListaClientes.BackColor = ColorTranslator.FromHtml("#de9d35");
             this.btn_ListaClientes.ForeColor = Color.Black;
             this.Controls.Add(btn_ListaClientes);
-            //btn_ListaClientes.Click += new EventHandler(btn_ListaClientesClick);
+            btn_ListaClientes.Click += new EventHandler(btn_ListaClientesClick);
 
             // Customer grouping box
             gb_Cliente = new GroupBox();    
@@ -112,7 +112,7 @@ namespace Locadora_MVC_LINQ_API_BD_IF
             this.btn_ConsultaFilme.BackColor = ColorTranslator.FromHtml("#de9d35");
             this.btn_ConsultaFilme.ForeColor = Color.Black;
             this.Controls.Add(btn_ConsultaFilme);
-            //btn_ConsultaFilme.Click += new EventHandler(btn_ConsultaFilmeClick);
+            btn_ConsultaFilme.Click += new EventHandler(btn_ConsultaFilmeClick);
 
             // Selection button for movie data list
             btn_ListaFilmes = new Button();            
@@ -122,7 +122,7 @@ namespace Locadora_MVC_LINQ_API_BD_IF
             this.btn_ListaFilmes.BackColor = ColorTranslator.FromHtml("#de9d35");
             this.btn_ListaFilmes.ForeColor = Color.Black;
             this.Controls.Add(btn_ListaFilmes);
-            //btn_ListaFilmes.Click += new EventHandler(btn_ListaFilmesClick);
+            btn_ListaFilmes.Click += new EventHandler(btn_ListaFilmesClick);
 
             // Movie grouping box
             gb_Filme = new GroupBox();
@@ -140,7 +140,7 @@ namespace Locadora_MVC_LINQ_API_BD_IF
             this.btn_CadastroLocacao.BackColor = ColorTranslator.FromHtml("#de9d35");
             this.btn_CadastroLocacao.ForeColor = Color.Black;
             this.Controls.Add(btn_CadastroLocacao);
-            //btn_CadastroLocacao.Click += new EventHandler(btn_CadastroLocacaoClick);
+            btn_CadastroLocacao.Click += new EventHandler(btn_CadastroLocacaoClick);
 
             // Selection button for querying rental data
             btn_ConsultaLocacao = new Button();
@@ -150,7 +150,7 @@ namespace Locadora_MVC_LINQ_API_BD_IF
             this.btn_ConsultaLocacao.BackColor = ColorTranslator.FromHtml("#de9d35");
             this.btn_ConsultaLocacao.ForeColor = Color.Black;
             this.Controls.Add(btn_ConsultaLocacao);
-            //btn_ConsultaLocacao.Click += new EventHandler(btn_ConsultaLocacaoClick);
+            btn_ConsultaLocacao.Click += new EventHandler(btn_ConsultaLocacaoClick);
 
             // Selection button to list rentals
             btn_ListaLocacoes = new Button();
@@ -160,15 +160,15 @@ namespace Locadora_MVC_LINQ_API_BD_IF
             this.btn_ListaLocacoes.BackColor = ColorTranslator.FromHtml("#de9d35");
             this.btn_ListaLocacoes.ForeColor = Color.Black;
             this.Controls.Add(btn_ListaLocacoes);
-            //btn_ListaLocacoes.Click += new EventHandler(btn_ListaLocacoesClick);
+            btn_ListaLocacoes.Click += new EventHandler(btn_ListaLocacoesClick);
 
             // Rent grouping box
-            gb_Locação = new GroupBox();
-            gb_Locação.Location = new Point(180, 295);
-            gb_Locação.Size = new Size(230, 150);
-            gb_Locação.Text= "LOCAÇÃO";
-            gb_Locação.ForeColor = ColorTranslator.FromHtml("#dfb841");
-            this.Controls.Add(gb_Locação);
+            gb_Locaçao = new GroupBox();
+            gb_Locaçao.Location = new Point(180, 295);
+            gb_Locaçao.Size = new Size(230, 150);
+            gb_Locaçao.Text= "LOCAÇÃO";
+            gb_Locaçao.ForeColor = ColorTranslator.FromHtml("#dfb841");
+            this.Controls.Add(gb_Locaçao);
 
             btn_MenuSair = new Button();
             btn_MenuSair.Location = new Point(220, 450);
@@ -183,57 +183,50 @@ namespace Locadora_MVC_LINQ_API_BD_IF
         // Access to the customer register
         private void btn_CadastroClienteClick(object sender, EventArgs e)
         {            
-            CadastroCliente cadastrarClienteClick = new CadastroCliente();
-            cadastrarClienteClick.Show();
-            this.Hide();            
+            CadastroCliente cadastrarClienteClick = new CadastroCliente(this);
+            cadastrarClienteClick.Show();            
         }
 
         //Access to customer consultation
         private void btn_ConsultaClienteClick(object sender, EventArgs e)
         {            
-            // ConsultaCliente consultaClienteClick = new ConsultaCliente();
-            // consultaClienteClick.Show();
-            // this.Hide();
+            ConsultaCliente consultaClienteClick = new ConsultaCliente(this);
+            consultaClienteClick.Show();
         }
 
         //Access to list customers
         private void btn_ListaClientesClick(object sender, EventArgs e)
         {            
-            // ListaCliente listaClienteClick = new ListaCliente();
-            // listaClienteClick.Show();
-            // this.Hide();
+            ListaCliente listaClienteClick = new ListaCliente(this);
+            listaClienteClick.Show();
         }
 
         // // Access to the movie register
         private void btn_CadastroFilmeClick(object sender, EventArgs e)
         {            
-            CadastroFilme cadastrarFilmeClick = new CadastroFilme();
-            cadastrarFilmeClick.Show();
-            this.Hide();
+            CadastroFilme cadastrarFilmeClick = new CadastroFilme(this);
+            cadastrarFilmeClick.Show();            
         }
 
         // Access to movie consultation
         private void btn_ConsultaFilmeClick(object sender, EventArgs e)
         {            
-            // ConsultaFilme consultarFilmeClick = new ConsultaFilme();
-            // consultarFilmeClick.Show();
-            // this.Hide();
+            ConsultaFilme consultarFilmeClick = new ConsultaFilme(this);
+            consultarFilmeClick.Show();
         }
 
         // Access to list movies
         private void btn_ListaFilmesClick(object sender, EventArgs e)
         {            
-            // ListaFilme listaFilmeClick = new ListaFilme();
-            // listaFilmeClick.Show();
-            // this.Hide();
+            ListaFilme listaFilmeClick = new ListaFilme(this);
+            listaFilmeClick.Show();
         }
 
         // Access to the rental register
         private void btn_CadastroLocacaoClick(object sender, EventArgs e)
         {            
-            // CadastroLocacao cadastrarLocacaoClick = new CadastroLocacao();
-            // cadastrarLocacaoClick.Show();
-            // this.Hide();
+            CadastroLocacao cadastrarLocacaoClick = new CadastroLocacao(this);
+            cadastrarLocacaoClick.Show();
         }
 
         // Access to rental consultation

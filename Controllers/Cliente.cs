@@ -12,10 +12,6 @@ namespace Controllers
         /// <summary>
         /// Insert customer into the database
         /// </summary>
-        /// <param name="nomeCliente"></param>
-        /// <param name="dataNascimento"></param>
-        /// <param name="cpfCliente"></param>
-        /// <param name="diasDevolucao"></param>
         public static void CadastrarCliente(
             string nomeCliente,
             int dataNascDia,
@@ -48,15 +44,14 @@ namespace Controllers
         /// <summary>
         /// Access all customers
         /// </summary>
-        /// <returns></returns>
-        public static List<ClienteModels> GetClientes()
+        public static List<ClienteModels> GetClientes() 
         {
-            return ClienteModels.GetClientes();
+        return ClienteModels.GetClientes();
         }
 
-        internal static void CadastrarCliente(string text, decimal value1, decimal value2, decimal value3, MaskedTextBox mtxt_CpfCLiente, ComboBox cb_DiasDevol)
+        public static ClienteModels GetCliente (int idCliente)
         {
-            throw new NotImplementedException();
+            return ClienteModels.GetCliente(idCliente);
         }
     }
 }

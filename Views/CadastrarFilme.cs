@@ -16,21 +16,26 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
         Label lbl_ValorLocacao;
         Label lbl_QtdeEstoque;
         RichTextBox rtxt_Titulo;
-        NumericUpDown num_AnoLancamento;
+        NumericUpDown num_DtLancDia;
+        NumericUpDown num_DtLancMes;
+        NumericUpDown num_DtLancAno;
         RichTextBox rtxt_Sinopse;
         ComboBox cb_ValorLocacao;
         NumericUpDown num_QtdeEstoque;
         Button btn_Confirmar;
         Button btn_Cancelar;
+        Form parent;
 
         // GUIDE FOR LOCATION n SIZE (X Y) 
         // Location (X = Horizontal - Y = Vertical)
         // Size     (X = Largura    - Y = Altura) 
 
-        public CadastroFilme () {
+        public CadastroFilme (Form parent) 
+        {
             this.BackColor = ColorTranslator.FromHtml("#6d6a75");
             this.Font = new Font(this.Font, FontStyle.Bold);
             this.Size = new Size(500,420);
+            this.parent = parent;
 
             // Image to Bloclbuster
             pb_Cadastro = new PictureBox();
@@ -38,7 +43,7 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             pb_Cadastro.Size = new Size(480 , 100);
             pb_Cadastro.ClientSize = new Size (460 , 60);
             pb_Cadastro.BackColor = Color.Black;
-            pb_Cadastro.Load ("cadastra.jpg");
+            pb_Cadastro.Load ("./Views/assets/cadastra.jpg");
             pb_Cadastro.SizeMode = PictureBoxSizeMode.StretchImage;
             this.Controls.Add(pb_Cadastro);
 
@@ -77,13 +82,27 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             rtxt_Titulo.Size = new Size(300, 20);       
             this.Controls.Add(rtxt_Titulo);
 
-            // Numeric Up and Down - Release year
-            num_AnoLancamento = new NumericUpDown();
-            num_AnoLancamento.Location = new Point (150, 140);    
-            num_AnoLancamento.Size = new Size(50, 20);
-            num_AnoLancamento.Minimum = 1900;
-            num_AnoLancamento.Maximum = 2020;
-            this.Controls.Add(num_AnoLancamento);
+            // Numeric Up and Down - Date of birth selection
+            num_DtLancDia = new NumericUpDown();
+            num_DtLancDia.Location = new Point (150, 140);    
+            num_DtLancDia.Size = new Size(50, 20);
+            num_DtLancDia.Minimum = 1;
+            num_DtLancDia.Maximum = 31;
+            this.Controls.Add(num_DtLancDia);
+
+            num_DtLancMes = new NumericUpDown();
+            num_DtLancMes.Location = new Point (210, 140);    
+            num_DtLancMes.Size = new Size(50, 20);
+            num_DtLancMes.Minimum = 1;
+            num_DtLancMes.Maximum = 12;
+            this.Controls.Add(num_DtLancMes);
+
+            num_DtLancAno = new NumericUpDown();
+            num_DtLancAno.Location = new Point (270, 140);    
+            num_DtLancAno.Size = new Size(50, 20);
+            num_DtLancAno.Minimum = 1890;
+            num_DtLancAno.Maximum = 2020;
+            this.Controls.Add(num_DtLancAno);
             
             rtxt_Sinopse = new RichTextBox();
             rtxt_Sinopse.SelectionFont = new Font("Tahoma", 10, FontStyle.Italic);  
@@ -99,10 +118,6 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             cb_ValorLocacao.Items.Add("R$ 3.99");
             cb_ValorLocacao.Items.Add("R$ 4.99");
             cb_ValorLocacao.Items.Add("R$ 5.99");
-            cb_ValorLocacao.Items.Add("R$ 6.99");
-            cb_ValorLocacao.Items.Add("R$ 7.99");
-            cb_ValorLocacao.Items.Add("R$ 8.99");
-            cb_ValorLocacao.Items.Add("R$ 9.99");
             cb_ValorLocacao.AutoCompleteMode = AutoCompleteMode.Append;
             cb_ValorLocacao.Location = new Point (150, 250);    
             cb_ValorLocacao.Size = new Size(150, 20);
@@ -138,20 +153,34 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
         private void btn_ConfirmarClick (object sender, EventArgs e)
         {
             FilmeController.CadastrarFilme(
-                rtxt_Titulo,
-                num_AnoLancamento,
-                rtxt_Sinopse,
-                cb_ValorLocacao,
-                num_QtdeEstoque
+                rtxt_Titulo.Text,
+                (int)num_DtLancDia.Value,
+                (int)num_DtLancMes.Value,
+                (int)num_DtLancMes.Value,
+                rtxt_Sinopse.Text,
+                cb_ValorLocacao.Text == "R$ 0.99"
+                ? 0.99
+                    : cb_ValorLocacao.Text == "R$ 1.99"
+                    ? 1.99
+                        : cb_ValorLocacao.Text == "R$ 2.99"
+                        ? 2.99
+                        : cb_ValorLocacao.Text == "R$ 3.99"
+                            ? 3.99
+                            : cb_ValorLocacao.Text == "R$ 4.99"
+                                ? 4.99
+                                : 5.99,
+                (int) num_QtdeEstoque.Value
             );
+            MessageBox.Show ("CADASTRADO!");
+            this.Close ();
+            this.parent.Show ();
         }
 
         private void btn_CancelarClick (object sender, EventArgs e) 
         {
-            MessageBox.Show ("Cancelado!!");
+            MessageBox.Show ("CANCELADO!");
             this.Close ();
-            TelaInicial telaInicial = new TelaInicial ();
-            telaInicial.Show ();
+            this.parent.Show ();
         }
     }
 }
