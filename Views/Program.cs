@@ -232,17 +232,15 @@ namespace Locadora_MVC_LINQ_API_BD_IF
         // Access to rental consultation
         private void btn_ConsultaLocacaoClick(object sender, EventArgs e)
         {
-            // ConsultaLocacao consultarLocacaoClick = new ConsultaLocacao();
-            // consultarLocacaoClick.Show();
-            // this.Hide();
+            ConsultaLocacao consultarLocacaoClick = new ConsultaLocacao(this);
+            consultarLocacaoClick.Show();
         }
 
         // Access to list rentals
         private void btn_ListaLocacoesClick(object sender, EventArgs e)
         {            
-            // ListaLocacao listaLocacaoClick = new ListaLocacao();
-            // listaLocacaoClick.Show();
-            // this.Hide();
+            ListaLocacao listaLocacaoClick = new ListaLocacao(this);
+            listaLocacaoClick.Show();
         }
 
         // Method to close system
