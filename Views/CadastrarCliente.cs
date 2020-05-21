@@ -106,7 +106,7 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             mtxt_CpfCLiente = new MaskedTextBox ();
             mtxt_CpfCLiente.Location = new Point (150, 180);
             mtxt_CpfCLiente.Size = new Size (170, 20);
-            mtxt_CpfCLiente.Mask = "000.000.000-00";
+            mtxt_CpfCLiente.Mask = "000,000,000-00";
             this.Controls.Add(mtxt_CpfCLiente);
 
             // ComboBox - Five options - Single choice
@@ -115,7 +115,7 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             cb_DiasDevol.Items.Add("3 Dias");
             cb_DiasDevol.Items.Add("4 Dias");
             cb_DiasDevol.Items.Add("5 Dias");
-            cb_DiasDevol.Items.Add("PLUS");
+            cb_DiasDevol.Items.Add("PLUS - 10 Dias");
             cb_DiasDevol.AutoCompleteMode = AutoCompleteMode.Append;
             cb_DiasDevol.Location = new Point (150, 220);    
             cb_DiasDevol.Size = new Size(170, 20);
@@ -146,7 +146,7 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
                 rtxt_NomeCliente.Text, 
                 (int)num_DataNascDia.Value, 
                 (int)num_DataNascMes.Value,
-                (int)num_DataNascMes.Value,
+                (int)num_DataNascAno.Value,
                 mtxt_CpfCLiente.Text, 
 
                 cb_DiasDevol.Text == "2 Dias"

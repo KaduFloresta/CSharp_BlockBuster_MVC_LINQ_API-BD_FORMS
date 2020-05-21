@@ -156,7 +156,7 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
                 rtxt_Titulo.Text,
                 (int)num_DtLancDia.Value,
                 (int)num_DtLancMes.Value,
-                (int)num_DtLancMes.Value,
+                (int)num_DtLancAno.Value,
                 rtxt_Sinopse.Text,
                 cb_ValorLocacao.Text == "R$ 0.99"
                 ? 0.99

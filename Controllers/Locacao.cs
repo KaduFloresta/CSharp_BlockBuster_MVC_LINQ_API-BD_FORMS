@@ -8,9 +8,7 @@ namespace Controllers
     {
         /// <summary>
         /// Add a rent
-        /// </summary>
-        /// <param name="cliente"></param>
-        /// <returns></returns>
+        /// </summary>        
         public static LocacaoModels addLocacao(ClienteModels cliente)
         {
             return new LocacaoModels(cliente, DateTime.Now);
@@ -19,9 +17,6 @@ namespace Controllers
         /// <summary>
         /// Return date calculation 
         /// </summary>
-        /// <param name="DtLocacao"></param>
-        /// <param name="Cliente"></param>
-        /// <returns></returns>
         public static DateTime CalculoDataDevolucao(DateTime DtLocacao, ClienteModels Cliente)
         {
             return DtLocacao.AddDays(Cliente.DiasDevolucao);
@@ -30,10 +25,13 @@ namespace Controllers
         /// <summary>
         /// Access find a customer rental
         /// </summary>
-        /// <returns></returns>
-        public static List<LocacaoModels> GetLocacao()
+        public static List<LocacaoModels> GetLocacoes() 
         {
-            return LocacaoModels.GetLocacao();
+        return LocacaoModels.GetLocacoes();
+        }
+        public static LocacaoModels GetLocacao(int idLocacao)
+        {
+            return LocacaoModels.GetLocacao(idLocacao);
         }
     }
 }

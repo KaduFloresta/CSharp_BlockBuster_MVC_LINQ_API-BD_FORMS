@@ -1,9 +1,12 @@
 using System;
-using System.Collections.Generic;
-using System.Drawing;
+using Models;
+using Controllers;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Drawing;
 using System.Windows.Forms;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using static System.Windows.Forms.View;
 using static Locadora_MVC_LINQ_API_BD_IF.Program;
 
 namespace Locadora_MVC_LINQ_API_BD_Interface 
@@ -11,14 +14,14 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
     public class ConsultaLocacao : Form 
     {
         PictureBox pb_Consulta;
-        Label lbl_NomeCliente;
+        Label lbl_NomeLocacao;
         Label lbl_NomeFilme;
-        RichTextBox rtxt_NomeCliente;
+        RichTextBox rtxt_NomeLocacao;
         RichTextBox rtxt_NomeFilme;
         ListView lv_ListaLocacoes;
         GroupBox gb_ConsultaLocacao;
         GroupBox gb_ListaLocacoes;
-        Button btn_Confirmar;
+        Button btn_ListaConsulta;
         Button btn_Cancelar; 
         Form parent;
 
@@ -38,15 +41,15 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             pb_Consulta.Size = new Size(480 , 100);
             pb_Consulta.ClientSize = new Size (460 , 60);
             pb_Consulta.BackColor = Color.Black;
-            pb_Consulta.Load ("consulta.jpg");
+            pb_Consulta.Load ("./Views/assets/locacao.jpg");
             pb_Consulta.SizeMode = PictureBoxSizeMode.StretchImage;
             this.Controls.Add(pb_Consulta);
 
-            lbl_NomeCliente = new Label ();
-            lbl_NomeCliente.Text = "Nome do Cliente :";
-            lbl_NomeCliente.Location = new Point (20, 100);
-            lbl_NomeCliente.AutoSize = true;            
-            this.Controls.Add (lbl_NomeCliente);
+            lbl_NomeLocacao = new Label ();
+            lbl_NomeLocacao.Text = "Nome do Locacao :";
+            lbl_NomeLocacao.Location = new Point (20, 100);
+            lbl_NomeLocacao.AutoSize = true;            
+            this.Controls.Add (lbl_NomeLocacao);
 
             lbl_NomeFilme = new Label ();
             lbl_NomeFilme.Text = "Nome do Filme :";
@@ -54,12 +57,13 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             lbl_NomeFilme.AutoSize = true;            
             this.Controls.Add (lbl_NomeFilme);
 
-            rtxt_NomeCliente = new RichTextBox ();
-            rtxt_NomeCliente.SelectionFont  = new Font("Tahoma", 10, FontStyle.Bold);  
-            rtxt_NomeCliente.SelectionColor = System.Drawing.Color.Black;
-            rtxt_NomeCliente.Location = new Point (150, 100);
-            rtxt_NomeCliente.Size = new Size (300, 20);
-            this.Controls.Add (rtxt_NomeCliente);
+            rtxt_NomeLocacao = new RichTextBox ();
+            rtxt_NomeLocacao.SelectionFont  = new Font("Tahoma", 10, FontStyle.Bold);  
+            rtxt_NomeLocacao.SelectionColor = System.Drawing.Color.Black;
+            rtxt_NomeLocacao.Location = new Point (150, 100);
+            rtxt_NomeLocacao.Size = new Size (300, 20);
+            this.Controls.Add (rtxt_NomeLocacao);
+            rtxt_NomeLocacao.KeyPress += new KeyPressEventHandler(keypressed1);
 
             rtxt_NomeFilme = new RichTextBox ();
             rtxt_NomeFilme.SelectionFont  = new Font("Tahoma", 10, FontStyle.Bold);  
@@ -67,38 +71,22 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             rtxt_NomeFilme.Location = new Point (150, 140);
             rtxt_NomeFilme.Size = new Size (300, 20);
             this.Controls.Add (rtxt_NomeFilme);
+            rtxt_NomeFilme.KeyPress += new KeyPressEventHandler(keypressed2);
 
             // ListView
             lv_ListaLocacoes = new ListView();
             lv_ListaLocacoes.Location = new Point(30, 210);
             lv_ListaLocacoes.Size = new Size(420, 140);
             lv_ListaLocacoes.View = View.Details;
-            ListViewItem locacao1 = new ListViewItem("275");
-            locacao1.SubItems.Add("Valeria Antonio");
-            locacao1.SubItems.Add("2");            
-            locacao1.SubItems.Add("R$ 5.99");            
-            locacao1.SubItems.Add("Débito");            
-            ListViewItem locacao2 = new ListViewItem("783");
-            locacao2.SubItems.Add("Joao Silva");
-            locacao2.SubItems.Add("4");
-            locacao2.SubItems.Add("R$ 12.99");            
-            locacao2.SubItems.Add("Crédito");
-            ListViewItem locacao3 = new ListViewItem("125");
-            locacao3.SubItems.Add("Mara Leão");
-            locacao3.SubItems.Add("3");
-            locacao3.SubItems.Add("R$ 9.99");            
-            locacao3.SubItems.Add("Dinheiro");
-            ListViewItem locacao4 = new ListViewItem("008");
-            locacao4.SubItems.Add("Larissa Junqueira");
-            locacao4.SubItems.Add("2");
-            locacao4.SubItems.Add("R$ 5.99");            
-            locacao4.SubItems.Add("Crédito");
-            ListViewItem locacao5 = new ListViewItem("792");
-            locacao5.SubItems.Add("Joao Andrade");
-            locacao5.SubItems.Add("1");
-            locacao5.SubItems.Add("R$ 4.99");            
-            locacao5.SubItems.Add("PLUS");
-            lv_ListaLocacoes.Items.AddRange(new ListViewItem[]{locacao1, locacao2, locacao3, locacao4, locacao5});
+            //List<LocacaoModels> listaLocacao = (from locacao in LocacaoController.GetLocacoes() where locacao.NomeLocacao.Contains(rtxt_ConsultaLocacao.Text) select Locacao).ToList();
+            ListViewItem locacoes = new ListViewItem();
+            foreach (LocacaoModels locacao in LocacaoController.GetLocacoes())
+            {
+                ListViewItem lv_ListaLocacao = new ListViewItem(locacao.IdLocacao.ToString());
+                // lv_ListaLocacao.SubItems.Add(locacao.IdLocacao);
+                // lv_ListaLocacao.SubItems.Add(locacao.IdLocacao);
+                lv_ListaLocacoes.Items.Add(lv_ListaLocacao);
+            }
             lv_ListaLocacoes.FullRowSelect = true;
             lv_ListaLocacoes.GridLines = true;
             lv_ListaLocacoes.AllowColumnReorder = true;
@@ -109,6 +97,9 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             lv_ListaLocacoes.Columns.Add("Total", -2, HorizontalAlignment.Center);
             lv_ListaLocacoes.Columns.Add("Pagto", -2, HorizontalAlignment.Center);
             this.Controls.Add(lv_ListaLocacoes);
+
+            Task t = new Task(new Action(() => { RefreshForm(); }));
+            t.Start();
 
             // Customer grouping box
             gb_ConsultaLocacao = new GroupBox();    
@@ -125,14 +116,14 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             gb_ListaLocacoes.ForeColor = ColorTranslator.FromHtml("#dfb841");
             this.Controls.Add(gb_ListaLocacoes);
 
-            btn_Confirmar = new Button ();
-            btn_Confirmar.Location = new Point (80, 390);
-            btn_Confirmar.Size = new Size (150, 40);            
-            btn_Confirmar.Text = "CONFIRMAR";
-            this.btn_Confirmar.BackColor = ColorTranslator.FromHtml("#dfb841");
-            this.btn_Confirmar.ForeColor = Color.Black; 
-            btn_Confirmar.Click += new EventHandler (this.btn_ConfirmarClick);
-            this.Controls.Add(btn_Confirmar);
+            btn_ListaConsulta = new Button ();
+            btn_ListaConsulta.Location = new Point (80, 390);
+            btn_ListaConsulta.Size = new Size (150, 40);            
+            btn_ListaConsulta.Text = "CONSULTA";
+            this.btn_ListaConsulta.BackColor = ColorTranslator.FromHtml("#dfb841");
+            this.btn_ListaConsulta.ForeColor = Color.Black; 
+            btn_ListaConsulta.Click += new EventHandler (this.btn_ListaConsultaClick);
+            this.Controls.Add(btn_ListaConsulta);
 
             btn_Cancelar = new Button ();
             btn_Cancelar.Location = new Point (260, 390);
@@ -144,13 +135,58 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             this.Controls.Add(btn_Cancelar);
         }
 
-        private void btn_ConfirmarClick (object sender, EventArgs e) 
+        public void RefreshForm()
         {
-            MessageBox.Show (
-                $"IdLocacao.:> {rtxt_NomeCliente.Text}\n",
-                "Locacao",
-                MessageBoxButtons.OK
-            );
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new MethodInvoker(this.RefreshForm));
+            }
+            Application.DoEvents();
+        }
+
+        private void keypressed1(Object o, KeyPressEventArgs e)
+        {
+            // lv_ListaLocacaos.Items.Clear();
+            // List<LocacaoModels> listaLocacao = (from Locacao in LocacaoController.GetLocacaos() where Locacao.NomeLocacao.Contains(rtxt_BuscaLocacao.Text, StringComparison.OrdinalIgnoreCase) select Locacao).ToList();
+            // ListViewItem Locacaos = new ListViewItem();
+            // foreach (LocacaoModels Locacao in listaLocacao)
+            // {
+            //     ListViewItem lv_ListaLocacao = new ListViewItem(Locacao.IdLocacao.ToString());
+            //     lv_ListaLocacao.SubItems.Add(Locacao.NomeLocacao);
+            //     lv_ListaLocacao.SubItems.Add(Locacao.DataNascimento);
+            //     lv_ListaLocacao.SubItems.Add(Locacao.CpfLocacao);
+            //     lv_ListaLocacao.SubItems.Add(Locacao.DiasDevolucao.ToString());
+            //     lv_ListaLocacaos.Items.Add(lv_ListaLocacao);
+            // }
+            // this.Refresh();
+            // Application.DoEvents();
+        }
+
+        private void keypressed2(Object o, KeyPressEventArgs e)
+        {
+            // lv_ListaFilmes.Items.Clear();
+            // List<FilmeModels> listaFilme = (from filme in FilmeController.GetFilmes() where filme.Titulo.Contains(rtxt_BuscaFilme.Text, StringComparison.OrdinalIgnoreCase) select filme).ToList();
+            // ListViewItem filmes = new ListViewItem();
+            // foreach (FilmeModels filme in listaFilme)
+            // {
+            //     ListViewItem lv_ListaFilme = new ListViewItem(filme.IdFilme.ToString());
+            //     lv_ListaFilme.SubItems.Add(filme.Titulo);
+            //     lv_ListaFilme.SubItems.Add(filme.DataLancamento);
+            //     lv_ListaFilme.SubItems.Add(filme.Sinopse);
+            //     lv_ListaFilme.SubItems.Add(filme.ValorLocacaoFilme.ToString());
+            //     lv_ListaFilme.SubItems.Add(filme.EstoqueFilme.ToString());
+            //     lv_ListaFilmes.Items.Add(lv_ListaFilme);
+            // }
+            // this.Refresh();
+            // Application.DoEvents();
+        }
+
+        private void btn_ListaConsultaClick (object sender, EventArgs e) 
+        {
+            string IdLocacao = this.lv_ListaLocacoes.SelectedItems[0].Text;
+            LocacaoModels locacao = LocacaoController.GetLocacao(Int32.Parse(IdLocacao));
+            LocacaoDetalhe btn_ListaConsultaClick = new LocacaoDetalhe(this, locacao);
+            btn_ListaConsultaClick.Show();
         }
 
         private void btn_CancelarClick (object sender, EventArgs e) 

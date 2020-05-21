@@ -1,9 +1,12 @@
 using System;
-using System.Collections.Generic;
-using System.Drawing;
+using Models;
+using Controllers;
 using System.Linq;
-using System.Threading.Tasks;
+using System.Drawing;
 using System.Windows.Forms;
+using System.Threading.Tasks;
+using System.Collections.Generic;
+using static System.Windows.Forms.View;
 using static Locadora_MVC_LINQ_API_BD_IF.Program;
 
 namespace Locadora_MVC_LINQ_API_BD_Interface 
@@ -63,6 +66,7 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             rtxt_BuscaCliente.Location = new Point (150, 80);
             rtxt_BuscaCliente.Size = new Size (300, 20);
             this.Controls.Add(rtxt_BuscaCliente);
+            rtxt_BuscaCliente.KeyPress += new KeyPressEventHandler(keypressed1);
 
             rtxt_BuscaFilme = new RichTextBox ();
             rtxt_BuscaFilme.SelectionFont = new Font("Tahoma", 10, FontStyle.Bold);  
@@ -70,35 +74,33 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             rtxt_BuscaFilme.Location = new Point (150, 270);
             rtxt_BuscaFilme.Size = new Size (300, 20);            
             this.Controls.Add(rtxt_BuscaFilme);
+            rtxt_BuscaFilme.KeyPress += new KeyPressEventHandler(keypressed2);
 
             // ListView
             lv_ListaClientes = new ListView();
             lv_ListaClientes.Location = new Point(40, 130);
             lv_ListaClientes.Size = new Size(400, 120);
-            lv_ListaClientes.View = View.Details;
-            ListViewItem cliente1 = new ListViewItem("Joao Silva");
-            cliente1.SubItems.Add("12/01/1976");
-            cliente1.SubItems.Add("111.111.111-11");            
-            ListViewItem cliente2 = new ListViewItem("Joao Andrade");
-            cliente2.SubItems.Add("10/01/1978");
-            cliente2.SubItems.Add("222.222.222-22");
-            ListViewItem cliente3 = new ListViewItem("Larissa Junqueira");
-            cliente3.SubItems.Add("25/12/1985");
-            cliente3.SubItems.Add("333.333.333-33");
-            ListViewItem cliente4 = new ListViewItem("Mara Leão");
-            cliente4.SubItems.Add("03/05/1956");
-            cliente4.SubItems.Add("444.444.444-44");
-            ListViewItem cliente5 = new ListViewItem("Valeria Antonio");
-            cliente5.SubItems.Add("12/12/1972");
-            cliente5.SubItems.Add("555.555.555-55");
-            lv_ListaClientes.Items.AddRange(new ListViewItem[]{cliente1, cliente2, cliente3, cliente4, cliente5});
+            lv_ListaClientes.View = Details;
+            List<ClienteModels> listaCliente = (from cliente in ClienteController.GetClientes() where cliente.NomeCliente.Contains(rtxt_BuscaCliente.Text) select cliente).ToList();
+            ListViewItem clientes = new ListViewItem();
+            foreach (ClienteModels cliente in ClienteController.GetClientes())
+            {
+                ListViewItem lv_ListaCliente = new ListViewItem(cliente.IdCliente.ToString());
+                lv_ListaCliente.SubItems.Add(cliente.NomeCliente);
+                lv_ListaCliente.SubItems.Add(cliente.DataNascimento);
+                lv_ListaCliente.SubItems.Add(cliente.CpfCliente);
+                lv_ListaCliente.SubItems.Add(cliente.DiasDevolucao.ToString());
+                lv_ListaClientes.Items.Add(lv_ListaCliente);
+            }
             lv_ListaClientes.FullRowSelect = true;
             lv_ListaClientes.GridLines = true;
             lv_ListaClientes.AllowColumnReorder = true;
-            lv_ListaClientes.Sorting = SortOrder.Ascending;
+            lv_ListaClientes.Sorting = SortOrder.None;
+            lv_ListaClientes.Columns.Add("ID", -2, HorizontalAlignment.Center);
             lv_ListaClientes.Columns.Add("Nome", -2, HorizontalAlignment.Left);
             lv_ListaClientes.Columns.Add("Data Nascimento", -2, HorizontalAlignment.Center);
             lv_ListaClientes.Columns.Add("CPF", -2, HorizontalAlignment.Center);
+            lv_ListaClientes.Columns.Add("Dias Devolução", -2, HorizontalAlignment.Center);
             this.Controls.Add(lv_ListaClientes);
 
             // Movie grouping box
@@ -113,32 +115,34 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             lv_ListaFilmes = new ListView();
             lv_ListaFilmes.Location = new Point(40, 320);
             lv_ListaFilmes.Size = new Size(400, 120);
-            lv_ListaFilmes.View = View.Details;
+            lv_ListaFilmes.View = Details;
             lv_ListaFilmes.CheckBoxes = true;
-            ListViewItem filme1 = new ListViewItem("Ben-Hur");
-            filme1.SubItems.Add("1959");
-            filme1.SubItems.Add("5");            
-            ListViewItem filme2 = new ListViewItem("Riddick 3");
-            filme2.SubItems.Add("2018");
-            filme2.SubItems.Add("4");
-            ListViewItem filme3 = new ListViewItem("Laranja Mecânica");
-            filme3.SubItems.Add("1975");
-            filme3.SubItems.Add("3");
-            ListViewItem filme4 = new ListViewItem("Rei Leão");
-            filme4.SubItems.Add("1994");
-            filme4.SubItems.Add("2");
-            ListViewItem filme5 = new ListViewItem("Valerian");
-            filme5.SubItems.Add("2019");
-            filme5.SubItems.Add("1");
-            lv_ListaFilmes.Items.AddRange(new ListViewItem[]{filme1, filme2, filme3, filme4, filme5});
+            List<FilmeModels> listaFilme = (from filme in FilmeController.GetFilmes() where filme.Titulo.Contains(rtxt_BuscaFilme.Text) select filme).ToList();
+            ListViewItem filmes = new ListViewItem();
+            foreach (FilmeModels filme in FilmeController.GetFilmes())
+            {
+                ListViewItem lv_ListaFilme = new ListViewItem(filme.IdFilme.ToString());
+                lv_ListaFilme.SubItems.Add(filme.Titulo);
+                lv_ListaFilme.SubItems.Add(filme.DataLancamento);
+                lv_ListaFilme.SubItems.Add(filme.ValorLocacaoFilme.ToString());
+                lv_ListaFilme.SubItems.Add(filme.EstoqueFilme.ToString());
+                lv_ListaFilme.SubItems.Add(filme.Sinopse);
+                lv_ListaFilmes.Items.Add(lv_ListaFilme);
+            }
             lv_ListaFilmes.FullRowSelect = true;
             lv_ListaFilmes.GridLines = true;
             lv_ListaFilmes.AllowColumnReorder = true;
-            lv_ListaFilmes.Sorting = SortOrder.Ascending;
+            lv_ListaFilmes.Sorting = SortOrder.None;
+            lv_ListaFilmes.Columns.Add("ID", -2, HorizontalAlignment.Center);
             lv_ListaFilmes.Columns.Add("Título", -2, HorizontalAlignment.Left);
-            lv_ListaFilmes.Columns.Add("Ano Lançamento", -2, HorizontalAlignment.Center);
+            lv_ListaFilmes.Columns.Add("Data Lançamento", -2, HorizontalAlignment.Center);
+            lv_ListaFilmes.Columns.Add("Preço", -2, HorizontalAlignment.Center);
             lv_ListaFilmes.Columns.Add("Estoque", -2, HorizontalAlignment.Center);
+            lv_ListaFilmes.Columns.Add("Sinopse", -2, HorizontalAlignment.Left);
             this.Controls.Add(lv_ListaFilmes);
+
+             Task t = new Task(new Action(() => { RefreshForm(); }));
+            t.Start();
 
             // Customer grouping box
             gb_ListaFilme = new GroupBox();    
@@ -167,7 +171,51 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             this.Controls.Add(btn_Cancelar);
         }
 
-       
+       public void RefreshForm()
+        {
+            if (this.InvokeRequired)
+            {
+                this.Invoke(new MethodInvoker(this.RefreshForm));
+            }
+            Application.DoEvents();
+        }
+
+        private void keypressed1(Object o, KeyPressEventArgs e)
+        {
+            lv_ListaClientes.Items.Clear();
+            List<ClienteModels> listaCliente = (from cliente in ClienteController.GetClientes() where cliente.NomeCliente.Contains(rtxt_BuscaCliente.Text, StringComparison.OrdinalIgnoreCase) select cliente).ToList();
+            ListViewItem clientes = new ListViewItem();
+            foreach (ClienteModels cliente in listaCliente)
+            {
+                ListViewItem lv_ListaCliente = new ListViewItem(cliente.IdCliente.ToString());
+                lv_ListaCliente.SubItems.Add(cliente.NomeCliente);
+                lv_ListaCliente.SubItems.Add(cliente.DataNascimento);
+                lv_ListaCliente.SubItems.Add(cliente.CpfCliente);
+                lv_ListaCliente.SubItems.Add(cliente.DiasDevolucao.ToString());
+                lv_ListaClientes.Items.Add(lv_ListaCliente);
+            }
+            this.Refresh();
+            Application.DoEvents();
+        }
+
+        private void keypressed2(Object o, KeyPressEventArgs e)
+        {
+            lv_ListaFilmes.Items.Clear();
+            List<FilmeModels> listaFilme = (from filme in FilmeController.GetFilmes() where filme.Titulo.Contains(rtxt_BuscaFilme.Text, StringComparison.OrdinalIgnoreCase) select filme).ToList();
+            ListViewItem filmes = new ListViewItem();
+            foreach (FilmeModels filme in listaFilme)
+            {
+                ListViewItem lv_ListaFilme = new ListViewItem(filme.IdFilme.ToString());
+                lv_ListaFilme.SubItems.Add(filme.Titulo);
+                lv_ListaFilme.SubItems.Add(filme.DataLancamento);
+                lv_ListaFilme.SubItems.Add(filme.Sinopse);
+                lv_ListaFilme.SubItems.Add(filme.ValorLocacaoFilme.ToString());
+                lv_ListaFilme.SubItems.Add(filme.EstoqueFilme.ToString());
+                lv_ListaFilmes.Items.Add(lv_ListaFilme);
+            }
+            this.Refresh();
+            Application.DoEvents();
+        }
 
         private void btn_ConfirmarClick (object sender, EventArgs e) {
             MessageBox.Show (

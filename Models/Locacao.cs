@@ -1,4 +1,5 @@
 using System;
+using Models;
 using System.Linq;
 using Controllers;
 using DbRespositorie;
@@ -32,8 +33,6 @@ namespace Models
         /// <summary>
         /// Constructor - LocacaoModels Object
         /// </summary>
-        /// <param name="cliente"></param>
-        /// <param name="dataLocacao"></param>
         public LocacaoModels(ClienteModels cliente, DateTime dataLocacao)
         {
             IdCliente = cliente.IdCliente;
@@ -45,9 +44,9 @@ namespace Models
             db.Locacoes.Add(this);
             db.SaveChanges();
         }
-
         /// <summary>
         /// 2nd Constructor - LocacaoModels Object
+        /// Using on Entity Framework DONT REMOVE!!!
         /// </summary>
         public LocacaoModels()
         {
@@ -57,7 +56,6 @@ namespace Models
         /// <summary>
         /// Add movies
         /// </summary>
-        /// <param name="filme"></param>
         public void AdicionarFilme(FilmeModels filme)
         {
             var db = new Context();
@@ -74,56 +72,54 @@ namespace Models
         /// <summary>
         /// String convertion
         /// </summary>
-        /// <returns></returns>
-        // public override string ToString()
-        // {
-        //     var db = new Context();
+        public override string ToString()
+        {
+            var db = new Context();
 
-        //     IEnumerable<int> filmes =
-        //     from filme in db.LocacaoFilme
-        //     where filme.IdLocacao == IdLocacao
-        //     select filme.IdFilme;
+            IEnumerable<int> filmes =
+            from filme in db.LocacaoFilme
+            where filme.IdLocacao == IdLocacao
+            select filme.IdFilme;
 
-        //     ClienteModels cliente = ClienteModels.GetCliente(IdCliente);
+            ClienteModels cliente = ClienteModels.GetCliente(IdCliente);
 
-        //     string retorno = cliente +
-        //         $"\n----------------===[ DADOS LOCAÇÃO ]===----------------\n" +
-        //         $"-> DATA DE LOCAÇÃO: {DataLocacao.ToString("dd/MM/yyyy")}\n" +
-        //         $"-> DATA DE DEVOLUÇÃO: {LocacaoController.CalculoDataDevolucao(DataLocacao, cliente).ToString("dd/MM/yyyy")}\n" +
-        //         $"-> QTDE TOTAL DE FILMES: {filmes.Count()}\n";
+            string retorno = cliente +
+                $"\n----------------===[ DADOS LOCAÇÃO ]===----------------\n" +
+                $"-> DATA DE LOCAÇÃO: {DataLocacao.ToString("dd/MM/yyyy")}\n" +
+                $"-> DATA DE DEVOLUÇÃO: {LocacaoController.CalculoDataDevolucao(DataLocacao, cliente).ToString("dd/MM/yyyy")}\n" +
+                $"-> QTDE TOTAL DE FILMES: {filmes.Count()}\n";
 
 
-        //     double ValorTotal = 0;
-        //     string strFilmes = "";
+            double ValorTotal = 0;
+            string strFilmes = "";
 
-        //     if (filmes.Count() > 0)
-        //     {
-        //         foreach (int id in filmes)
-        //         {
-        //             FilmeModels filme = FilmeModels.GetFilme(id);
-        //             strFilmes += filme;
-        //             ValorTotal += filme.ValorLocacaoFilme;
-        //         }
-        //     }
-        //     else
-        //     {
-        //         strFilmes += "    NÃO HÁ FILMES!";
-        //     }
+            if (filmes.Count() > 0)
+            {
+                foreach (int id in filmes)
+                {
+                    FilmeModels filme = FilmeModels.GetFilme(id);
+                    strFilmes += filme;
+                    ValorTotal += filme.ValorLocacaoFilme;
+                }
+            }
+            else
+            {
+                strFilmes += "    NÃO HÁ FILMES!";
+            }
 
-        //     retorno += $"-> PREÇO TOTAL DAS LOCAÇÕES: R$ {ValorTotal.ToString("C2")}\n" +
-        //     $"-------------------------------------------------------\n\n" +
-        //     $"===================[ FILMES LOCADOS ]==================\n";
+            retorno += $"-> PREÇO TOTAL DAS LOCAÇÕES: R$ {ValorTotal.ToString("C2")}\n" +
+            $"-------------------------------------------------------\n\n" +
+            $"===================[ FILMES LOCADOS ]==================\n";
     
-        //     return retorno + strFilmes +
+            return retorno + strFilmes +
 
-        //     $"=======================================================\n";
-        // }
+            $"=======================================================\n";
+        }
 
         /// <summary>
         /// To find a rent
         /// </summary>
-        /// <returns></returns>
-        public static List<LocacaoModels> GetLocacao()
+        public static List<LocacaoModels> GetLocacoes()
         {
             var db = new Context();
             return db.Locacoes.ToList();
