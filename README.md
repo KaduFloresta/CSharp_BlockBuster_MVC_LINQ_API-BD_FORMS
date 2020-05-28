@@ -1,5 +1,5 @@
 # Avaliacao2KaduFloresta-CSharp
-Avaliação C# (Locadora de Filmes em MVC)
+Avaliação C# (Blockbuster MVC - BD - FORMS)
 
 ### To use Database
 If you like use database, install MariaDB and configure your credentials on `Repositories/Repository.cs`
