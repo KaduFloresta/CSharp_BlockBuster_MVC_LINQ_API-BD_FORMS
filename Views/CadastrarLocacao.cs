@@ -9,14 +9,13 @@ using System.Collections.Generic;
 using static System.Windows.Forms.View;
 using static Locadora_MVC_LINQ_API_BD_IF.Program;
 
-namespace Locadora_MVC_LINQ_API_BD_Interface 
+namespace Locadora_MVC_LINQ_API_BD_Interface
 {
-    public class CadastroLocacao : Form 
+    public class CadastroLocacao : Form
     {
-        //Image for main window
         PictureBox pb_Cadastro;
         Label lbl_BuscaCliente;
-        Label lbl_BuscaFilme;        
+        Label lbl_BuscaFilme;
         RichTextBox rtxt_BuscaCliente;
         RichTextBox rtxt_BuscaFilme;
         ListView lv_ListaClientes;
@@ -24,59 +23,59 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
         GroupBox gb_ListaCliente;
         GroupBox gb_ListaFilme;
         Button btn_Confirmar;
-        Button btn_Cancelar;    
+        Button btn_Cancelar;
         Form parent;
 
-        // GUIDE FOR LOCATION n SIZE (X Y) 
-        // Location (X = Horizontal - Y = Vertical)
-        // Size     (X = Largura    - Y = Altura)     
-
-        public CadastroLocacao (Form parent)         
+        // Rent data entry
+        public CadastroLocacao(Form parent)
         {
+            // Window parameters
             this.BackColor = ColorTranslator.FromHtml("#6d6a75");
             this.Font = new Font(this.Font, FontStyle.Bold);
             this.Size = new Size(500, 580);
             this.parent = parent;
 
-            // Image to Bloclbuster
+            // PictureBox
             pb_Cadastro = new PictureBox();
-            pb_Cadastro.Location = new Point (10, 10);    
-            pb_Cadastro.Size = new Size(480 , 100);
-            pb_Cadastro.ClientSize = new Size (460 , 60);
+            pb_Cadastro.Location = new Point(10, 10);
+            pb_Cadastro.Size = new Size(480, 100);
+            pb_Cadastro.ClientSize = new Size(460, 60);
             pb_Cadastro.BackColor = Color.Black;
-            pb_Cadastro.Load ("./Views/assets/cadastra.jpg");
+            pb_Cadastro.Load("./Views/assets/cadastra.jpg");
             pb_Cadastro.SizeMode = PictureBoxSizeMode.StretchImage;
-            this.Controls.Add(pb_Cadastro); 
+            this.Controls.Add(pb_Cadastro);
 
-            lbl_BuscaCliente = new Label ();
+            lbl_BuscaCliente = new Label();
             lbl_BuscaCliente.Text = "Busca Cliente :";
-            lbl_BuscaCliente.Location = new Point (30, 80);
-            lbl_BuscaCliente.AutoSize = true;            
-            this.Controls.Add(lbl_BuscaCliente);  
+            lbl_BuscaCliente.Location = new Point(30, 80);
+            lbl_BuscaCliente.AutoSize = true;
+            this.Controls.Add(lbl_BuscaCliente);
 
-            lbl_BuscaFilme = new Label ();
+            lbl_BuscaFilme = new Label();
             lbl_BuscaFilme.Text = "Busca Filme :";
-            lbl_BuscaFilme.Location = new Point (30, 270);
-            lbl_BuscaFilme.AutoSize = true;            
-            this.Controls.Add(lbl_BuscaFilme);          
+            lbl_BuscaFilme.Location = new Point(30, 270);
+            lbl_BuscaFilme.AutoSize = true;
+            this.Controls.Add(lbl_BuscaFilme);
 
-            rtxt_BuscaCliente = new RichTextBox ();
-            rtxt_BuscaCliente.SelectionFont = new Font("Tahoma", 10, FontStyle.Bold);  
+            // RichTextBox (Edited text - Keypress mode to filter a customer in ListView)
+            rtxt_BuscaCliente = new RichTextBox();
+            rtxt_BuscaCliente.SelectionFont = new Font("Tahoma", 10, FontStyle.Bold);
             rtxt_BuscaCliente.SelectionColor = System.Drawing.Color.Black;
-            rtxt_BuscaCliente.Location = new Point (150, 80);
-            rtxt_BuscaCliente.Size = new Size (300, 20);
+            rtxt_BuscaCliente.Location = new Point(150, 80);
+            rtxt_BuscaCliente.Size = new Size(300, 20);
             this.Controls.Add(rtxt_BuscaCliente);
             rtxt_BuscaCliente.KeyPress += new KeyPressEventHandler(keypressed1);
 
-            rtxt_BuscaFilme = new RichTextBox ();
-            rtxt_BuscaFilme.SelectionFont = new Font("Tahoma", 10, FontStyle.Bold);  
+            // RichTextBox (Edited text - Keypress mode to filter a movie in ListView)
+            rtxt_BuscaFilme = new RichTextBox();
+            rtxt_BuscaFilme.SelectionFont = new Font("Tahoma", 10, FontStyle.Bold);
             rtxt_BuscaFilme.SelectionColor = System.Drawing.Color.Black;
-            rtxt_BuscaFilme.Location = new Point (150, 270);
-            rtxt_BuscaFilme.Size = new Size (300, 20);            
+            rtxt_BuscaFilme.Location = new Point(150, 270);
+            rtxt_BuscaFilme.Size = new Size(300, 20);
             this.Controls.Add(rtxt_BuscaFilme);
             rtxt_BuscaFilme.KeyPress += new KeyPressEventHandler(keypressed2);
 
-            // ListView
+            // ListView - Customer
             lv_ListaClientes = new ListView();
             lv_ListaClientes.Location = new Point(40, 130);
             lv_ListaClientes.Size = new Size(400, 120);
@@ -96,6 +95,8 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             lv_ListaClientes.GridLines = true;
             lv_ListaClientes.AllowColumnReorder = true;
             lv_ListaClientes.Sorting = SortOrder.None;
+            this.lv_ListaClientes.MultiSelect = false;
+            //this.lv_ListaClientes.HideSelection = true;
             lv_ListaClientes.Columns.Add("ID", -2, HorizontalAlignment.Center);
             lv_ListaClientes.Columns.Add("Nome", -2, HorizontalAlignment.Left);
             lv_ListaClientes.Columns.Add("Data Nascimento", -2, HorizontalAlignment.Center);
@@ -103,15 +104,15 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             lv_ListaClientes.Columns.Add("Dias Devolução", -2, HorizontalAlignment.Center);
             this.Controls.Add(lv_ListaClientes);
 
-            // Movie grouping box
+            // ListView grouping box
             gb_ListaCliente = new GroupBox();
             gb_ListaCliente.Location = new Point(30, 110);
             gb_ListaCliente.Size = new Size(420, 150);
-            gb_ListaCliente.Text= "LISTA DE CLIENTES";
+            gb_ListaCliente.Text = "LISTA DE CLIENTES";
             gb_ListaCliente.ForeColor = ColorTranslator.FromHtml("#dfb841");
-            this.Controls.Add(gb_ListaCliente);            
+            this.Controls.Add(gb_ListaCliente);
 
-            // ListView
+            // ListView - Movies
             lv_ListaFilmes = new ListView();
             lv_ListaFilmes.Location = new Point(40, 320);
             lv_ListaFilmes.Size = new Size(400, 120);
@@ -141,37 +142,41 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             lv_ListaFilmes.Columns.Add("Sinopse", -2, HorizontalAlignment.Left);
             this.Controls.Add(lv_ListaFilmes);
 
-             Task t = new Task(new Action(() => { RefreshForm(); }));
+            Task t = new Task(new Action(() => { RefreshForm(); }));
             t.Start();
 
-            // Customer grouping box
-            gb_ListaFilme = new GroupBox();    
-            gb_ListaFilme.Location = new Point(30, 300);        
-            gb_ListaFilme.Size = new Size(420, 150);            
-            gb_ListaFilme.Text= "LISTA DE FILMES";
+            // ListView grouping box
+            gb_ListaFilme = new GroupBox();
+            gb_ListaFilme.Location = new Point(30, 300);
+            gb_ListaFilme.Size = new Size(420, 150);
+            gb_ListaFilme.Text = "LISTA DE FILMES";
             gb_ListaFilme.ForeColor = ColorTranslator.FromHtml("#dfb841");
             this.Controls.Add(gb_ListaFilme);
 
-            btn_Confirmar = new Button ();
+            // Buttons
+            btn_Confirmar = new Button();
             btn_Confirmar.Text = "CONFIRMAR";
-            btn_Confirmar.Location = new Point (80, 470);
-            btn_Confirmar.Size = new Size (150, 40);
+            btn_Confirmar.Location = new Point(80, 470);
+            btn_Confirmar.Size = new Size(150, 40);
             this.btn_Confirmar.BackColor = ColorTranslator.FromHtml("#dfb841");
-            this.btn_Confirmar.ForeColor = Color.Black;          
-            btn_Confirmar.Click += new EventHandler (this.btn_ConfirmarClick);            
+            this.btn_Confirmar.ForeColor = Color.Black;
+            btn_Confirmar.Click += new EventHandler(this.btn_ConfirmarClick);
             this.Controls.Add(btn_Confirmar);
 
-            btn_Cancelar = new Button ();
+            btn_Cancelar = new Button();
             btn_Cancelar.Text = "CANCELAR";
-            btn_Cancelar.Location = new Point (260, 470);
-            btn_Cancelar.Size = new Size (150, 40);  
+            btn_Cancelar.Location = new Point(260, 470);
+            btn_Cancelar.Size = new Size(150, 40);
             this.btn_Cancelar.BackColor = ColorTranslator.FromHtml("#dfb841");
-            this.btn_Cancelar.ForeColor = Color.Black;          
-            btn_Cancelar.Click += new EventHandler (this.btn_CancelarClick);
+            this.btn_Cancelar.ForeColor = Color.Black;
+            btn_Cancelar.Click += new EventHandler(this.btn_CancelarClick);
             this.Controls.Add(btn_Cancelar);
         }
 
-       public void RefreshForm()
+        /// <summary>
+        /// RefreshForm to keypress
+        /// </summary>
+        public void RefreshForm()
         {
             if (this.InvokeRequired)
             {
@@ -180,6 +185,11 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             Application.DoEvents();
         }
 
+        /// <summary>
+        /// Keypress event to find a customer
+        /// </summary>
+        /// <param name="o"></param>
+        /// <param name="e"></param>
         private void keypressed1(Object o, KeyPressEventArgs e)
         {
             lv_ListaClientes.Items.Clear();
@@ -198,6 +208,11 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             Application.DoEvents();
         }
 
+        /// <summary>
+        /// Keypress event to find a movie
+        /// </summary>
+        /// <param name="o"></param>
+        /// <param name="e"></param>
         private void keypressed2(Object o, KeyPressEventArgs e)
         {
             lv_ListaFilmes.Items.Clear();
@@ -217,21 +232,51 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             Application.DoEvents();
         }
 
-        private void btn_ConfirmarClick (object sender, EventArgs e) {
-            MessageBox.Show (
-                $"IdCliente.:> {rtxt_BuscaCliente.Text}\n" +
-                $"IdFilme.:> {rtxt_BuscaFilme.Text}\n",
-                "Locacao",
-                MessageBoxButtons.OK
-                // Objeto. CheckedItems
-            );
+        /// <summary>
+        /// Event data button to enter information into the database
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btn_ConfirmarClick(object sender, EventArgs e)
+        {
+            try
+            {
+                if (lv_ListaClientes.SelectedItems != null)
+                {
+                    string IdCliente = this.lv_ListaClientes.SelectedItems[0].Text;
+                    ClienteModels cliente = ClienteController.GetCliente(Int32.Parse(IdCliente));
+                    LocacaoModels locacao = LocacaoController.Add(cliente);
+                    
+                    foreach (ListViewItem Filme in this.lv_ListaFilmes.CheckedItems)
+                    {
+                        FilmeModels filme = FilmeController.GetFilme(Int32.Parse(Filme.Text));
+                        locacao.AdicionarFilme(filme);
+                    }
+                    MessageBox.Show("CADASTRADO!");
+                    this.Close();
+                    this.parent.Show();
+                }
+                else
+                {
+                    MessageBox.Show("SELECIONE O CLIENTE E FILMES!");
+                }
+            }
+            catch (Exception er)
+            {
+                MessageBox.Show(er.Message, "PREENCHA OS CAMPOS!");
+            }
         }
 
-        private void btn_CancelarClick (object sender, EventArgs e) 
+        /// <summary>
+        /// Event button to cancel and back to main window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btn_CancelarClick(object sender, EventArgs e)
         {
-            MessageBox.Show ("CANCELADO!");
-            this.Close ();
-            this.parent.Show ();
-        }        
+            MessageBox.Show("CANCELADO!");
+            this.Close();
+            this.parent.Show();
+        }
     }
 }

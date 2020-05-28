@@ -19,18 +19,16 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
         Button btn_ListaSair;
         Form parent;
 
-        // GUIDE FOR LOCATION n SIZE (X Y) 
-        // Location (X = Horizontal - Y = Vertical)
-        // Size     (X = Largura    - Y = Altura) 
-
+        // List rental window
         public ListaLocacao (Form parent) 
         {
+            // Window parameters
             this.BackColor = ColorTranslator.FromHtml("#6d6a75");
             this.Font = new Font(this.Font, FontStyle.Bold);
             this.Size = new Size(600, 640);
             this.parent = parent;
 
-            // Image to Bloclbuster
+            // PictureBox
             pb_Lista = new PictureBox();
             pb_Lista.Location = new Point (10, 10);    
             pb_Lista.Size = new Size(180 , 100);
@@ -40,37 +38,39 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             pb_Lista.SizeMode = PictureBoxSizeMode.StretchImage;
             this.Controls.Add(pb_Lista); 
 
-            // ListView
+            // ListView - Rentals
             lv_ListaLocacoes = new ListView();
             lv_ListaLocacoes.Location = new Point(20, 100);
             lv_ListaLocacoes.Size = new Size(540, 400);
-            lv_ListaLocacoes.View = View.Details;ListViewItem clientes = new ListViewItem();
-            List<ClienteModels> clientesLista = ClienteController.GetClientes();
-            foreach (var cliente in clientesLista)
+            lv_ListaLocacoes.View = View.Details;
+            ListViewItem locacoes = new ListViewItem();
+            List<LocacaoModels> locacoesLista = LocacaoController.GetLocacoes();
+            foreach (var locacao in locacoesLista)
             {
-                ListViewItem lv_ListaLocacao = new ListViewItem(cliente.IdCliente.ToString());                
-                lv_ListaLocacao.SubItems.Add(cliente.NomeCliente);
-                lv_ListaLocacao.SubItems.Add(cliente.CpfCliente);
-                lv_ListaLocacao.SubItems.Add(cliente.DataNascimento);
-                lv_ListaLocacao.SubItems.Add(cliente.DiasDevolucao.ToString());
-                lv_ListaLocacao.SubItems.Add(cliente.DiasDevolucao.ToString());
-                lv_ListaLocacao.SubItems.Add(cliente.DiasDevolucao.ToString());
+                ListViewItem lv_ListaLocacao = new ListViewItem(locacao.IdLocacao.ToString());                
+                ClienteModels cliente = ClienteController.GetCliente(locacao.IdCliente);
+                lv_ListaLocacao.SubItems.Add(cliente.NomeCliente.ToString());
+                lv_ListaLocacao.SubItems.Add(cliente.CpfCliente.ToString());
+                lv_ListaLocacao.SubItems.Add(locacao.DataLocacao.ToString("dd/MM/yyyy"));
+                lv_ListaLocacao.SubItems.Add(locacao.CalculoDataDevol().ToString("dd/MM/yyyy"));
+                lv_ListaLocacao.SubItems.Add(locacao.QtdeFilmes().ToString());
+                lv_ListaLocacao.SubItems.Add(locacao.ValorTotal().ToString("C2"));
                 lv_ListaLocacoes.Items.Add(lv_ListaLocacao);
             }
             lv_ListaLocacoes.FullRowSelect = true;
             lv_ListaLocacoes.GridLines = true;
             lv_ListaLocacoes.AllowColumnReorder = true;
-            lv_ListaLocacoes.Sorting = SortOrder.Ascending;
+            lv_ListaLocacoes.Sorting = SortOrder.None;
             lv_ListaLocacoes.Columns.Add("ID", -2, HorizontalAlignment.Center);
-            lv_ListaLocacoes.Columns.Add("Nome", -2, HorizontalAlignment.Center);
+            lv_ListaLocacoes.Columns.Add("Locatário", -2, HorizontalAlignment.Left);
             lv_ListaLocacoes.Columns.Add("CPF", -2, HorizontalAlignment.Center);
-            lv_ListaLocacoes.Columns.Add("Data", -2, HorizontalAlignment.Center);
-            lv_ListaLocacoes.Columns.Add("Qtde", -2, HorizontalAlignment.Center);
-            lv_ListaLocacoes.Columns.Add("Total", -2, HorizontalAlignment.Center);
-            lv_ListaLocacoes.Columns.Add("Pagto", -2, HorizontalAlignment.Center);
+            lv_ListaLocacoes.Columns.Add("Data Locação", -2, HorizontalAlignment.Center);
+            lv_ListaLocacoes.Columns.Add("Data Devolução", -2, HorizontalAlignment.Center);
+            lv_ListaLocacoes.Columns.Add("Qtde Filmes", -2, HorizontalAlignment.Center);
+            lv_ListaLocacoes.Columns.Add("Total", -2, HorizontalAlignment.Left);
             this.Controls.Add(lv_ListaLocacoes);
 
-            // Movie grouping box
+            // List grouping box
             gb_ListaLocacoes = new GroupBox();
             gb_ListaLocacoes.Location = new Point(10, 80);
             gb_ListaLocacoes.Size = new Size(560, 430);
@@ -78,7 +78,7 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             gb_ListaLocacoes.ForeColor = ColorTranslator.FromHtml("#dfb841");
             this.Controls.Add(gb_ListaLocacoes); 
 
-            // Descision Buttons
+            // Buttons
             btn_ListaSair = new Button ();
             btn_ListaSair.Text = "SAIR";
             btn_ListaSair.Location = new Point (200, 530);
@@ -89,6 +89,11 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             this.Controls.Add (btn_ListaSair);
         }
 
+        /// <summary>
+        /// Event button to exit and back to main window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_ListaSairClick (object sender, EventArgs e) 
         {
             MessageBox.Show ("CONCLUÍDO!");

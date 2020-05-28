@@ -9,7 +9,7 @@ namespace Controllers
         /// <summary>
         /// Add a rent
         /// </summary>        
-        public static LocacaoModels addLocacao(ClienteModels cliente)
+        public static LocacaoModels Add(ClienteModels cliente)
         {
             return new LocacaoModels(cliente, DateTime.Now);
         }

@@ -14,20 +14,17 @@ namespace Models
         /* 
             Getters and Setters 
         */
-
-        /// <value> Get and Set the value of IdLocacao </value>
         [Key] // Data Annotations - Main key
         public int IdLocacao { get; set; }
-        /// <value> Get and Set the value of Cliente </value>
+        
         public ClienteModels Cliente { get; set; }
-        /// <value> Get and Set the value of IdCliente </value>
+        
         [ForeignKey("clientes")] // Data Annotations - Foreign Key
         public int IdCliente { get; set; }
-        /// <value> Get and Set the value of DataLocacao </value>
+        
         [Required] // Data Annotations - Mandatory data entry
         public DateTime DataLocacao { get; set; }
-
-        /// <value> Get and Set the value of filmes </value>
+        
         public List<FilmeModels> filmes = new List<FilmeModels>();
 
         /// <summary>
@@ -70,12 +67,63 @@ namespace Models
         }
 
         /// <summary>
-        /// String convertion
+        /// Method of return day
         /// </summary>
-        public override string ToString()
+        public string FilmesLocados () 
         {
             var db = new Context();
+            IEnumerable<int> filmes =
+            from filme in db.LocacaoFilme
+            where filme.IdLocacao == IdLocacao
+            select filme.IdFilme;
 
+            string strFilmes = "";
+            
+
+            if (filmes.Count() > 0)
+            {
+                
+                foreach (int IdFilme in filmes)
+                {
+                    // for (int i = 1; i <= filmes.Count(); i++)
+                    // {
+                    FilmeModels filme = FilmeController.GetFilme(IdFilme);
+                    strFilmes += 
+                                 //$"Filme #{i} >>> " +
+                                 $"ID: {filme.IdFilme} >>> " +
+                                 $"Título: {filme.Titulo}\n";
+                    // }
+                }
+            }
+            else
+            {
+                strFilmes += "    NÃO HÁ FILMES!";
+            }
+    
+            return strFilmes;
+        }
+
+        /// <summary>
+        /// Method of return day
+        /// </summary>
+        public DateTime CalculoDataDevol()
+        {
+            var db = new Context();
+            IEnumerable<int> filmes =
+            from filme in db.LocacaoFilme
+            where filme.IdLocacao == IdLocacao
+            select filme.IdFilme;
+
+            ClienteModels cliente = ClienteModels.GetCliente(IdCliente);
+            return LocacaoController.CalculoDataDevolucao(DataLocacao, cliente);
+        }
+
+        /// <summary>
+        /// Method quantity of rented movies
+        /// </summary>
+        public int QtdeFilmes()
+        {
+            var db = new Context();
             IEnumerable<int> filmes =
             from filme in db.LocacaoFilme
             where filme.IdLocacao == IdLocacao
@@ -83,37 +131,28 @@ namespace Models
 
             ClienteModels cliente = ClienteModels.GetCliente(IdCliente);
 
-            string retorno = cliente +
-                $"\n----------------===[ DADOS LOCAÇÃO ]===----------------\n" +
-                $"-> DATA DE LOCAÇÃO: {DataLocacao.ToString("dd/MM/yyyy")}\n" +
-                $"-> DATA DE DEVOLUÇÃO: {LocacaoController.CalculoDataDevolucao(DataLocacao, cliente).ToString("dd/MM/yyyy")}\n" +
-                $"-> QTDE TOTAL DE FILMES: {filmes.Count()}\n";
+            return filmes.Count();
 
+        }
 
-            double ValorTotal = 0;
-            string strFilmes = "";
+        /// <summary>
+        /// Total rental amount method
+        /// </summary>
+        public double ValorTotal()
+        {
+            double total = 0;
+            var db = new Context();
+            IEnumerable<int> filmes =
+            from filme in db.LocacaoFilme
+            where filme.IdLocacao == IdLocacao
+            select filme.IdFilme;
 
-            if (filmes.Count() > 0)
+            foreach (int id in filmes)
             {
-                foreach (int id in filmes)
-                {
-                    FilmeModels filme = FilmeModels.GetFilme(id);
-                    strFilmes += filme;
-                    ValorTotal += filme.ValorLocacaoFilme;
-                }
+                FilmeModels filme = FilmeModels.GetFilme(id);
+                total += filme.ValorLocacaoFilme;
             }
-            else
-            {
-                strFilmes += "    NÃO HÁ FILMES!";
-            }
-
-            retorno += $"-> PREÇO TOTAL DAS LOCAÇÕES: R$ {ValorTotal.ToString("C2")}\n" +
-            $"-------------------------------------------------------\n\n" +
-            $"===================[ FILMES LOCADOS ]==================\n";
-    
-            return retorno + strFilmes +
-
-            $"=======================================================\n";
+            return total;
         }
 
         /// <summary>
@@ -128,8 +167,6 @@ namespace Models
         /// <summary>
         /// To find a rent by ID (LinQ)
         /// </summary>
-        /// <param name="idLocacao"></param>
-        /// <returns></returns>
         public static LocacaoModels GetLocacao(int idLocacao)
         {
             var db = new Context();
