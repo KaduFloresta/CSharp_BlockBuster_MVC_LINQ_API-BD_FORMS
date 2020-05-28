@@ -10,23 +10,21 @@ namespace Models
         /* 
             Getters and Setters 
         */
-
-        /// <value> Get and Set the value of IdCliente </value>
         [Key] // Data Annotations - Main key
         public int IdCliente { get; set; }
-        /// <value> Get and Set the value of NomeCliente </value>
+        
         [Required] // Mandatory data entry
         public string NomeCliente { get; set; }
-        /// <value> Get and Set the value of DataNascimento </value>
+        
         [Required]
         public string DataNascimento { get; set; }
-        /// <value> Get and Set the value of CpfCliente </value>
+        
         [Required]
         public string CpfCliente { get; set; }
-        /// <value> Get and Set the value of DiasDevolucao </value>
+        
         [Required]
         public int DiasDevolucao { get; set; }
-        /// <value> Get and Set the value of locacoes </value>
+        
         public List<LocacaoModels> locacoes = new List<LocacaoModels>();
 
         /// <summary>

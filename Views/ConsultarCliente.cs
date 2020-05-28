@@ -22,18 +22,16 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
         Button btn_ListaSair;
         Form parent;
 
-        // GUIDE FOR LOCATION n SIZE (X Y) 
-        // Location (X = Horizontal - Y = Vertical)
-        // Size     (X = Largura    - Y = Altura) 
-
-        public ConsultaCliente (Form parent)
+        // Consult registered customers 
+        public ConsultaCliente(Form parent)
         {
+            // Window parameters
             this.BackColor = ColorTranslator.FromHtml("#6d6a75");
             this.Font = new Font(this.Font, FontStyle.Bold);
             this.Size = new Size(500, 620);
             this.parent = parent;
 
-            // Image to Bloclbuster
+            // PictureBox
             pb_Consulta = new PictureBox();
             pb_Consulta.Location = new Point(10, 10);
             pb_Consulta.Size = new Size(480, 100);
@@ -43,15 +41,14 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             pb_Consulta.SizeMode = PictureBoxSizeMode.StretchImage;
             this.Controls.Add(pb_Consulta);
 
+            // Label
             lbl_ConsultaCliente = new Label();
             lbl_ConsultaCliente.Text = "Buscar Cliente :";
             lbl_ConsultaCliente.Location = new Point(30, 80);
             lbl_ConsultaCliente.AutoSize = true;
             this.Controls.Add(lbl_ConsultaCliente);
 
-            /// <summary>
-            /// Consulting a customer by ID (LINQ)
-            /// </summary>
+            // RichTextBox (Edited text - Keypress mode to filter a customer in ListView)
             rtxt_ConsultaCliente = new RichTextBox();
             rtxt_ConsultaCliente.SelectionFont = new Font("Tahoma", 10, FontStyle.Bold);
             rtxt_ConsultaCliente.SelectionColor = System.Drawing.Color.Black;
@@ -60,7 +57,7 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             this.Controls.Add(rtxt_ConsultaCliente);
             rtxt_ConsultaCliente.KeyPress += new KeyPressEventHandler(keypressed);
 
-            // ListView
+            // ListView - Customer
             lv_ListaClientes = new ListView();
             lv_ListaClientes.Location = new Point(20, 130);
             lv_ListaClientes.Size = new Size(440, 350);
@@ -90,15 +87,15 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             Task t = new Task(new Action(() => { RefreshForm(); }));
             t.Start();
 
-            // Movie grouping box
+            // ListView grouping box
             gb_ListaClientes = new GroupBox();
             gb_ListaClientes.Location = new Point(10, 110);
             gb_ListaClientes.Size = new Size(460, 380);
             gb_ListaClientes.Text = "LISTA DE CLIENTES";
             gb_ListaClientes.ForeColor = ColorTranslator.FromHtml("#dfb841");
-            this.Controls.Add(gb_ListaClientes);          
+            this.Controls.Add(gb_ListaClientes);
 
-            // Descision Buttons
+            // Buttons
             btn_ListaConsulta = new Button();
             btn_ListaConsulta.Location = new Point(80, 510);
             btn_ListaConsulta.Size = new Size(150, 50);
@@ -118,6 +115,9 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             this.Controls.Add(btn_ListaSair);
         }
 
+        /// <summary>
+        /// RefreshForm to keypress
+        /// </summary>
         public void RefreshForm()
         {
             if (this.InvokeRequired)
@@ -126,6 +126,12 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             }
             Application.DoEvents();
         }
+
+        /// <summary>
+        /// Keypress event to find a customer
+        /// </summary>
+        /// <param name="o"></param>
+        /// <param name="e"></param>
         private void keypressed(Object o, KeyPressEventArgs e)
         {
             lv_ListaClientes.Items.Clear();
@@ -144,14 +150,32 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             Application.DoEvents();
         }
 
-        private void btn_ListaConsultaClick (object sender, EventArgs e) 
-        {
-            string IdCliente = this.lv_ListaClientes.SelectedItems[0].Text;
-            ClienteModels cliente = ClienteController.GetCliente(Int32.Parse(IdCliente));
-            ClienteDetalhe btn_ListaConsultaClick = new ClienteDetalhe(this, cliente);
-            btn_ListaConsultaClick.Show();
+        /// <summary>
+        /// Event button to consult a selected customer
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btn_ListaConsultaClick(object sender, EventArgs e)
+        {         
+            try
+            {
+                string IdCliente = this.lv_ListaClientes.SelectedItems[0].Text;
+                ClienteModels cliente = ClienteController.GetCliente(Int32.Parse(IdCliente));
+                ClienteDetalhe btn_ListaConsultaClick = new ClienteDetalhe(this, cliente);
+                btn_ListaConsultaClick.Show();
+            }
+            catch
+            {
+                MessageBox.Show("SELECIONE UM CLIENTE!");
+            }
         }
-        private void btn_ListaSairClick (object sender, EventArgs e)
+
+        /// <summary>
+        /// Event button to exit and back to main window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btn_ListaSairClick(object sender, EventArgs e)
         {
             MessageBox.Show("CONCLUÍDO!");
             this.Close();

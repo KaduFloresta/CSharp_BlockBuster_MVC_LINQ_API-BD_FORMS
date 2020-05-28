@@ -9,9 +9,9 @@ using System.Collections.Generic;
 using static System.Windows.Forms.View;
 using static Locadora_MVC_LINQ_API_BD_IF.Program;
 
-namespace Locadora_MVC_LINQ_API_BD_Interface 
+namespace Locadora_MVC_LINQ_API_BD_Interface
 {
-    public class ConsultaFilme : Form 
+    public class ConsultaFilme : Form
     {
         PictureBox pb_Consulta;
         Label lbl_ConsultaFilme;
@@ -22,42 +22,42 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
         Button btn_ListaSair;
         Form parent;
 
-        // GUIDE FOR LOCATION n SIZE (X Y) 
-        // Location (X = Horizontal - Y = Vertical)
-        // Size     (X = Largura    - Y = Altura) 
-
-        public ConsultaFilme (Form parent)
+        // Consult registered movies
+        public ConsultaFilme(Form parent)
         {
+            // Window parameters
             this.BackColor = ColorTranslator.FromHtml("#6d6a75");
             this.Font = new Font(this.Font, FontStyle.Bold);
             this.Size = new Size(500, 620);
             this.parent = parent;
 
-            // Image to Bloclbuster
+            // PictureBox
             pb_Consulta = new PictureBox();
-            pb_Consulta.Location = new Point (10, 10);    
-            pb_Consulta.Size = new Size(480 , 100);
-            pb_Consulta.ClientSize = new Size (460 , 60);
+            pb_Consulta.Location = new Point(10, 10);
+            pb_Consulta.Size = new Size(480, 100);
+            pb_Consulta.ClientSize = new Size(460, 60);
             pb_Consulta.BackColor = Color.Black;
-            pb_Consulta.Load ("./Views/assets/consulta.jpg");
+            pb_Consulta.Load("./Views/assets/consulta.jpg");
             pb_Consulta.SizeMode = PictureBoxSizeMode.StretchImage;
             this.Controls.Add(pb_Consulta);
 
-            lbl_ConsultaFilme = new Label ();
+            // Label
+            lbl_ConsultaFilme = new Label();
             lbl_ConsultaFilme.Text = "Buscar Filme :";
-            lbl_ConsultaFilme.Location = new Point (30, 80);
-            lbl_ConsultaFilme.AutoSize = true;            
-            this.Controls.Add (lbl_ConsultaFilme);
+            lbl_ConsultaFilme.Location = new Point(30, 80);
+            lbl_ConsultaFilme.AutoSize = true;
+            this.Controls.Add(lbl_ConsultaFilme);
 
-            rtxt_ConsultaFilme = new RichTextBox ();
-            rtxt_ConsultaFilme.SelectionFont  = new Font("Tahoma", 10, FontStyle.Bold);  
+            // RichTextBox (Edited text - Keypress mode to filter a movie in ListView)
+            rtxt_ConsultaFilme = new RichTextBox();
+            rtxt_ConsultaFilme.SelectionFont = new Font("Tahoma", 10, FontStyle.Bold);
             rtxt_ConsultaFilme.SelectionColor = System.Drawing.Color.Black;
-            rtxt_ConsultaFilme.Location = new Point (150, 80);
-            rtxt_ConsultaFilme.Size = new Size (300, 20);
-            this.Controls.Add (rtxt_ConsultaFilme);
+            rtxt_ConsultaFilme.Location = new Point(150, 80);
+            rtxt_ConsultaFilme.Size = new Size(300, 20);
+            this.Controls.Add(rtxt_ConsultaFilme);
             rtxt_ConsultaFilme.KeyPress += new KeyPressEventHandler(keypressed);
 
-            // ListView
+            // ListView - Movie
             lv_ListaFilmes = new ListView();
             lv_ListaFilmes.Location = new Point(20, 130);
             lv_ListaFilmes.Size = new Size(440, 350);
@@ -77,7 +77,7 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             lv_ListaFilmes.FullRowSelect = true;
             lv_ListaFilmes.GridLines = true;
             lv_ListaFilmes.AllowColumnReorder = true;
-            lv_ListaFilmes.Sorting = SortOrder.Ascending;
+            lv_ListaFilmes.Sorting = SortOrder.None;
             lv_ListaFilmes.Columns.Add("ID", -2, HorizontalAlignment.Center);
             lv_ListaFilmes.Columns.Add("Título", -2, HorizontalAlignment.Left);
             lv_ListaFilmes.Columns.Add("Data Lançamento", -2, HorizontalAlignment.Center);
@@ -89,33 +89,37 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             Task t = new Task(new Action(() => { RefreshForm(); }));
             t.Start();
 
-            // Customer grouping box
-            gb_ListaFilme = new GroupBox();    
-            gb_ListaFilme.Location = new Point(10, 110);        
-            gb_ListaFilme.Size = new Size(460, 380);            
-            gb_ListaFilme.Text= "LISTA DE FILMES";
+            // ListView grouping box
+            gb_ListaFilme = new GroupBox();
+            gb_ListaFilme.Location = new Point(10, 110);
+            gb_ListaFilme.Size = new Size(460, 380);
+            gb_ListaFilme.Text = "LISTA DE FILMES";
             gb_ListaFilme.ForeColor = ColorTranslator.FromHtml("#dfb841");
             this.Controls.Add(gb_ListaFilme);
 
-            btn_ListaConsulta = new Button ();
-            btn_ListaConsulta.Location = new Point (80, 510);
-            btn_ListaConsulta.Size = new Size (150, 50);            
+            // Buttons
+            btn_ListaConsulta = new Button();
+            btn_ListaConsulta.Location = new Point(80, 510);
+            btn_ListaConsulta.Size = new Size(150, 50);
             btn_ListaConsulta.Text = "CONSULTA";
             this.btn_ListaConsulta.BackColor = ColorTranslator.FromHtml("#dfb841");
-            this.btn_ListaConsulta.ForeColor = Color.Black; 
-            btn_ListaConsulta.Click += new EventHandler (this.btn_ListaConsultaClick);
-            this.Controls.Add (btn_ListaConsulta);
+            this.btn_ListaConsulta.ForeColor = Color.Black;
+            btn_ListaConsulta.Click += new EventHandler(this.btn_ListaConsultaClick);
+            this.Controls.Add(btn_ListaConsulta);
 
-            btn_ListaSair = new Button ();
-             btn_ListaSair.Location = new Point (260, 510);
-            btn_ListaSair.Size = new Size (150, 50);           
+            btn_ListaSair = new Button();
+            btn_ListaSair.Location = new Point(260, 510);
+            btn_ListaSair.Size = new Size(150, 50);
             btn_ListaSair.Text = "SAIR";
             this.btn_ListaSair.BackColor = ColorTranslator.FromHtml("#dfb841");
             this.btn_ListaSair.ForeColor = Color.Black;
-            btn_ListaSair.Click += new EventHandler (this.btn_ListaSairClick);
-            this.Controls.Add (btn_ListaSair);
+            btn_ListaSair.Click += new EventHandler(this.btn_ListaSairClick);
+            this.Controls.Add(btn_ListaSair);
         }
-
+        
+        /// <summary>
+        /// RefreshForm to keypress
+        /// </summary>
         public void RefreshForm()
         {
             if (this.InvokeRequired)
@@ -124,6 +128,12 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             }
             Application.DoEvents();
         }
+
+        /// <summary>
+        /// Keypress event to find a movie
+        /// </summary>
+        /// <param name="o"></param>
+        /// <param name="e"></param>
         private void keypressed(Object o, KeyPressEventArgs e)
         {
             lv_ListaFilmes.Items.Clear();
@@ -143,15 +153,32 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             Application.DoEvents();
         }
 
-       private void btn_ListaConsultaClick (object sender, EventArgs e) 
+        /// <summary>
+        /// Event button to consult a selected movie
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btn_ListaConsultaClick(object sender, EventArgs e)
         {
+            try
+            {
             string IdFilme = this.lv_ListaFilmes.SelectedItems[0].Text;
             FilmeModels filme = FilmeController.GetFilme(Int32.Parse(IdFilme));
             FilmeDetalhe btn_ListaConsultaClick = new FilmeDetalhe(this, filme);
             btn_ListaConsultaClick.Show();
+            }
+            catch
+            {
+                MessageBox.Show("SELECIONE UM FILME!");
+            }
         }
 
-        private void btn_ListaSairClick (object sender, EventArgs e) 
+        /// <summary>
+        /// Event button to exit and back to main window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btn_ListaSairClick(object sender, EventArgs e)
         {
             MessageBox.Show("CONCLUÍDO!");
             this.Close();

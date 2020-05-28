@@ -19,18 +19,16 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
         Button btn_ListaSair;
         Form parent;
 
-        // GUIDE FOR LOCATION n SIZE (X Y) 
-        // Location (X = Horizontal - Y = Vertical)
-        // Size     (X = Largura    - Y = Altura) 
-
+        // List movie window
         public ListaFilme (Form parent)
         {
+            // Window parameters
             this.BackColor = ColorTranslator.FromHtml("#6d6a75");
             this.Font = new Font(this.Font, FontStyle.Bold);
             this.Size = new Size(600, 640);
             this.parent = parent;
 
-            // Image to Bloclbuster
+            // PictureBox
             pb_Lista = new PictureBox();
             pb_Lista.Location = new Point (60, 10);    
             pb_Lista.Size = new Size(580 , 100);
@@ -40,7 +38,7 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             pb_Lista.SizeMode = PictureBoxSizeMode.StretchImage;
             this.Controls.Add(pb_Lista); 
 
-            // ListView
+            // ListView - Movie
             lv_ListaFilmes = new ListView();
             lv_ListaFilmes.Location = new Point(20, 100);
             lv_ListaFilmes.Size = new Size(540, 400);
@@ -59,7 +57,7 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             lv_ListaFilmes.FullRowSelect = true;
             lv_ListaFilmes.GridLines = true;
             lv_ListaFilmes.AllowColumnReorder = true;
-            lv_ListaFilmes.Sorting = SortOrder.Ascending;
+            lv_ListaFilmes.Sorting = SortOrder.None;
             lv_ListaFilmes.Columns.Add("ID", -2, HorizontalAlignment.Center);
             lv_ListaFilmes.Columns.Add("Título", -2, HorizontalAlignment.Left);
             lv_ListaFilmes.Columns.Add("Data Lançamento", -2, HorizontalAlignment.Center);
@@ -68,7 +66,7 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             lv_ListaFilmes.Columns.Add("Sinopse", -2, HorizontalAlignment.Left);
             this.Controls.Add(lv_ListaFilmes);
 
-            // Movie grouping box
+            // List grouping box
             gb_ListaFilmes = new GroupBox();
             gb_ListaFilmes.Location = new Point(10, 80);
             gb_ListaFilmes.Size = new Size(560, 430);
@@ -76,7 +74,7 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             gb_ListaFilmes.ForeColor = ColorTranslator.FromHtml("#dfb841");
             this.Controls.Add(gb_ListaFilmes); 
 
-            // Descision Buttons
+            // Buttons
             btn_ListaSair = new Button();
             btn_ListaSair.Location = new Point(200, 530);
             btn_ListaSair.Size = new Size(180, 50);            
@@ -87,6 +85,11 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             this.Controls.Add(btn_ListaSair);
         }
 
+        /// <summary>
+        /// Event button to exit and back to main window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_ListaSairClick (object sender, EventArgs e) 
         {
             MessageBox.Show ("CONCLUÍDO!");

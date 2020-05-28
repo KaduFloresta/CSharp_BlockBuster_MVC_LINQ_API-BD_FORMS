@@ -19,18 +19,16 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
         Button btn_ListaSair;
         Form parent;
 
-        // GUIDE FOR LOCATION n SIZE (X Y) 
-        // Location (X = Horizontal - Y = Vertical)
-        // Size     (X = Largura    - Y = Altura) 
-
+        // List customer window
         public ListaCliente (Form parent) 
         {
+            // Window parameters
             this.BackColor = ColorTranslator.FromHtml("#6d6a75");
             this.Font = new Font(this.Font, FontStyle.Bold);
             this.Size = new Size(500, 640);
             this.parent = parent;
 
-            // Image to Bloclbuster
+            // PictureBox
             pb_Lista = new PictureBox();
             pb_Lista.Location = new Point (10, 10);    
             pb_Lista.Size = new Size(480 , 100);
@@ -40,7 +38,7 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             pb_Lista.SizeMode = PictureBoxSizeMode.StretchImage;
             this.Controls.Add(pb_Lista); 
 
-            // ListView
+            // ListView - Customer
             lv_ListaClientes = new ListView();
             lv_ListaClientes.Location = new Point(20, 100);
             lv_ListaClientes.Size = new Size(440, 400);
@@ -59,7 +57,7 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             lv_ListaClientes.FullRowSelect = true;
             lv_ListaClientes.GridLines = true;
             lv_ListaClientes.AllowColumnReorder = true;
-            lv_ListaClientes.Sorting = SortOrder.Ascending;
+            lv_ListaClientes.Sorting = SortOrder.None;
             lv_ListaClientes.Columns.Add("ID", -2, HorizontalAlignment.Center);
             lv_ListaClientes.Columns.Add("Nome", -2, HorizontalAlignment.Left);
             lv_ListaClientes.Columns.Add("Data Nascimento", -2, HorizontalAlignment.Center);
@@ -67,7 +65,7 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             lv_ListaClientes.Columns.Add("Dias Devolução", -2, HorizontalAlignment.Center);
             this.Controls.Add(lv_ListaClientes);
 
-            // Movie grouping box
+            // List grouping box
             gb_ListaClientes = new GroupBox();
             gb_ListaClientes.Location = new Point(10, 80);
             gb_ListaClientes.Size = new Size(460, 430);
@@ -75,7 +73,7 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             gb_ListaClientes.ForeColor = ColorTranslator.FromHtml("#dfb841");
             this.Controls.Add(gb_ListaClientes); 
 
-            // Descision Buttons
+            // Buttons
             btn_ListaSair = new Button();
             btn_ListaSair.Location = new Point(160, 530);
             btn_ListaSair.Size = new Size(150, 50);            
@@ -86,6 +84,11 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             this.Controls.Add(btn_ListaSair);
         }
 
+        /// <summary>
+        /// Event button to exit and back to main window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btn_ListaSairClick (object sender, EventArgs e) 
         {
             MessageBox.Show ("CONCLUÍDO!");
