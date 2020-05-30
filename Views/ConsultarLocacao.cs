@@ -6,7 +6,6 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using static System.Windows.Forms.View;
 using static Locadora_MVC_LINQ_API_BD_IF.Program;
 
 namespace Locadora_MVC_LINQ_API_BD_Interface
@@ -15,6 +14,7 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
     {
         PictureBox pb_Consulta;
         Label lbl_NomeLocacao;
+        ToolTip tt_BuscaCliente;
         RichTextBox rtxt_BuscaCliente;
         ListView lv_ListaLocacoes;
         GroupBox gb_ConsultaLocacao;
@@ -49,6 +49,13 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             lbl_NomeLocacao.AutoSize = true;
             this.Controls.Add(lbl_NomeLocacao);
 
+            // Fill orientation tip
+            tt_BuscaCliente = new ToolTip();
+            tt_BuscaCliente.AutoPopDelay = 5000;
+            tt_BuscaCliente.InitialDelay = 1000;
+            tt_BuscaCliente.ReshowDelay = 500;
+            tt_BuscaCliente.ShowAlways = true;
+
             // RichTextBox (Edited text - Keypress mode to filter a rental by customer in ListView)
             rtxt_BuscaCliente = new RichTextBox();
             rtxt_BuscaCliente.SelectionFont = new Font("Tahoma", 10, FontStyle.Bold);
@@ -56,6 +63,7 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             rtxt_BuscaCliente.Location = new Point(150, 100);
             rtxt_BuscaCliente.Size = new Size(300, 20);
             this.Controls.Add(rtxt_BuscaCliente);
+            tt_BuscaCliente.SetToolTip(rtxt_BuscaCliente, "Digite o nome ou selecione abaixo");
             rtxt_BuscaCliente.KeyPress += new KeyPressEventHandler(keypressed);
 
             // ListView - Rentals
@@ -172,10 +180,10 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
         {
             try
             {
-            string IdLocacao = this.lv_ListaLocacoes.SelectedItems[0].Text;
-            LocacaoModels locacao = LocacaoController.GetLocacao(Int32.Parse(IdLocacao));
-            LocacaoDetalhe btn_ListaConsultaClick = new LocacaoDetalhe(this, locacao);
-            btn_ListaConsultaClick.Show();
+                string IdLocacao = this.lv_ListaLocacoes.SelectedItems[0].Text;
+                LocacaoModels locacao = LocacaoController.GetLocacao(Int32.Parse(IdLocacao));
+                LocacaoDetalhe btn_ListaConsultaClick = new LocacaoDetalhe(this, locacao);
+                btn_ListaConsultaClick.Show();
             }
             catch
             {
@@ -190,7 +198,7 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
         /// <param name="e"></param>
         private void btn_ListaSairClick(object sender, EventArgs e)
         {
-            MessageBox.Show("CONCLUÍDO!");
+            // MessageBox.Show("CONCLUÍDO!");
             this.Close();
             this.parent.Show();
         }

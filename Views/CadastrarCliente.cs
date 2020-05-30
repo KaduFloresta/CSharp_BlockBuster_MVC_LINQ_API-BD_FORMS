@@ -1,24 +1,21 @@
 using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using Controllers;
+using System.Drawing;
+using System.Windows.Forms;
 using static Locadora_MVC_LINQ_API_BD_IF.Program;
+
 
 namespace Locadora_MVC_LINQ_API_BD_Interface
 {
     public class CadastroCliente : Form
     {
         PictureBox pb_Cadastro;
-        // Orientation Labels
+        ToolTip tt_Help;
         Label lbl_Nome;
         Label lbl_DataNasc;
         Label lbl_CPF;
         Label lbl_DiasDevol;
         RichTextBox rtxt_NomeCliente;
-        // Data entry numeric system selection up/down
         NumericUpDown num_DataNascDia;
         NumericUpDown num_DataNascMes;
         NumericUpDown num_DataNascAno;
@@ -45,6 +42,13 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             pb_Cadastro.Load("./Views/assets/cadastra.jpg");
             pb_Cadastro.SizeMode = PictureBoxSizeMode.StretchImage;
             this.Controls.Add(pb_Cadastro);
+
+            // Fill orientation tip
+            tt_Help = new ToolTip();
+            tt_Help.AutoPopDelay = 5000;
+            tt_Help.InitialDelay = 1000;
+            tt_Help.ReshowDelay = 500;
+            tt_Help.ShowAlways = true;
 
             // Label
             lbl_Nome = new Label();
@@ -76,20 +80,21 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             rtxt_NomeCliente.SelectionColor = System.Drawing.Color.Black;
             rtxt_NomeCliente.Location = new Point(150, 100);
             rtxt_NomeCliente.Size = new Size(300, 20);
+            tt_Help.SetToolTip(rtxt_NomeCliente, "Digite o nome completo");
             this.Controls.Add(rtxt_NomeCliente);
 
             // NumericUpDown
             num_DataNascDia = new NumericUpDown();
             num_DataNascDia.Location = new Point(150, 140);
             num_DataNascDia.Size = new Size(50, 20);
-            num_DataNascDia.Minimum = 01;
+            num_DataNascDia.Minimum = 0;
             num_DataNascDia.Maximum = 31;
             this.Controls.Add(num_DataNascDia);
 
             num_DataNascMes = new NumericUpDown();
             num_DataNascMes.Location = new Point(210, 140);
             num_DataNascMes.Size = new Size(50, 20);
-            num_DataNascMes.Minimum = 01;
+            num_DataNascMes.Minimum = 0;
             num_DataNascMes.Maximum = 12;
             this.Controls.Add(num_DataNascMes);
 
@@ -106,6 +111,7 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             mtxt_CpfCLiente.Size = new Size(170, 20);
             mtxt_CpfCLiente.Mask = "000,000,000-00";
             this.Controls.Add(mtxt_CpfCLiente);
+            //mtxt_CpfCLiente.SelectionStart = mtxt_CpfCLiente.Text.Length + 1;
 
             // ComboBox
             cb_DiasDevol = new ComboBox();
@@ -148,7 +154,11 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
         {
             try
             {
-                if (rtxt_NomeCliente.Text != string.Empty)
+                if ((rtxt_NomeCliente.Text != string.Empty)
+                && (num_DataNascDia.Value != 0)
+                && (num_DataNascMes.Value != 0)
+                && (mtxt_CpfCLiente.Text != string.Empty)
+                && (cb_DiasDevol.Text != string.Empty))
                 {
                     ClienteController.CadastrarCliente(
                     rtxt_NomeCliente.Text,
@@ -156,7 +166,6 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
                     (int)num_DataNascMes.Value,
                     (int)num_DataNascAno.Value,
                     mtxt_CpfCLiente.Text,
-
                     cb_DiasDevol.Text == "2 Dias"
                         ? 2
                         : cb_DiasDevol.Text == "3 Dias"
@@ -167,19 +176,18 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
                                     ? 5
                                     : 10
                     );
-
                     MessageBox.Show("CADASTRADO!");
                     this.Close();
                     this.parent.Show();
                 }
                 else
                 {
-                    MessageBox.Show("PREENCHA OS CAMPOS!");
+                    MessageBox.Show("PREENCHA TODOS OS CAMPOS!");
                 }
             }
             catch (Exception er)
             {
-                MessageBox.Show(er.Message, "PREENCHA OS CAMPOS!");
+                MessageBox.Show(er.Message, "PREENCHA TODOS OS CAMPOS!");
             }
         }
 
@@ -190,7 +198,7 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
         /// <param name="e"></param>
         private void btn_CancelarClick(object sender, EventArgs e)
         {
-            MessageBox.Show("CANCELADO!");
+            // MessageBox.Show("CANCELADO!");
             this.Close();
             this.parent.Show();
         }

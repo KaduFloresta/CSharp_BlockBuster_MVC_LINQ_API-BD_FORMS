@@ -12,19 +12,15 @@ namespace Models
         */
         [Key] // Data Annotations - Main key
         public int IdCliente { get; set; }
-        
+
         [Required] // Mandatory data entry
         public string NomeCliente { get; set; }
-        
         [Required]
         public string DataNascimento { get; set; }
-        
         [Required]
         public string CpfCliente { get; set; }
-        
         [Required]
         public int DiasDevolucao { get; set; }
-        
         public List<LocacaoModels> locacoes = new List<LocacaoModels>();
 
         /// <summary>
@@ -35,13 +31,14 @@ namespace Models
             NomeCliente = nomeCliente;
             DataNascimento = dataNascimento;
             CpfCliente = cpfCliente;
-            DiasDevolucao = diasDevolucao; 
-            locacoes = new List<LocacaoModels>();           
+            DiasDevolucao = diasDevolucao;
+            locacoes = new List<LocacaoModels>();
 
             var db = new Context();
             db.Clientes.Add(this);
             db.SaveChanges();
         }
+
         /// <summary>
         /// 2nd Constructor - ClienteModels Object
         /// Using on Entity Framework DONT REMOVE!!!
@@ -68,7 +65,7 @@ namespace Models
         public void AdicionarLocacao(LocacaoModels locacao)
         {
             locacoes.Add(locacao);
-        }     
+        }
 
         /// <summary>
         /// Return customer list from DB

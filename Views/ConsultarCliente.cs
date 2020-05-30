@@ -15,6 +15,7 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
     {
         PictureBox pb_Consulta;
         Label lbl_ConsultaCliente;
+        ToolTip tt_BuscaCliente;
         RichTextBox rtxt_ConsultaCliente;
         ListView lv_ListaClientes;
         GroupBox gb_ListaClientes;
@@ -48,6 +49,13 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             lbl_ConsultaCliente.AutoSize = true;
             this.Controls.Add(lbl_ConsultaCliente);
 
+            // Fill orientation tip
+            tt_BuscaCliente = new ToolTip();
+            tt_BuscaCliente.AutoPopDelay = 5000;
+            tt_BuscaCliente.InitialDelay = 1000;
+            tt_BuscaCliente.ReshowDelay = 500;
+            tt_BuscaCliente.ShowAlways = true;
+
             // RichTextBox (Edited text - Keypress mode to filter a customer in ListView)
             rtxt_ConsultaCliente = new RichTextBox();
             rtxt_ConsultaCliente.SelectionFont = new Font("Tahoma", 10, FontStyle.Bold);
@@ -55,6 +63,7 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             rtxt_ConsultaCliente.Location = new Point(150, 80);
             rtxt_ConsultaCliente.Size = new Size(300, 20);
             this.Controls.Add(rtxt_ConsultaCliente);
+            tt_BuscaCliente.SetToolTip(rtxt_ConsultaCliente, "Digite o nome ou selecione abaixo");
             rtxt_ConsultaCliente.KeyPress += new KeyPressEventHandler(keypressed);
 
             // ListView - Customer
@@ -156,7 +165,7 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void btn_ListaConsultaClick(object sender, EventArgs e)
-        {         
+        {
             try
             {
                 string IdCliente = this.lv_ListaClientes.SelectedItems[0].Text;
@@ -177,7 +186,7 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
         /// <param name="e"></param>
         private void btn_ListaSairClick(object sender, EventArgs e)
         {
-            MessageBox.Show("CONCLUÍDO!");
+            // MessageBox.Show("CONCLUÍDO!");
             this.Close();
             this.parent.Show();
         }

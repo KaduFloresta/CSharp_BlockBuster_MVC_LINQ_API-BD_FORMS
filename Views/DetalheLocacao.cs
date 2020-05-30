@@ -1,11 +1,8 @@
 using System;
 using Models;
 using Controllers;
-using System.Linq;
 using System.Drawing;
 using System.Windows.Forms;
-using System.Threading.Tasks;
-using System.Collections.Generic;
 using static Locadora_MVC_LINQ_API_BD_IF.Program;
 
 namespace Locadora_MVC_LINQ_API_BD_Interface
@@ -178,7 +175,7 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
         /// <param name="e"></param>
         private void btn_SairDetalheClick(object sender, EventArgs e)
         {
-            MessageBox.Show ("CONCLUÍDO!");
+            // MessageBox.Show ("CONCLUÍDO!");
             this.Close();
             this.parent.Show();
         }

@@ -15,6 +15,7 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
     {
         PictureBox pb_Consulta;
         Label lbl_ConsultaFilme;
+        ToolTip tt_ConsultaFilme;
         RichTextBox rtxt_ConsultaFilme;
         ListView lv_ListaFilmes;
         GroupBox gb_ListaFilme;
@@ -48,6 +49,13 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             lbl_ConsultaFilme.AutoSize = true;
             this.Controls.Add(lbl_ConsultaFilme);
 
+            // Fill orientation tip
+            tt_ConsultaFilme = new ToolTip();
+            tt_ConsultaFilme.AutoPopDelay = 5000;
+            tt_ConsultaFilme.InitialDelay = 1000;
+            tt_ConsultaFilme.ReshowDelay = 500;
+            tt_ConsultaFilme.ShowAlways = true;
+
             // RichTextBox (Edited text - Keypress mode to filter a movie in ListView)
             rtxt_ConsultaFilme = new RichTextBox();
             rtxt_ConsultaFilme.SelectionFont = new Font("Tahoma", 10, FontStyle.Bold);
@@ -55,6 +63,7 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             rtxt_ConsultaFilme.Location = new Point(150, 80);
             rtxt_ConsultaFilme.Size = new Size(300, 20);
             this.Controls.Add(rtxt_ConsultaFilme);
+            tt_ConsultaFilme.SetToolTip(rtxt_ConsultaFilme, "Digite o título ou selecione abaixo");
             rtxt_ConsultaFilme.KeyPress += new KeyPressEventHandler(keypressed);
 
             // ListView - Movie
@@ -116,7 +125,7 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             btn_ListaSair.Click += new EventHandler(this.btn_ListaSairClick);
             this.Controls.Add(btn_ListaSair);
         }
-        
+
         /// <summary>
         /// RefreshForm to keypress
         /// </summary>
@@ -162,10 +171,10 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
         {
             try
             {
-            string IdFilme = this.lv_ListaFilmes.SelectedItems[0].Text;
-            FilmeModels filme = FilmeController.GetFilme(Int32.Parse(IdFilme));
-            FilmeDetalhe btn_ListaConsultaClick = new FilmeDetalhe(this, filme);
-            btn_ListaConsultaClick.Show();
+                string IdFilme = this.lv_ListaFilmes.SelectedItems[0].Text;
+                FilmeModels filme = FilmeController.GetFilme(Int32.Parse(IdFilme));
+                FilmeDetalhe btn_ListaConsultaClick = new FilmeDetalhe(this, filme);
+                btn_ListaConsultaClick.Show();
             }
             catch
             {
@@ -180,7 +189,7 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
         /// <param name="e"></param>
         private void btn_ListaSairClick(object sender, EventArgs e)
         {
-            MessageBox.Show("CONCLUÍDO!");
+            // MessageBox.Show("CONCLUÍDO!");
             this.Close();
             this.parent.Show();
         }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Tempo de geração: 28-Maio-2020 às 11:00
+-- Tempo de geração: 30-Maio-2020 às 07:52
 -- Versão do servidor: 10.4.8-MariaDB
 -- versão do PHP: 7.3.11
 
@@ -62,7 +62,20 @@ INSERT INTO `clientes` (`IdCliente`, `NomeCliente`, `DataNascimento`, `CpfClient
 (19, 'Paulo Eduardo Medina', '28/9/1972', '951.753.159-25', 10),
 (20, 'José Maria Lima de Jesus', '1/2/1975', '159.847.263-52', 3),
 (21, 'Arlete Campos Velasquez', '5/4/1993', '789.789.789-78', 2),
-(22, 'Carlos Eduardo Floresta', '10/1/1978', '010.203.040-50', 10);
+(22, 'Carlos Eduardo Floresta', '10/1/1978', '010.203.040-50', 10),
+(23, 'Luana Laurentino', '14/2/1976', '784.864.321-32', 4),
+(24, 'Karina Medina Lins', '15/01/1988', '313.131.313-12', 10),
+(25, 'Paula Jasmine Gomes', '30/6/1968', '789.987.789-63', 10),
+(26, 'Leonardo Furlang Noronha', '31/12/1999', '111.111.111-11', 5),
+(27, 'Mauro Beltrão Osni', '19/2/1998', '555.444.333-22', 3),
+(28, 'Osvaldo Helio Mendonça', '5/12/2003', '333.333.333-33', 3),
+(29, 'Danilo da Cruz Limeira', '23/8/2005', '656.565.656-56', 4),
+(30, 'Tulio Guilherme Balboa', '7/7/2001', '787.546.131-68', 3),
+(31, 'Ana Lucia Nogueira', '15/5/1965', '999.999.999-99', 2),
+(32, 'Samantha Lopes Moura', '15/12/1996', '252.525.252-52', 3),
+(33, 'Marcelo Antunes de Oliveira', '15/9/1975', '888.888.888-88', 4),
+(34, 'Elaine Geralda Correa', '2/2/1964', '888.555.222-36', 3),
+(35, 'Getulio Vargas Aparecido', '14/11/1957', '897.897.897-89', 4);
 
 -- --------------------------------------------------------
 
@@ -101,7 +114,9 @@ INSERT INTO `filmes` (`IdFilme`, `Titulo`, `DataLancamento`, `Sinopse`, `ValorLo
 (14, 'Kick Ass - Quebrando Tudo', '18/6/2010', 'Usando sua paixão por histórias em quadrinhos, o adolescente Dave Lizewski decide se reinventar como super-herói, apesar da total falta de poderes especiais. O adolescente arruma uma fantasia, batiza-se de \"Kick-Ass\" e começa a combater o crime com a ajuda de amigos justiceiros.', 4.99, 3, 0),
 (15, 'Greta', '11/11/2009', 'Uma adolescente rebelde e suicida é enviada para a casa de seus avós no verão, onde sua vida toma um rumo inesperado.', 2.99, 2, 0),
 (16, 'V de Vingança', '7/4/2006', 'Após uma guerra mundial, a Inglaterra é ocupada por um governo fascista e vive sob um regime totalitário. Na luta pela liberdade, um vigilante, conhecido apenas por V, utiliza-se de táticas terroristas para enfrentar os opressores da sociedade.', 3.99, 3, 0),
-(17, 'Debi & Loide - Dois Idiotas em Apuros', '27/2/1995', 'Dois amigos debilóides vão para Aspen, no estado do Colorado para tentar devolver uma maleta esquecida pela passageira da limusine que um deles estava dirigindo para o aeroporto.', 2.99, 2, 0);
+(17, 'Debi & Loide - Dois Idiotas em Apuros', '27/2/1995', 'Dois amigos debilóides vão para Aspen, no estado do Colorado para tentar devolver uma maleta esquecida pela passageira da limusine que um deles estava dirigindo para o aeroporto.', 2.99, 2, 0),
+(18, 'Amor Além da Vida', '2/10/1998', 'Chris e Annie Nielsen são muito felizes, até seus dois filhos morrerem em um acidente. Com muito custo, eles superam o desespero, porém, quando Chris também morre em um acidente quatro anos mais tarde, Annie não aguenta e se suicida. Ele acorda no Paraíso e é avisado de que o espírito dela está aprisionado e só poderá ser libertado se ele fizer uma perigosa jornada para encontrá-la.', 2.99, 2, 0),
+(19, 'X-Men: Apocalipse', '19/5/2016', 'O primeiro mutante destruidor do mundo, Apocalipse, está de volta disposto a acabar com a humanidade. Professor Xavier conta com Mística, Fera e Mercúrio, além de novos alunos, para impedir o vilão.', 4.99, 3, 0);
 
 -- --------------------------------------------------------
 
@@ -174,7 +189,25 @@ INSERT INTO `locacaofilme` (`Id`, `IdLocacao`, `LocacaoIdLocacao`, `IdFilme`, `F
 (50, 14, NULL, 1, NULL),
 (51, 14, NULL, 2, NULL),
 (52, 14, NULL, 5, NULL),
-(53, 14, NULL, 16, NULL);
+(53, 14, NULL, 16, NULL),
+(54, 15, NULL, 2, NULL),
+(55, 15, NULL, 4, NULL),
+(56, 15, NULL, 14, NULL),
+(57, 17, NULL, 1, NULL),
+(58, 17, NULL, 2, NULL),
+(59, 18, NULL, 2, NULL),
+(60, 18, NULL, 4, NULL),
+(61, 19, NULL, 3, NULL),
+(62, 19, NULL, 12, NULL),
+(63, 20, NULL, 18, NULL),
+(64, 21, NULL, 18, NULL),
+(65, 22, NULL, 1, NULL),
+(66, 22, NULL, 16, NULL),
+(67, 22, NULL, 18, NULL),
+(68, 23, NULL, 2, NULL),
+(69, 23, NULL, 7, NULL),
+(70, 23, NULL, 18, NULL),
+(71, 23, NULL, 19, NULL);
 
 -- --------------------------------------------------------
 
@@ -207,7 +240,16 @@ INSERT INTO `locacoes` (`IdLocacao`, `ClienteIdCliente`, `DataLocacao`, `IdClien
 (11, NULL, '2020-05-28 03:50:22.125440', 4),
 (12, NULL, '2020-05-28 03:58:08.924494', 1),
 (13, NULL, '2020-05-28 04:19:03.294311', 2),
-(14, NULL, '2020-05-28 04:25:38.599093', 22);
+(14, NULL, '2020-05-28 04:25:38.599093', 22),
+(15, NULL, '2020-05-28 15:06:43.770282', 17),
+(16, NULL, '2020-05-29 19:36:08.332557', 3),
+(17, NULL, '2020-05-29 19:41:06.309175', 2),
+(18, NULL, '2020-05-29 20:15:34.161200', 29),
+(19, NULL, '2020-05-29 20:15:55.316000', 29),
+(20, NULL, '2020-05-29 22:55:09.105992', 32),
+(21, NULL, '2020-05-29 22:56:30.313006', 31),
+(22, NULL, '2020-05-30 01:10:41.869522', 34),
+(23, NULL, '2020-05-30 02:51:35.730129', 35);
 
 -- --------------------------------------------------------
 
@@ -274,25 +316,25 @@ ALTER TABLE `__efmigrationshistory`
 -- AUTO_INCREMENT de tabela `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `IdCliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `IdCliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT de tabela `filmes`
 --
 ALTER TABLE `filmes`
-  MODIFY `IdFilme` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `IdFilme` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT de tabela `locacaofilme`
 --
 ALTER TABLE `locacaofilme`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
 
 --
 -- AUTO_INCREMENT de tabela `locacoes`
 --
 ALTER TABLE `locacoes`
-  MODIFY `IdLocacao` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `IdLocacao` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- Restrições para despejos de tabelas
