@@ -14,6 +14,8 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
         Label lbl_Sinopse;
         Label lbl_ValorLocacao;
         Label lbl_QtdeEstoque;
+        ToolTip tt_Titulo;
+        ToolTip tt_Sinopse;
         RichTextBox rtxt_Titulo;
         NumericUpDown num_DtLancDia;
         NumericUpDown num_DtLancMes;
@@ -73,26 +75,34 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             lbl_QtdeEstoque.Location = new Point(20, 290);
             this.Controls.Add(lbl_QtdeEstoque);
 
+            // Fill orientation tip
+            tt_Titulo = new ToolTip();
+            tt_Titulo.AutoPopDelay = 5000;
+            tt_Titulo.InitialDelay = 1000;
+            tt_Titulo.ReshowDelay = 500;
+            tt_Titulo.ShowAlways = true;
+
             // RichTextBox (Edited text)
             rtxt_Titulo = new RichTextBox();
             rtxt_Titulo.SelectionFont = new Font("Tahoma", 10, FontStyle.Bold);
             rtxt_Titulo.SelectionColor = System.Drawing.Color.Black;
             rtxt_Titulo.Location = new Point(150, 100);
             rtxt_Titulo.Size = new Size(300, 20);
+            tt_Titulo.SetToolTip(rtxt_Titulo, "Digite o título do filme");
             this.Controls.Add(rtxt_Titulo);
 
             // NumericUpDown
             num_DtLancDia = new NumericUpDown();
             num_DtLancDia.Location = new Point(150, 140);
             num_DtLancDia.Size = new Size(50, 20);
-            num_DtLancDia.Minimum = 01;
+            num_DtLancDia.Minimum = 0;
             num_DtLancDia.Maximum = 31;
             this.Controls.Add(num_DtLancDia);
 
             num_DtLancMes = new NumericUpDown();
             num_DtLancMes.Location = new Point(210, 140);
             num_DtLancMes.Size = new Size(50, 20);
-            num_DtLancMes.Minimum = 01;
+            num_DtLancMes.Minimum = 0;
             num_DtLancMes.Maximum = 12;
             this.Controls.Add(num_DtLancMes);
 
@@ -103,12 +113,20 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             num_DtLancAno.Maximum = 2020;
             this.Controls.Add(num_DtLancAno);
 
+            // Fill orientation tip
+            tt_Sinopse = new ToolTip();
+            tt_Sinopse.AutoPopDelay = 5000;
+            tt_Sinopse.InitialDelay = 1000;
+            tt_Sinopse.ReshowDelay = 500;
+            tt_Sinopse.ShowAlways = true;
+
             // RichTextBox (Edited text)
             rtxt_Sinopse = new RichTextBox();
             rtxt_Sinopse.SelectionFont = new Font("Tahoma", 10, FontStyle.Italic);
             rtxt_Sinopse.SelectionColor = System.Drawing.Color.Black;
             rtxt_Sinopse.Location = new Point(150, 180);
             rtxt_Sinopse.Size = new Size(300, 50);
+            tt_Sinopse.SetToolTip(rtxt_Sinopse, "Digite a sinopse completa");
             this.Controls.Add(rtxt_Sinopse);
 
             // ComboBox
@@ -161,7 +179,12 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
         {
             try
             {
-                if (rtxt_Titulo.Text != string.Empty)
+                if ((rtxt_Titulo.Text != string.Empty)
+                && (num_DtLancDia.Value != 0)
+                && (num_DtLancMes.Value != 0)
+                && (rtxt_Sinopse.Text != string.Empty)
+                && (cb_ValorLocacao.Text != string.Empty)
+                && (num_QtdeEstoque.Value != 0))
                 {
                     FilmeController.CadastrarFilme(
                         rtxt_Titulo.Text,
@@ -188,12 +211,12 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
                 }
                 else
                 {
-                    MessageBox.Show("PREENCHA OS CAMPOS!");
+                    MessageBox.Show("PREENCHA TODOS OS CAMPOS!");
                 }
             }
             catch (Exception er)
             {
-                MessageBox.Show(er.Message, "PREENCHA OS CAMPOS!");
+                MessageBox.Show(er.Message, "PREENCHA TODOS OS CAMPOS!");
             }
         }
 
@@ -204,7 +227,7 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
         /// <param name="e"></param>
         private void btn_CancelarClick(object sender, EventArgs e)
         {
-            MessageBox.Show("CANCELADO!");
+            // MessageBox.Show("CANCELADO!");
             this.Close();
             this.parent.Show();
         }

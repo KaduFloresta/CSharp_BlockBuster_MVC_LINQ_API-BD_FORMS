@@ -16,6 +16,8 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
         PictureBox pb_Cadastro;
         Label lbl_BuscaCliente;
         Label lbl_BuscaFilme;
+        ToolTip tt_BuscaCliente;
+        ToolTip tt_BuscaFilme;
         RichTextBox rtxt_BuscaCliente;
         RichTextBox rtxt_BuscaFilme;
         ListView lv_ListaClientes;
@@ -57,6 +59,13 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             lbl_BuscaFilme.AutoSize = true;
             this.Controls.Add(lbl_BuscaFilme);
 
+            // Fill orientation tip
+            tt_BuscaCliente = new ToolTip();
+            tt_BuscaCliente.AutoPopDelay = 5000;
+            tt_BuscaCliente.InitialDelay = 1000;
+            tt_BuscaCliente.ReshowDelay = 500;
+            tt_BuscaCliente.ShowAlways = true;
+
             // RichTextBox (Edited text - Keypress mode to filter a customer in ListView)
             rtxt_BuscaCliente = new RichTextBox();
             rtxt_BuscaCliente.SelectionFont = new Font("Tahoma", 10, FontStyle.Bold);
@@ -64,7 +73,15 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             rtxt_BuscaCliente.Location = new Point(150, 80);
             rtxt_BuscaCliente.Size = new Size(300, 20);
             this.Controls.Add(rtxt_BuscaCliente);
+            tt_BuscaCliente.SetToolTip(rtxt_BuscaCliente, "Digite o nome ou selecione abaixo");
             rtxt_BuscaCliente.KeyPress += new KeyPressEventHandler(keypressed1);
+
+            // Fill orientation tip
+            tt_BuscaFilme = new ToolTip();
+            tt_BuscaFilme.AutoPopDelay = 5000;
+            tt_BuscaFilme.InitialDelay = 1000;
+            tt_BuscaFilme.ReshowDelay = 500;
+            tt_BuscaFilme.ShowAlways = true;
 
             // RichTextBox (Edited text - Keypress mode to filter a movie in ListView)
             rtxt_BuscaFilme = new RichTextBox();
@@ -73,6 +90,7 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             rtxt_BuscaFilme.Location = new Point(150, 270);
             rtxt_BuscaFilme.Size = new Size(300, 20);
             this.Controls.Add(rtxt_BuscaFilme);
+            tt_BuscaFilme.SetToolTip(rtxt_BuscaFilme, "Digite o título ou selecione abaixo");
             rtxt_BuscaFilme.KeyPress += new KeyPressEventHandler(keypressed2);
 
             // ListView - Customer
@@ -241,12 +259,12 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
         {
             try
             {
-                if (lv_ListaClientes.SelectedItems != null)
+                if ((lv_ListaClientes.SelectedItems.Count > 0) && (lv_ListaFilmes.CheckedItems.Count > 0))
                 {
                     string IdCliente = this.lv_ListaClientes.SelectedItems[0].Text;
                     ClienteModels cliente = ClienteController.GetCliente(Int32.Parse(IdCliente));
                     LocacaoModels locacao = LocacaoController.Add(cliente);
-                    
+
                     foreach (ListViewItem Filme in this.lv_ListaFilmes.CheckedItems)
                     {
                         FilmeModels filme = FilmeController.GetFilme(Int32.Parse(Filme.Text));
@@ -258,12 +276,12 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
                 }
                 else
                 {
-                    MessageBox.Show("SELECIONE O CLIENTE E FILMES!");
+                    MessageBox.Show("SELECIONE O CLIENTE E PELO MENOS UM FILME!");
                 }
             }
             catch (Exception er)
             {
-                MessageBox.Show(er.Message, "PREENCHA OS CAMPOS!");
+                MessageBox.Show(er.Message, "SELECIONE O CLIENTE E PELO MENOS UM FILME!");
             }
         }
 
@@ -274,7 +292,7 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
         /// <param name="e"></param>
         private void btn_CancelarClick(object sender, EventArgs e)
         {
-            MessageBox.Show("CANCELADO!");
+            // MessageBox.Show("CANCELADO!");
             this.Close();
             this.parent.Show();
         }

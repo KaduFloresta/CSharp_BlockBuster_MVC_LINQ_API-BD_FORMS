@@ -1,17 +1,14 @@
 using System;
 using Models;
 using Controllers;
-using System.Linq;
 using System.Drawing;
 using System.Windows.Forms;
-using System.Threading.Tasks;
 using System.Collections.Generic;
-using static System.Windows.Forms.View;
 using static Locadora_MVC_LINQ_API_BD_IF.Program;
 
-namespace Locadora_MVC_LINQ_API_BD_Interface 
+namespace Locadora_MVC_LINQ_API_BD_Interface
 {
-    public class ListaLocacao : Form 
+    public class ListaLocacao : Form
     {
         PictureBox pb_Lista;
         ListView lv_ListaLocacoes;
@@ -20,7 +17,7 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
         Form parent;
 
         // List rental window
-        public ListaLocacao (Form parent) 
+        public ListaLocacao(Form parent)
         {
             // Window parameters
             this.BackColor = ColorTranslator.FromHtml("#6d6a75");
@@ -30,13 +27,13 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
 
             // PictureBox
             pb_Lista = new PictureBox();
-            pb_Lista.Location = new Point (10, 10);    
-            pb_Lista.Size = new Size(180 , 100);
-            pb_Lista.ClientSize = new Size (560 , 60);
+            pb_Lista.Location = new Point(10, 10);
+            pb_Lista.Size = new Size(180, 100);
+            pb_Lista.ClientSize = new Size(560, 60);
             pb_Lista.BackColor = Color.Black;
-            pb_Lista.Load ("./Views/assets/lista.jpg");
+            pb_Lista.Load("./Views/assets/lista.jpg");
             pb_Lista.SizeMode = PictureBoxSizeMode.StretchImage;
-            this.Controls.Add(pb_Lista); 
+            this.Controls.Add(pb_Lista);
 
             // ListView - Rentals
             lv_ListaLocacoes = new ListView();
@@ -47,7 +44,7 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             List<LocacaoModels> locacoesLista = LocacaoController.GetLocacoes();
             foreach (var locacao in locacoesLista)
             {
-                ListViewItem lv_ListaLocacao = new ListViewItem(locacao.IdLocacao.ToString());                
+                ListViewItem lv_ListaLocacao = new ListViewItem(locacao.IdLocacao.ToString());
                 ClienteModels cliente = ClienteController.GetCliente(locacao.IdCliente);
                 lv_ListaLocacao.SubItems.Add(cliente.NomeCliente.ToString());
                 lv_ListaLocacao.SubItems.Add(cliente.CpfCliente.ToString());
@@ -74,19 +71,19 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             gb_ListaLocacoes = new GroupBox();
             gb_ListaLocacoes.Location = new Point(10, 80);
             gb_ListaLocacoes.Size = new Size(560, 430);
-            gb_ListaLocacoes.Text= "LISTA DE LOCAÇÕES";
+            gb_ListaLocacoes.Text = "LISTA DE LOCAÇÕES";
             gb_ListaLocacoes.ForeColor = ColorTranslator.FromHtml("#dfb841");
-            this.Controls.Add(gb_ListaLocacoes); 
+            this.Controls.Add(gb_ListaLocacoes);
 
             // Buttons
-            btn_ListaSair = new Button ();
+            btn_ListaSair = new Button();
             btn_ListaSair.Text = "SAIR";
-            btn_ListaSair.Location = new Point (200, 530);
-            btn_ListaSair.Size = new Size (150, 40);  
+            btn_ListaSair.Location = new Point(200, 530);
+            btn_ListaSair.Size = new Size(150, 40);
             this.btn_ListaSair.BackColor = ColorTranslator.FromHtml("#dfb841");
-            this.btn_ListaSair.ForeColor = Color.Black;          
-            btn_ListaSair.Click += new EventHandler (this.btn_ListaSairClick);
-            this.Controls.Add (btn_ListaSair);
+            this.btn_ListaSair.ForeColor = Color.Black;
+            btn_ListaSair.Click += new EventHandler(this.btn_ListaSairClick);
+            this.Controls.Add(btn_ListaSair);
         }
 
         /// <summary>
@@ -94,11 +91,11 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btn_ListaSairClick (object sender, EventArgs e) 
+        private void btn_ListaSairClick(object sender, EventArgs e)
         {
-            MessageBox.Show ("CONCLUÍDO!");
-            this.Close ();
-            this.parent.Show ();
+            // MessageBox.Show ("CONCLUÍDO!");
+            this.Close();
+            this.parent.Show();
         }
     }
 }

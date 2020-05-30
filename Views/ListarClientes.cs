@@ -1,17 +1,15 @@
 using System;
 using Models;
 using Controllers;
-using System.Linq;
 using System.Drawing;
 using System.Windows.Forms;
-using System.Threading.Tasks;
 using System.Collections.Generic;
 using static System.Windows.Forms.View;
 using static Locadora_MVC_LINQ_API_BD_IF.Program;
 
-namespace Locadora_MVC_LINQ_API_BD_Interface 
+namespace Locadora_MVC_LINQ_API_BD_Interface
 {
-    public class ListaCliente : Form 
+    public class ListaCliente : Form
     {
         PictureBox pb_Lista;
         ListView lv_ListaClientes;
@@ -20,7 +18,7 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
         Form parent;
 
         // List customer window
-        public ListaCliente (Form parent) 
+        public ListaCliente(Form parent)
         {
             // Window parameters
             this.BackColor = ColorTranslator.FromHtml("#6d6a75");
@@ -30,13 +28,13 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
 
             // PictureBox
             pb_Lista = new PictureBox();
-            pb_Lista.Location = new Point (10, 10);    
-            pb_Lista.Size = new Size(480 , 100);
-            pb_Lista.ClientSize = new Size (460 , 60);
+            pb_Lista.Location = new Point(10, 10);
+            pb_Lista.Size = new Size(480, 100);
+            pb_Lista.ClientSize = new Size(460, 60);
             pb_Lista.BackColor = Color.Black;
-            pb_Lista.Load ("./Views/assets/lista.jpg");
+            pb_Lista.Load("./Views/assets/lista.jpg");
             pb_Lista.SizeMode = PictureBoxSizeMode.StretchImage;
-            this.Controls.Add(pb_Lista); 
+            this.Controls.Add(pb_Lista);
 
             // ListView - Customer
             lv_ListaClientes = new ListView();
@@ -47,7 +45,7 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             List<ClienteModels> clientesLista = ClienteController.GetClientes();
             foreach (var cliente in clientesLista)
             {
-                ListViewItem lv_ListaCliente = new ListViewItem(cliente.IdCliente.ToString());                
+                ListViewItem lv_ListaCliente = new ListViewItem(cliente.IdCliente.ToString());
                 lv_ListaCliente.SubItems.Add(cliente.NomeCliente);
                 lv_ListaCliente.SubItems.Add(cliente.DataNascimento);
                 lv_ListaCliente.SubItems.Add(cliente.CpfCliente);
@@ -69,17 +67,17 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             gb_ListaClientes = new GroupBox();
             gb_ListaClientes.Location = new Point(10, 80);
             gb_ListaClientes.Size = new Size(460, 430);
-            gb_ListaClientes.Text= "LISTA DE CLIENTES";
+            gb_ListaClientes.Text = "LISTA DE CLIENTES";
             gb_ListaClientes.ForeColor = ColorTranslator.FromHtml("#dfb841");
-            this.Controls.Add(gb_ListaClientes); 
+            this.Controls.Add(gb_ListaClientes);
 
             // Buttons
             btn_ListaSair = new Button();
             btn_ListaSair.Location = new Point(160, 530);
-            btn_ListaSair.Size = new Size(150, 50);            
+            btn_ListaSair.Size = new Size(150, 50);
             btn_ListaSair.Text = "SAIR";
             this.btn_ListaSair.BackColor = ColorTranslator.FromHtml("#dfb841");
-            this.btn_ListaSair.ForeColor = Color.Black;            
+            this.btn_ListaSair.ForeColor = Color.Black;
             btn_ListaSair.Click += new EventHandler(btn_ListaSairClick);
             this.Controls.Add(btn_ListaSair);
         }
@@ -89,11 +87,11 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btn_ListaSairClick (object sender, EventArgs e) 
+        private void btn_ListaSairClick(object sender, EventArgs e)
         {
-            MessageBox.Show ("CONCLUÍDO!");
-            this.Close ();
-            this.parent.Show ();
+            // MessageBox.Show ("CONCLUÍDO!");
+            this.Close();
+            this.parent.Show();
         }
     }
 }

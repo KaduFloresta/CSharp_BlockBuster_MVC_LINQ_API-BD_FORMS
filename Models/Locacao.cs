@@ -1,5 +1,4 @@
 using System;
-using Models;
 using System.Linq;
 using Controllers;
 using DbRespositorie;
@@ -16,15 +15,11 @@ namespace Models
         */
         [Key] // Data Annotations - Main key
         public int IdLocacao { get; set; }
-        
         public ClienteModels Cliente { get; set; }
-        
         [ForeignKey("clientes")] // Data Annotations - Foreign Key
         public int IdCliente { get; set; }
-        
         [Required] // Data Annotations - Mandatory data entry
         public DateTime DataLocacao { get; set; }
-        
         public List<FilmeModels> filmes = new List<FilmeModels>();
 
         /// <summary>
@@ -41,6 +36,7 @@ namespace Models
             db.Locacoes.Add(this);
             db.SaveChanges();
         }
+
         /// <summary>
         /// 2nd Constructor - LocacaoModels Object
         /// Using on Entity Framework DONT REMOVE!!!
@@ -69,7 +65,7 @@ namespace Models
         /// <summary>
         /// Method of return day
         /// </summary>
-        public string FilmesLocados () 
+        public string FilmesLocados()
         {
             var db = new Context();
             IEnumerable<int> filmes =
@@ -78,28 +74,20 @@ namespace Models
             select filme.IdFilme;
 
             string strFilmes = "";
-            
 
             if (filmes.Count() > 0)
             {
-                
                 foreach (int IdFilme in filmes)
                 {
-                    // for (int i = 1; i <= filmes.Count(); i++)
-                    // {
                     FilmeModels filme = FilmeController.GetFilme(IdFilme);
-                    strFilmes += 
-                                 //$"Filme #{i} >>> " +
-                                 $"ID: {filme.IdFilme} >>> " +
+                    strFilmes += $"ID: {filme.IdFilme} >>> " +
                                  $"Título: {filme.Titulo}\n";
-                    // }
                 }
             }
             else
             {
                 strFilmes += "    NÃO HÁ FILMES!";
             }
-    
             return strFilmes;
         }
 
@@ -132,7 +120,6 @@ namespace Models
             ClienteModels cliente = ClienteModels.GetCliente(IdCliente);
 
             return filmes.Count();
-
         }
 
         /// <summary>
