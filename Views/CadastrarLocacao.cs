@@ -13,19 +13,19 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
 {
     public class CadastroLocacao : Form
     {
-        PictureBox pb_Cadastro;
-        Label lbl_BuscaCliente;
-        Label lbl_BuscaFilme;
-        ToolTip tt_BuscaCliente;
-        ToolTip tt_BuscaFilme;
-        RichTextBox rtxt_BuscaCliente;
-        RichTextBox rtxt_BuscaFilme;
-        ListView lv_ListaClientes;
-        ListView lv_ListaFilmes;
-        GroupBox gb_ListaCliente;
-        GroupBox gb_ListaFilme;
-        Button btn_Confirmar;
-        Button btn_Cancelar;
+        Library.PictureBox pb_Cadastro;
+        Library.Label lbl_BuscaCliente;
+        Library.Label lbl_BuscaFilme;
+        Library.ToolTip tt_BuscaCliente;
+        Library.ToolTip tt_BuscaFilme;
+        Library.RichTextBox rtxt_BuscaCliente;
+        Library.RichTextBox rtxt_BuscaFilme;
+        Library.ListView lv_ListaClientes;
+        Library.ListView lv_ListaFilmes;
+        Library.GroupBox gb_ListaCliente;
+        Library.GroupBox gb_ListaFilme;
+        Library.Button btn_Confirmar;
+        Library.Button btn_Cancelar;
         Form parent;
 
         // Rent data entry
@@ -38,66 +38,44 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             this.parent = parent;
 
             // PictureBox
-            pb_Cadastro = new PictureBox();
-            pb_Cadastro.Location = new Point(10, 10);
-            pb_Cadastro.Size = new Size(480, 100);
-            pb_Cadastro.ClientSize = new Size(460, 60);
-            pb_Cadastro.BackColor = Color.Black;
-            pb_Cadastro.Load("./Views/assets/cadastra.jpg");
-            pb_Cadastro.SizeMode = PictureBoxSizeMode.StretchImage;
+            this.pb_Cadastro = new Library.PictureBox();
+            this.pb_Cadastro.Load("./Views/assets/cadastra.jpg");
             this.Controls.Add(pb_Cadastro);
 
-            lbl_BuscaCliente = new Label();
-            lbl_BuscaCliente.Text = "Busca Cliente :";
-            lbl_BuscaCliente.Location = new Point(30, 80);
-            lbl_BuscaCliente.AutoSize = true;
+            this.lbl_BuscaCliente = new Library.Label();
+            this.lbl_BuscaCliente.Text = "Busca Cliente :";
+            this.lbl_BuscaCliente.Location = new Point(30, 80);
             this.Controls.Add(lbl_BuscaCliente);
 
-            lbl_BuscaFilme = new Label();
-            lbl_BuscaFilme.Text = "Busca Filme :";
-            lbl_BuscaFilme.Location = new Point(30, 270);
-            lbl_BuscaFilme.AutoSize = true;
+            this.lbl_BuscaFilme = new Library.Label();
+            this.lbl_BuscaFilme.Text = "Busca Filme :";
+            this.lbl_BuscaFilme.Location = new Point(30, 270);
             this.Controls.Add(lbl_BuscaFilme);
 
             // Fill orientation tip
-            tt_BuscaCliente = new ToolTip();
-            tt_BuscaCliente.AutoPopDelay = 5000;
-            tt_BuscaCliente.InitialDelay = 1000;
-            tt_BuscaCliente.ReshowDelay = 500;
-            tt_BuscaCliente.ShowAlways = true;
+            this.tt_BuscaCliente = new Library.ToolTip();
 
             // RichTextBox (Edited text - Keypress mode to filter a customer in ListView)
-            rtxt_BuscaCliente = new RichTextBox();
-            rtxt_BuscaCliente.SelectionFont = new Font("Tahoma", 10, FontStyle.Bold);
-            rtxt_BuscaCliente.SelectionColor = System.Drawing.Color.Black;
-            rtxt_BuscaCliente.Location = new Point(150, 80);
-            rtxt_BuscaCliente.Size = new Size(300, 20);
+            this.rtxt_BuscaCliente = new Library.RichTextBox();
+            this.rtxt_BuscaCliente.Location = new Point(150, 80);
             this.Controls.Add(rtxt_BuscaCliente);
-            tt_BuscaCliente.SetToolTip(rtxt_BuscaCliente, "Digite o nome ou selecione abaixo");
-            rtxt_BuscaCliente.KeyPress += new KeyPressEventHandler(keypressed1);
+            this.tt_BuscaCliente.SetToolTip(rtxt_BuscaCliente, "Digite o nome ou selecione abaixo");
+            this.rtxt_BuscaCliente.KeyPress += new KeyPressEventHandler(keypressed1);
 
             // Fill orientation tip
-            tt_BuscaFilme = new ToolTip();
-            tt_BuscaFilme.AutoPopDelay = 5000;
-            tt_BuscaFilme.InitialDelay = 1000;
-            tt_BuscaFilme.ReshowDelay = 500;
-            tt_BuscaFilme.ShowAlways = true;
+            this.tt_BuscaFilme = new Library.ToolTip();
 
             // RichTextBox (Edited text - Keypress mode to filter a movie in ListView)
-            rtxt_BuscaFilme = new RichTextBox();
-            rtxt_BuscaFilme.SelectionFont = new Font("Tahoma", 10, FontStyle.Bold);
-            rtxt_BuscaFilme.SelectionColor = System.Drawing.Color.Black;
-            rtxt_BuscaFilme.Location = new Point(150, 270);
-            rtxt_BuscaFilme.Size = new Size(300, 20);
+            this.rtxt_BuscaFilme = new Library.RichTextBox();
+            this.rtxt_BuscaFilme.Location = new Point(150, 270);
             this.Controls.Add(rtxt_BuscaFilme);
-            tt_BuscaFilme.SetToolTip(rtxt_BuscaFilme, "Digite o título ou selecione abaixo");
-            rtxt_BuscaFilme.KeyPress += new KeyPressEventHandler(keypressed2);
+            this.tt_BuscaFilme.SetToolTip(rtxt_BuscaFilme, "Digite o título ou selecione abaixo");
+            this.rtxt_BuscaFilme.KeyPress += new KeyPressEventHandler(keypressed2);
 
             // ListView - Customer
-            lv_ListaClientes = new ListView();
-            lv_ListaClientes.Location = new Point(40, 130);
-            lv_ListaClientes.Size = new Size(400, 120);
-            lv_ListaClientes.View = Details;
+            this.lv_ListaClientes = new Library.ListView();
+            this.lv_ListaClientes.Location = new Point(40, 130);
+            this.lv_ListaClientes.Size = new Size(400, 120);
             List<ClienteModels> listaCliente = (from cliente in ClienteController.GetClientes() where cliente.NomeCliente.Contains(rtxt_BuscaCliente.Text) select cliente).ToList();
             ListViewItem clientes = new ListViewItem();
             foreach (ClienteModels cliente in ClienteController.GetClientes())
@@ -109,33 +87,26 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
                 lv_ListaCliente.SubItems.Add(cliente.DiasDevolucao.ToString());
                 lv_ListaClientes.Items.Add(lv_ListaCliente);
             }
-            lv_ListaClientes.FullRowSelect = true;
-            lv_ListaClientes.GridLines = true;
-            lv_ListaClientes.AllowColumnReorder = true;
-            lv_ListaClientes.Sorting = SortOrder.None;
             this.lv_ListaClientes.MultiSelect = false;
-            //this.lv_ListaClientes.HideSelection = true;
-            lv_ListaClientes.Columns.Add("ID", -2, HorizontalAlignment.Center);
-            lv_ListaClientes.Columns.Add("Nome", -2, HorizontalAlignment.Left);
-            lv_ListaClientes.Columns.Add("Data Nascimento", -2, HorizontalAlignment.Center);
-            lv_ListaClientes.Columns.Add("CPF", -2, HorizontalAlignment.Center);
-            lv_ListaClientes.Columns.Add("Dias Devolução", -2, HorizontalAlignment.Center);
+            this.lv_ListaClientes.Columns.Add("ID", -2, HorizontalAlignment.Center);
+            this.lv_ListaClientes.Columns.Add("Nome", -2, HorizontalAlignment.Left);
+            this.lv_ListaClientes.Columns.Add("Data Nascimento", -2, HorizontalAlignment.Center);
+            this.lv_ListaClientes.Columns.Add("CPF", -2, HorizontalAlignment.Center);
+            this.lv_ListaClientes.Columns.Add("Dias Devolução", -2, HorizontalAlignment.Center);
             this.Controls.Add(lv_ListaClientes);
 
             // ListView grouping box
-            gb_ListaCliente = new GroupBox();
-            gb_ListaCliente.Location = new Point(30, 110);
-            gb_ListaCliente.Size = new Size(420, 150);
-            gb_ListaCliente.Text = "LISTA DE CLIENTES";
-            gb_ListaCliente.ForeColor = ColorTranslator.FromHtml("#dfb841");
+            this.gb_ListaCliente = new Library.GroupBox();
+            this.gb_ListaCliente.Location = new Point(30, 110);
+            this.gb_ListaCliente.Size = new Size(420, 150);
+            this.gb_ListaCliente.Text = "LISTA DE CLIENTES";
             this.Controls.Add(gb_ListaCliente);
 
             // ListView - Movies
-            lv_ListaFilmes = new ListView();
-            lv_ListaFilmes.Location = new Point(40, 320);
-            lv_ListaFilmes.Size = new Size(400, 120);
-            lv_ListaFilmes.View = Details;
-            lv_ListaFilmes.CheckBoxes = true;
+            this.lv_ListaFilmes = new Library.ListView();
+            this.lv_ListaFilmes.Location = new Point(40, 320);
+            this.lv_ListaFilmes.Size = new Size(400, 120);
+            this.lv_ListaFilmes.CheckBoxes = true;
             List<FilmeModels> listaFilme = (from filme in FilmeController.GetFilmes() where filme.Titulo.Contains(rtxt_BuscaFilme.Text) select filme).ToList();
             ListViewItem filmes = new ListViewItem();
             foreach (FilmeModels filme in FilmeController.GetFilmes())
@@ -148,46 +119,34 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
                 lv_ListaFilme.SubItems.Add(filme.Sinopse);
                 lv_ListaFilmes.Items.Add(lv_ListaFilme);
             }
-            lv_ListaFilmes.FullRowSelect = true;
-            lv_ListaFilmes.GridLines = true;
-            lv_ListaFilmes.AllowColumnReorder = true;
-            lv_ListaFilmes.Sorting = SortOrder.None;
-            lv_ListaFilmes.Columns.Add("ID", -2, HorizontalAlignment.Center);
-            lv_ListaFilmes.Columns.Add("Título", -2, HorizontalAlignment.Left);
-            lv_ListaFilmes.Columns.Add("Data Lançamento", -2, HorizontalAlignment.Center);
-            lv_ListaFilmes.Columns.Add("Preço", -2, HorizontalAlignment.Center);
-            lv_ListaFilmes.Columns.Add("Estoque", -2, HorizontalAlignment.Center);
-            lv_ListaFilmes.Columns.Add("Sinopse", -2, HorizontalAlignment.Left);
+            this.lv_ListaFilmes.Columns.Add("ID", -2, HorizontalAlignment.Center);
+            this.lv_ListaFilmes.Columns.Add("Título", -2, HorizontalAlignment.Left);
+            this.lv_ListaFilmes.Columns.Add("Data Lançamento", -2, HorizontalAlignment.Center);
+            this.lv_ListaFilmes.Columns.Add("Preço", -2, HorizontalAlignment.Center);
+            this.lv_ListaFilmes.Columns.Add("Estoque", -2, HorizontalAlignment.Center);
+            this.lv_ListaFilmes.Columns.Add("Sinopse", -2, HorizontalAlignment.Left);
             this.Controls.Add(lv_ListaFilmes);
 
             Task t = new Task(new Action(() => { RefreshForm(); }));
             t.Start();
 
             // ListView grouping box
-            gb_ListaFilme = new GroupBox();
-            gb_ListaFilme.Location = new Point(30, 300);
-            gb_ListaFilme.Size = new Size(420, 150);
-            gb_ListaFilme.Text = "LISTA DE FILMES";
-            gb_ListaFilme.ForeColor = ColorTranslator.FromHtml("#dfb841");
+            this.gb_ListaFilme = new Library.GroupBox();
+            this.gb_ListaFilme.Location = new Point(30, 300);
+            this.gb_ListaFilme.Text = "LISTA DE FILMES";
             this.Controls.Add(gb_ListaFilme);
 
             // Buttons
-            btn_Confirmar = new Button();
-            btn_Confirmar.Text = "CONFIRMAR";
-            btn_Confirmar.Location = new Point(80, 470);
-            btn_Confirmar.Size = new Size(150, 40);
-            this.btn_Confirmar.BackColor = ColorTranslator.FromHtml("#dfb841");
-            this.btn_Confirmar.ForeColor = Color.Black;
-            btn_Confirmar.Click += new EventHandler(this.btn_ConfirmarClick);
+            this.btn_Confirmar = new Library.Button();
+            this.btn_Confirmar.Text = "CONFIRMAR";
+            this.btn_Confirmar.Location = new Point(80, 470);
+            this.btn_Confirmar.Click += new EventHandler(this.btn_ConfirmarClick);
             this.Controls.Add(btn_Confirmar);
 
-            btn_Cancelar = new Button();
-            btn_Cancelar.Text = "CANCELAR";
-            btn_Cancelar.Location = new Point(260, 470);
-            btn_Cancelar.Size = new Size(150, 40);
-            this.btn_Cancelar.BackColor = ColorTranslator.FromHtml("#dfb841");
-            this.btn_Cancelar.ForeColor = Color.Black;
-            btn_Cancelar.Click += new EventHandler(this.btn_CancelarClick);
+            this.btn_Cancelar = new Library.Button();
+            this.btn_Cancelar.Text = "CANCELAR";
+            this.btn_Cancelar.Location = new Point(260, 470);
+            this.btn_Cancelar.Click += new EventHandler(this.btn_CancelarClick);
             this.Controls.Add(btn_Cancelar);
         }
 

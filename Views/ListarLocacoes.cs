@@ -10,10 +10,10 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
 {
     public class ListaLocacao : Form
     {
-        PictureBox pb_Lista;
-        ListView lv_ListaLocacoes;
-        GroupBox gb_ListaLocacoes;
-        Button btn_ListaSair;
+        Library.PictureBox pb_Lista;
+        Library.ListView lv_ListaLocacoes;
+        Library.GroupBox gb_ListaLocacoes;
+        Library.Button btn_ListaSair;
         Form parent;
 
         // List rental window
@@ -26,20 +26,17 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             this.parent = parent;
 
             // PictureBox
-            pb_Lista = new PictureBox();
-            pb_Lista.Location = new Point(10, 10);
-            pb_Lista.Size = new Size(180, 100);
-            pb_Lista.ClientSize = new Size(560, 60);
-            pb_Lista.BackColor = Color.Black;
-            pb_Lista.Load("./Views/assets/lista.jpg");
-            pb_Lista.SizeMode = PictureBoxSizeMode.StretchImage;
+            this.pb_Lista = new Library.PictureBox();
+            this.pb_Lista.Location = new Point(50, 0);
+            this.pb_Lista.Size = new Size(470, 80);
+            this.pb_Lista.ClientSize = new Size(470, 80);
+            this.pb_Lista.Load("./Views/assets/lista.jpg");
             this.Controls.Add(pb_Lista);
 
             // ListView - Rentals
-            lv_ListaLocacoes = new ListView();
-            lv_ListaLocacoes.Location = new Point(20, 100);
-            lv_ListaLocacoes.Size = new Size(540, 400);
-            lv_ListaLocacoes.View = View.Details;
+            this.lv_ListaLocacoes = new Library.ListView();
+            this.lv_ListaLocacoes.Location = new Point(20, 100);
+            this.lv_ListaLocacoes.Size = new Size(540, 400);
             ListViewItem locacoes = new ListViewItem();
             List<LocacaoModels> locacoesLista = LocacaoController.GetLocacoes();
             foreach (var locacao in locacoesLista)
@@ -54,35 +51,28 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
                 lv_ListaLocacao.SubItems.Add(locacao.ValorTotal().ToString("C2"));
                 lv_ListaLocacoes.Items.Add(lv_ListaLocacao);
             }
-            lv_ListaLocacoes.FullRowSelect = true;
-            lv_ListaLocacoes.GridLines = true;
-            lv_ListaLocacoes.AllowColumnReorder = true;
-            lv_ListaLocacoes.Sorting = SortOrder.None;
-            lv_ListaLocacoes.Columns.Add("ID", -2, HorizontalAlignment.Center);
-            lv_ListaLocacoes.Columns.Add("Locatário", -2, HorizontalAlignment.Left);
-            lv_ListaLocacoes.Columns.Add("CPF", -2, HorizontalAlignment.Center);
-            lv_ListaLocacoes.Columns.Add("Data Locação", -2, HorizontalAlignment.Center);
-            lv_ListaLocacoes.Columns.Add("Data Devolução", -2, HorizontalAlignment.Center);
-            lv_ListaLocacoes.Columns.Add("Qtde Filmes", -2, HorizontalAlignment.Center);
-            lv_ListaLocacoes.Columns.Add("Total", -2, HorizontalAlignment.Left);
+            this.lv_ListaLocacoes.MultiSelect = false;
+            this.lv_ListaLocacoes.Columns.Add("ID", -2, HorizontalAlignment.Center);
+            this.lv_ListaLocacoes.Columns.Add("Locatário", -2, HorizontalAlignment.Left);
+            this.lv_ListaLocacoes.Columns.Add("CPF", -2, HorizontalAlignment.Center);
+            this.lv_ListaLocacoes.Columns.Add("Data Locação", -2, HorizontalAlignment.Center);
+            this.lv_ListaLocacoes.Columns.Add("Data Devolução", -2, HorizontalAlignment.Center);
+            this.lv_ListaLocacoes.Columns.Add("Qtde Filmes", -2, HorizontalAlignment.Center);
+            this.lv_ListaLocacoes.Columns.Add("Total", -2, HorizontalAlignment.Left);
             this.Controls.Add(lv_ListaLocacoes);
 
             // List grouping box
-            gb_ListaLocacoes = new GroupBox();
-            gb_ListaLocacoes.Location = new Point(10, 80);
-            gb_ListaLocacoes.Size = new Size(560, 430);
-            gb_ListaLocacoes.Text = "LISTA DE LOCAÇÕES";
-            gb_ListaLocacoes.ForeColor = ColorTranslator.FromHtml("#dfb841");
+            this.gb_ListaLocacoes = new Library.GroupBox();
+            this.gb_ListaLocacoes.Location = new Point(10, 80);
+            this.gb_ListaLocacoes.Size = new Size(560, 430);
+            this.gb_ListaLocacoes.Text = "LISTA DE LOCAÇÕES";
             this.Controls.Add(gb_ListaLocacoes);
 
             // Buttons
-            btn_ListaSair = new Button();
-            btn_ListaSair.Text = "SAIR";
-            btn_ListaSair.Location = new Point(200, 530);
-            btn_ListaSair.Size = new Size(150, 40);
-            this.btn_ListaSair.BackColor = ColorTranslator.FromHtml("#dfb841");
-            this.btn_ListaSair.ForeColor = Color.Black;
-            btn_ListaSair.Click += new EventHandler(this.btn_ListaSairClick);
+            this.btn_ListaSair = new Library.Button();
+            this.btn_ListaSair.Text = "SAIR";
+            this.btn_ListaSair.Location = new Point(200, 530);
+            this.btn_ListaSair.Click += new EventHandler(this.btn_ListaSairClick);
             this.Controls.Add(btn_ListaSair);
         }
 

@@ -12,15 +12,15 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
 {
     public class ConsultaLocacao : Form
     {
-        PictureBox pb_Consulta;
-        Label lbl_NomeLocacao;
-        ToolTip tt_BuscaCliente;
-        RichTextBox rtxt_BuscaCliente;
-        ListView lv_ListaLocacoes;
-        GroupBox gb_ConsultaLocacao;
-        GroupBox gb_ListaLocacoes;
-        Button btn_ListaConsulta;
-        Button btn_ListaSair;
+        Library.PictureBox pb_Consulta;
+        Library.Label lbl_NomeLocacao;
+        Library.ToolTip tt_BuscaCliente;
+        Library.RichTextBox rtxt_BuscaCliente;
+        Library.ListView lv_ListaLocacoes;
+        Library.GroupBox gb_ConsultaLocacao;
+        Library.GroupBox gb_ListaLocacoes;
+        Library.Button btn_ListaConsulta;
+        Library.Button btn_ListaSair;
         Form parent;
 
         // Consult registered rentals
@@ -33,44 +33,31 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             this.parent = parent;
 
             // PictureBox
-            pb_Consulta = new PictureBox();
-            pb_Consulta.Location = new Point(10, 10);
-            pb_Consulta.Size = new Size(480, 100);
-            pb_Consulta.ClientSize = new Size(460, 60);
-            pb_Consulta.BackColor = Color.Black;
-            pb_Consulta.Load("./Views/assets/locacao.jpg");
-            pb_Consulta.SizeMode = PictureBoxSizeMode.StretchImage;
+            this.pb_Consulta = new Library.PictureBox();
+            this.pb_Consulta.ClientSize = new Size(460, 80);
+            this.pb_Consulta.Load("./Views/assets/locacao.jpg");
             this.Controls.Add(pb_Consulta);
 
             // Label
-            lbl_NomeLocacao = new Label();
-            lbl_NomeLocacao.Text = "Busca Por Cliente :";
-            lbl_NomeLocacao.Location = new Point(20, 100);
-            lbl_NomeLocacao.AutoSize = true;
+            this.lbl_NomeLocacao = new Library.Label();
+            this.lbl_NomeLocacao.Text = "Busca Por Cliente :";
+            this.lbl_NomeLocacao.Location = new Point(20, 100);
             this.Controls.Add(lbl_NomeLocacao);
 
             // Fill orientation tip
-            tt_BuscaCliente = new ToolTip();
-            tt_BuscaCliente.AutoPopDelay = 5000;
-            tt_BuscaCliente.InitialDelay = 1000;
-            tt_BuscaCliente.ReshowDelay = 500;
-            tt_BuscaCliente.ShowAlways = true;
+            this.tt_BuscaCliente = new Library.ToolTip();
 
             // RichTextBox (Edited text - Keypress mode to filter a rental by customer in ListView)
-            rtxt_BuscaCliente = new RichTextBox();
-            rtxt_BuscaCliente.SelectionFont = new Font("Tahoma", 10, FontStyle.Bold);
-            rtxt_BuscaCliente.SelectionColor = System.Drawing.Color.Black;
-            rtxt_BuscaCliente.Location = new Point(150, 100);
-            rtxt_BuscaCliente.Size = new Size(300, 20);
+            this.rtxt_BuscaCliente = new Library.RichTextBox();
+            this.rtxt_BuscaCliente.Location = new Point(150, 100);
             this.Controls.Add(rtxt_BuscaCliente);
-            tt_BuscaCliente.SetToolTip(rtxt_BuscaCliente, "Digite o nome ou selecione abaixo");
-            rtxt_BuscaCliente.KeyPress += new KeyPressEventHandler(keypressed);
+            this.tt_BuscaCliente.SetToolTip(rtxt_BuscaCliente, "Digite o nome ou selecione abaixo");
+            this.rtxt_BuscaCliente.KeyPress += new KeyPressEventHandler(keypressed);
 
             // ListView - Rentals
-            lv_ListaLocacoes = new ListView();
-            lv_ListaLocacoes.Location = new Point(20, 170);
-            lv_ListaLocacoes.Size = new Size(440, 185);
-            lv_ListaLocacoes.View = View.Details;
+            this.lv_ListaLocacoes = new Library.ListView();
+            this.lv_ListaLocacoes.Location = new Point(20, 170);
+            this.lv_ListaLocacoes.Size = new Size(440, 185);
             List<ClienteModels> listaCliente = (from cliente in ClienteController.GetClientes() where cliente.NomeCliente.Contains(rtxt_BuscaCliente.Text) select cliente).ToList();
             ListViewItem locacoes = new ListViewItem();
             foreach (LocacaoModels locacao in LocacaoController.GetLocacoes())
@@ -85,54 +72,43 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
                 lv_ListaLocacao.SubItems.Add(locacao.ValorTotal().ToString("C2"));
                 lv_ListaLocacoes.Items.Add(lv_ListaLocacao);
             }
-            lv_ListaLocacoes.FullRowSelect = true;
-            lv_ListaLocacoes.GridLines = true;
-            lv_ListaLocacoes.AllowColumnReorder = true;
-            lv_ListaLocacoes.Sorting = SortOrder.None;
-            lv_ListaLocacoes.Columns.Add("ID", -2, HorizontalAlignment.Center);
-            lv_ListaLocacoes.Columns.Add("Locatário", -2, HorizontalAlignment.Left);
-            lv_ListaLocacoes.Columns.Add("CPF", -2, HorizontalAlignment.Center);
-            lv_ListaLocacoes.Columns.Add("Data Locação", -2, HorizontalAlignment.Center);
-            lv_ListaLocacoes.Columns.Add("Data Devolução", -2, HorizontalAlignment.Center);
-            lv_ListaLocacoes.Columns.Add("Qtde Filmes", -2, HorizontalAlignment.Center);
-            lv_ListaLocacoes.Columns.Add("Total", -2, HorizontalAlignment.Left);
+            this.lv_ListaLocacoes.MultiSelect = false;
+            this.lv_ListaLocacoes.Columns.Add("ID", -2, HorizontalAlignment.Center);
+            this.lv_ListaLocacoes.Columns.Add("Locatário", -2, HorizontalAlignment.Left);
+            this.lv_ListaLocacoes.Columns.Add("CPF", -2, HorizontalAlignment.Center);
+            this.lv_ListaLocacoes.Columns.Add("Data Locação", -2, HorizontalAlignment.Center);
+            this.lv_ListaLocacoes.Columns.Add("Data Devolução", -2, HorizontalAlignment.Center);
+            this.lv_ListaLocacoes.Columns.Add("Qtde Filmes", -2, HorizontalAlignment.Center);
+            this.lv_ListaLocacoes.Columns.Add("Total", -2, HorizontalAlignment.Left);
             this.Controls.Add(lv_ListaLocacoes);
 
             Task t = new Task(new Action(() => { RefreshForm(); }));
             t.Start();
 
             // ListView grouping box
-            gb_ConsultaLocacao = new GroupBox();
-            gb_ConsultaLocacao.Location = new Point(10, 80);
-            gb_ConsultaLocacao.Size = new Size(460, 55);
-            gb_ConsultaLocacao.Text = "BUSCAR LOCAÇÃO";
-            gb_ConsultaLocacao.ForeColor = ColorTranslator.FromHtml("#dfb841");
+            this.gb_ConsultaLocacao = new Library.GroupBox();
+            this.gb_ConsultaLocacao.Location = new Point(10, 80);
+            this.gb_ConsultaLocacao.Size = new Size(460, 55);
+            this.gb_ConsultaLocacao.Text = "BUSCAR LOCAÇÃO";
             this.Controls.Add(gb_ConsultaLocacao);
 
-            gb_ListaLocacoes = new GroupBox();
-            gb_ListaLocacoes.Location = new Point(10, 150);
-            gb_ListaLocacoes.Size = new Size(460, 220);
-            gb_ListaLocacoes.Text = "LISTA DE LOCAÇÕES";
-            gb_ListaLocacoes.ForeColor = ColorTranslator.FromHtml("#dfb841");
+            this.gb_ListaLocacoes = new Library.GroupBox();
+            this.gb_ListaLocacoes.Location = new Point(10, 150);
+            this.gb_ListaLocacoes.Size = new Size(460, 220);
+            this.gb_ListaLocacoes.Text = "LISTA DE LOCAÇÕES";
             this.Controls.Add(gb_ListaLocacoes);
 
             // Buttons
-            btn_ListaConsulta = new Button();
-            btn_ListaConsulta.Location = new Point(80, 390);
-            btn_ListaConsulta.Size = new Size(150, 40);
-            btn_ListaConsulta.Text = "CONSULTA";
-            this.btn_ListaConsulta.BackColor = ColorTranslator.FromHtml("#dfb841");
-            this.btn_ListaConsulta.ForeColor = Color.Black;
-            btn_ListaConsulta.Click += new EventHandler(this.btn_ListaConsultaClick);
+            this.btn_ListaConsulta = new Library.Button();
+            this.btn_ListaConsulta.Location = new Point(80, 390);
+            this.btn_ListaConsulta.Text = "CONSULTA";
+            this.btn_ListaConsulta.Click += new EventHandler(this.btn_ListaConsultaClick);
             this.Controls.Add(btn_ListaConsulta);
 
-            btn_ListaSair = new Button();
-            btn_ListaSair.Location = new Point(260, 390);
-            btn_ListaSair.Size = new Size(150, 40);
-            btn_ListaSair.Text = "CANCELAR";
-            this.btn_ListaSair.BackColor = ColorTranslator.FromHtml("#dfb841");
-            this.btn_ListaSair.ForeColor = Color.Black;
-            btn_ListaSair.Click += new EventHandler(this.btn_ListaSairClick);
+            this.btn_ListaSair = new Library.Button();
+            this.btn_ListaSair.Location = new Point(260, 390);
+            this.btn_ListaSair.Text = "CANCELAR";
+            this.btn_ListaSair.Click += new EventHandler(this.btn_ListaSairClick);
             this.Controls.Add(btn_ListaSair);
         }
 
