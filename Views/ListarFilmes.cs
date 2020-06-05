@@ -10,10 +10,10 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
 {
     public class ListaFilme : Form
     {
-        PictureBox pb_Lista;
-        ListView lv_ListaFilmes;
-        GroupBox gb_ListaFilmes;
-        Button btn_ListaSair;
+        Library.PictureBox pb_Lista;
+        Library.ListView lv_ListaFilmes;
+        Library.GroupBox gb_ListaFilmes;
+        Library.Button btn_ListaSair;
         Form parent;
 
         // List movie window
@@ -26,20 +26,17 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             this.parent = parent;
 
             // PictureBox
-            pb_Lista = new PictureBox();
-            pb_Lista.Location = new Point(60, 10);
-            pb_Lista.Size = new Size(580, 100);
-            pb_Lista.ClientSize = new Size(460, 60);
-            pb_Lista.BackColor = Color.Black;
-            pb_Lista.Load("./Views/assets/lista.jpg");
-            pb_Lista.SizeMode = PictureBoxSizeMode.StretchImage;
+            this.pb_Lista = new Library.PictureBox();
+            this.pb_Lista.Location = new Point(50, 0);
+            this.pb_Lista.Size = new Size(470, 80);
+            this.pb_Lista.ClientSize = new Size(470, 80);
+            this.pb_Lista.Load("./Views/assets/lista.jpg");
             this.Controls.Add(pb_Lista);
 
             // ListView - Movie
-            lv_ListaFilmes = new ListView();
-            lv_ListaFilmes.Location = new Point(20, 100);
-            lv_ListaFilmes.Size = new Size(540, 400);
-            lv_ListaFilmes.View = Details;
+            this.lv_ListaFilmes = new Library.ListView();
+            this.lv_ListaFilmes.Location = new Point(20, 100);
+            this.lv_ListaFilmes.Size = new Size(540, 400);
             ListViewItem filmes = new ListViewItem();
             foreach (FilmeModels filme in FilmeController.GetFilmes())
             {
@@ -51,34 +48,27 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
                 lv_ListaFilme.SubItems.Add(filme.Sinopse);
                 lv_ListaFilmes.Items.Add(lv_ListaFilme);
             }
-            lv_ListaFilmes.FullRowSelect = true;
-            lv_ListaFilmes.GridLines = true;
-            lv_ListaFilmes.AllowColumnReorder = true;
-            lv_ListaFilmes.Sorting = SortOrder.None;
-            lv_ListaFilmes.Columns.Add("ID", -2, HorizontalAlignment.Center);
-            lv_ListaFilmes.Columns.Add("Título", -2, HorizontalAlignment.Left);
-            lv_ListaFilmes.Columns.Add("Data Lançamento", -2, HorizontalAlignment.Center);
-            lv_ListaFilmes.Columns.Add("Valor", -2, HorizontalAlignment.Center);
-            lv_ListaFilmes.Columns.Add("Estoque", -2, HorizontalAlignment.Center);
-            lv_ListaFilmes.Columns.Add("Sinopse", -2, HorizontalAlignment.Left);
+            this.lv_ListaFilmes.MultiSelect = false;
+            this.lv_ListaFilmes.Columns.Add("ID", -2, HorizontalAlignment.Center);
+            this.lv_ListaFilmes.Columns.Add("Título", -2, HorizontalAlignment.Left);
+            this.lv_ListaFilmes.Columns.Add("Data Lançamento", -2, HorizontalAlignment.Center);
+            this.lv_ListaFilmes.Columns.Add("Valor", -2, HorizontalAlignment.Center);
+            this.lv_ListaFilmes.Columns.Add("Estoque", -2, HorizontalAlignment.Center);
+            this.lv_ListaFilmes.Columns.Add("Sinopse", -2, HorizontalAlignment.Left);
             this.Controls.Add(lv_ListaFilmes);
 
             // List grouping box
-            gb_ListaFilmes = new GroupBox();
-            gb_ListaFilmes.Location = new Point(10, 80);
-            gb_ListaFilmes.Size = new Size(560, 430);
-            gb_ListaFilmes.Text = "LISTA DE FILMES";
-            gb_ListaFilmes.ForeColor = ColorTranslator.FromHtml("#dfb841");
+            this.gb_ListaFilmes = new Library.GroupBox();
+            this.gb_ListaFilmes.Location = new Point(10, 80);
+            this.gb_ListaFilmes.Size = new Size(560, 430);
+            this.gb_ListaFilmes.Text = "LISTA DE FILMES";
             this.Controls.Add(gb_ListaFilmes);
 
             // Buttons
-            btn_ListaSair = new Button();
-            btn_ListaSair.Location = new Point(200, 530);
-            btn_ListaSair.Size = new Size(180, 50);
-            btn_ListaSair.Text = "SAIR";
-            this.btn_ListaSair.BackColor = ColorTranslator.FromHtml("#dfb841");
-            this.btn_ListaSair.ForeColor = Color.Black;
-            btn_ListaSair.Click += new EventHandler(btn_ListaSairClick);
+            this.btn_ListaSair = new Library.Button();
+            this.btn_ListaSair.Location = new Point(200, 530);
+            this.btn_ListaSair.Text = "SAIR";
+            this.btn_ListaSair.Click += new EventHandler(btn_ListaSairClick);
             this.Controls.Add(btn_ListaSair);
         }
 

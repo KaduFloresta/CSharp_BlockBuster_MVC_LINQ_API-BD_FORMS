@@ -8,15 +8,16 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
 {
     public class FilmeDetalhe : Form
     {
-        PictureBox pb_Detalhe;
-        Label lbl_IdFilme;
-        Label lbl_Titulo;
-        Label lbl_DataLancamento;
-        Label lbl_Sinopse;
-        Label lbl_ValorFilme;
-        Label lbl_QtdeFilme;
-        GroupBox gb_FilmeDetalhe;
-        Button btn_SairDetalhe;
+        Library.PictureBox pb_Detalhe;
+        Library.Label lbl_IdFilme;
+        Library.Label lbl_Titulo;
+        Library.Label lbl_DataLancamento;
+        Library.Label lbl_Sinopse;
+        RichTextBox rtxt_Sinopse;
+        Library.Label lbl_ValorFilme;
+        Library.Label lbl_QtdeFilme;
+        Library.GroupBox gb_FilmeDetalhe;
+        Library.Button btn_SairDetalhe;
         Form parent;
 
         int idFilme;
@@ -34,80 +35,60 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             this.parent = parent;
 
             // PictureBox
-            pb_Detalhe = new PictureBox();
-            pb_Detalhe.Location = new Point(10, 10);
-            pb_Detalhe.Size = new Size(480, 100);
-            pb_Detalhe.ClientSize = new Size(460, 60);
-            pb_Detalhe.BackColor = Color.Black;
-            pb_Detalhe.Load("./Views/assets/filme.jpg");
-            pb_Detalhe.SizeMode = PictureBoxSizeMode.StretchImage;
+            this.pb_Detalhe = new Library.PictureBox();
+            this.pb_Detalhe.Load("./Views/assets/filme.jpg");
             this.Controls.Add(pb_Detalhe);
 
             // Label + Database Informations
-            lbl_IdFilme = new Label();
-            lbl_IdFilme.Text = "ID do Filme: " + filme.IdFilme;
-            lbl_IdFilme.Location = new Point(20, 110);
-            lbl_IdFilme.AutoSize = true;
-            lbl_IdFilme.Font = new Font(lbl_IdFilme.Font, FontStyle.Bold);
-            this.lbl_IdFilme.ForeColor = Color.White;
+            this.lbl_IdFilme = new Library.Label();
+            this.lbl_IdFilme.Text = "ID do Filme: " + filme.IdFilme;
+            this.lbl_IdFilme.Location = new Point(20, 110);
             this.Controls.Add(lbl_IdFilme);
 
-            lbl_Titulo = new Label();
-            lbl_Titulo.Text = "Título: " + filme.Titulo;
-            lbl_Titulo.Location = new Point(20, 150);
-            lbl_Titulo.AutoSize = true;
-            lbl_Titulo.Font = new Font(lbl_Titulo.Font, FontStyle.Bold);
-            this.lbl_Titulo.ForeColor = Color.White;
+            this.lbl_Titulo = new Library.Label();
+            this.lbl_Titulo.Text = "Título: " + filme.Titulo;
+            this.lbl_Titulo.Location = new Point(20, 150);
             this.Controls.Add(lbl_Titulo);
 
-            lbl_DataLancamento = new Label();
-            lbl_DataLancamento.Text = "Data de Lançamento: " + filme.DataLancamento.ToString();
-            lbl_DataLancamento.Location = new Point(20, 190);
-            lbl_DataLancamento.AutoSize = true;
-            lbl_DataLancamento.Font = new Font(lbl_DataLancamento.Font, FontStyle.Bold);
-            this.lbl_DataLancamento.ForeColor = Color.White;
+            this.lbl_DataLancamento = new Library.Label();
+            this.lbl_DataLancamento.Text = "Data de Lançamento: " + filme.DataLancamento.ToString();
+            this.lbl_DataLancamento.Location = new Point(20, 190);
             this.Controls.Add(lbl_DataLancamento);
 
-            lbl_Sinopse = new Label();
-            lbl_Sinopse.Text = "Sinopse: " + filme.Sinopse;
-            lbl_Sinopse.Location = new Point(20, 230);
-            lbl_Sinopse.Size = new Size(440, 120);
-            lbl_Sinopse.Font = new Font(lbl_Sinopse.Font, FontStyle.Bold);
-            this.lbl_Sinopse.ForeColor = Color.White;
+            this.lbl_Sinopse = new Library.Label();
+            this.lbl_Sinopse.Text = "Sinopse: ";
+            this.lbl_Sinopse.Location = new Point(20, 230);
             this.Controls.Add(lbl_Sinopse);
 
-            lbl_ValorFilme = new Label();
-            lbl_ValorFilme.Text = "Preço Aluguel: " + filme.ValorLocacaoFilme.ToString();
-            lbl_ValorFilme.Location = new Point(20, 360);
-            lbl_ValorFilme.AutoSize = true;
-            lbl_ValorFilme.Font = new Font(lbl_ValorFilme.Font, FontStyle.Bold);
-            this.lbl_ValorFilme.ForeColor = Color.White;
+            this.rtxt_Sinopse = new Library.RichTextBox();
+            this.rtxt_Sinopse.Text = "" + filme.Sinopse;
+            this.rtxt_Sinopse.Location = new Point(20, 250);
+            this.rtxt_Sinopse.Size = new Size(440, 80);
+            this.rtxt_Sinopse.ReadOnly = true;
+            this.Controls.Add(rtxt_Sinopse);
+
+            this.lbl_ValorFilme = new Library.Label();
+            this.lbl_ValorFilme.Text = "Preço Aluguel: " + filme.ValorLocacaoFilme.ToString();
+            this.lbl_ValorFilme.Location = new Point(20, 360);
             this.Controls.Add(lbl_ValorFilme);
 
-            lbl_QtdeFilme = new Label();
-            lbl_QtdeFilme.Text = "Quantidade Estoque: " + filme.EstoqueFilme.ToString();
-            lbl_QtdeFilme.Location = new Point(20, 400);
-            lbl_QtdeFilme.AutoSize = true;
-            lbl_QtdeFilme.Font = new Font(lbl_QtdeFilme.Font, FontStyle.Bold);
-            this.lbl_QtdeFilme.ForeColor = Color.White;
+            this.lbl_QtdeFilme = new Library.Label();
+            this.lbl_QtdeFilme.Text = "Quantidade Estoque: " + filme.EstoqueFilme.ToString();
+            this.lbl_QtdeFilme.Location = new Point(20, 400);
             this.Controls.Add(lbl_QtdeFilme);
 
             // Detail movie grouping box
-            gb_FilmeDetalhe = new GroupBox();
-            gb_FilmeDetalhe.Location = new Point(10, 80);
-            gb_FilmeDetalhe.Size = new Size(460, 360);
-            gb_FilmeDetalhe.Text = "CONSULTA FILMES";
-            gb_FilmeDetalhe.ForeColor = ColorTranslator.FromHtml("#dfb841");
+            this.gb_FilmeDetalhe = new Library.GroupBox();
+            this.gb_FilmeDetalhe.Location = new Point(10, 80);
+            this.gb_FilmeDetalhe.Size = new Size(460, 360);
+            this.gb_FilmeDetalhe.Text = "CONSULTA FILMES";
             this.Controls.Add(gb_FilmeDetalhe);
 
             // Buttons
-            btn_SairDetalhe = new Button();
-            btn_SairDetalhe.Text = "SAIR";
-            btn_SairDetalhe.Location = new Point(160, 460);
-            btn_SairDetalhe.Size = new Size(150, 40);
-            this.btn_SairDetalhe.BackColor = ColorTranslator.FromHtml("#dfb841");
-            this.btn_SairDetalhe.ForeColor = Color.Black;
-            btn_SairDetalhe.Click += new EventHandler(this.btn_SairDetalheClick);
+            this.btn_SairDetalhe = new Library.Button();
+            this.btn_SairDetalhe.Text = "SAIR";
+            this.btn_SairDetalhe.Location = new Point(160, 460);
+            this.btn_SairDetalhe.Click += new EventHandler(this.btn_SairDetalheClick);
             this.Controls.Add(btn_SairDetalhe);
         }
 

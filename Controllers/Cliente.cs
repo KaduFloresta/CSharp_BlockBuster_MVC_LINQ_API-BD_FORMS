@@ -5,10 +5,8 @@ using System.Windows.Forms;
 
 namespace Controllers
 {
-
     public class ClienteController
     {
-
         /// <summary>
         /// Insert customer into the database
         /// </summary>
@@ -20,13 +18,13 @@ namespace Controllers
             string cpfCliente,
             int diasDevolucao
             )
-            
+
         {
             string dataNascimento = "" + dataNascDia + "/" + dataNascMes + "/" + dataNascAno;
             DateTime dtNasc;
             try
-            {                
-                dtNasc = Convert.ToDateTime(dataNascimento);                
+            {
+                dtNasc = Convert.ToDateTime(dataNascimento);
             }
             catch
             {
@@ -44,12 +42,12 @@ namespace Controllers
         /// <summary>
         /// Access all customers
         /// </summary>
-        public static List<ClienteModels> GetClientes() 
+        public static List<ClienteModels> GetClientes()
         {
-        return ClienteModels.GetClientes();
+            return ClienteModels.GetClientes();
         }
 
-        public static ClienteModels GetCliente (int idCliente)
+        public static ClienteModels GetCliente(int idCliente)
         {
             return ClienteModels.GetCliente(idCliente);
         }
