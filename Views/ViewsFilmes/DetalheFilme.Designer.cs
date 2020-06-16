@@ -1,30 +1,33 @@
 using System;
 using Models;
+using Library;
 using System.Drawing;
 using System.Windows.Forms;
 using static Locadora_MVC_LINQ_API_BD_IF.Program;
 
 namespace Locadora_MVC_LINQ_API_BD_Interface
 {
-    public class FilmeDetalhe : Form
+    partial class FilmeDetalhe : Form
     {
         Library.PictureBox pb_Detalhe;
         Library.Label lbl_IdFilme;
         Library.Label lbl_Titulo;
         Library.Label lbl_DataLancamento;
         Library.Label lbl_Sinopse;
-        RichTextBox rtxt_Sinopse;
+        Library.RichTextBox rtxt_Sinopse;
         Library.Label lbl_ValorFilme;
         Library.Label lbl_QtdeFilme;
         Library.GroupBox gb_FilmeDetalhe;
-        Library.Button btn_SairDetalhe;
+        Library.ButtonDetail btn_SairDetalhe;
+        Library.ButtonDetail btn_UpdateFilme;
+        Library.ButtonDetail btn_DeleteFilme;
         Form parent;
 
         int idFilme;
         FilmeModels FilmeX;
 
         // Detailed movie window
-        public FilmeDetalhe(Form parent, FilmeModels filme)
+        public void InitializeComponent(Form parent, FilmeModels filme)
         {
             // Window parameters
             this.BackColor = ColorTranslator.FromHtml("#6d6a75");
@@ -85,23 +88,31 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             this.Controls.Add(gb_FilmeDetalhe);
 
             // Buttons
-            this.btn_SairDetalhe = new Library.Button();
+            this.btn_SairDetalhe = new Library.ButtonDetail(ButtonType.Sair);
             this.btn_SairDetalhe.Text = "SAIR";
-            this.btn_SairDetalhe.Location = new Point(160, 460);
+            this.btn_SairDetalhe.Location = new Point(10, 460);
+            this.btn_SairDetalhe.Size = new Size(140, 50);
+            this.btn_SairDetalhe.BackColor = ColorTranslator.FromHtml("#5de96e");
             this.btn_SairDetalhe.Click += new EventHandler(this.btn_SairDetalheClick);
             this.Controls.Add(btn_SairDetalhe);
-        }
 
-        /// <summary>
-        /// Event button to exit and back to movie "consult" window
-        /// </summary
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btn_SairDetalheClick(object sender, EventArgs e)
-        {
-            // MessageBox.Show ("CONCLUÍDO!");
-            this.Close();
-            this.parent.Show();
+            // Update Button
+            this.btn_UpdateFilme = new Library.ButtonDetail(ButtonType.Update);
+            this.btn_UpdateFilme.Text = "ALTERAR";
+            this.btn_UpdateFilme.Location = new Point(170, 460);
+            this.btn_UpdateFilme.Size = new Size(140, 50);
+            this.btn_UpdateFilme.BackColor = ColorTranslator.FromHtml("#efeb7f");
+            this.btn_UpdateFilme.Click += new EventHandler(this.btn_UpdateFilmeClick);
+            this.Controls.Add(btn_UpdateFilme);
+
+            // Delete Button
+            this.btn_DeleteFilme = new Library.ButtonDetail(ButtonType.Delete);
+            this.btn_DeleteFilme.Text = "DELETAR";
+            this.btn_DeleteFilme.Location = new Point(330, 460);
+            this.btn_DeleteFilme.Size = new Size(140, 50);
+            this.btn_DeleteFilme.BackColor = ColorTranslator.FromHtml("#e98274");
+            this.btn_DeleteFilme.Click += new EventHandler(this.btn_DeleteFilmeClick);
+            this.Controls.Add(btn_DeleteFilme);
         }
     }
 }

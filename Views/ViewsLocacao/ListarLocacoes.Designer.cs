@@ -4,11 +4,10 @@ using Controllers;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Collections.Generic;
-using static Locadora_MVC_LINQ_API_BD_IF.Program;
 
 namespace Locadora_MVC_LINQ_API_BD_Interface
 {
-    public class ListaLocacao : Form
+    partial class ListaLocacao : Form
     {
         Library.PictureBox pb_Lista;
         Library.ListView lv_ListaLocacoes;
@@ -17,7 +16,7 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
         Form parent;
 
         // List rental window
-        public ListaLocacao(Form parent)
+        public void InitializeComponent(Form parent)
         {
             // Window parameters
             this.BackColor = ColorTranslator.FromHtml("#6d6a75");
@@ -74,18 +73,6 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             this.btn_ListaSair.Location = new Point(200, 530);
             this.btn_ListaSair.Click += new EventHandler(this.btn_ListaSairClick);
             this.Controls.Add(btn_ListaSair);
-        }
-
-        /// <summary>
-        /// Event button to exit and back to main window
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btn_ListaSairClick(object sender, EventArgs e)
-        {
-            // MessageBox.Show ("CONCLUÍDO!");
-            this.Close();
-            this.parent.Show();
         }
     }
 }

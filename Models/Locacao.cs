@@ -161,5 +161,40 @@ namespace Models
                     where locacao.IdLocacao == idLocacao
                     select locacao).First();
         }
+
+
+        public static void UpdateLocacao(
+            int idLocacao,
+            int idCliente,
+            DateTime dataLocacao
+        )
+        {
+            Context db = new Context();
+            try
+            {
+                LocacaoModels locacao = db.Locacoes.First(locacao => locacao.IdLocacao == idLocacao);
+                locacao.IdLocacao = idLocacao;
+                locacao.IdCliente = idCliente;
+                locacao.DataLocacao = dataLocacao;
+                db.SaveChanges(); // Cria a transação do BD
+            }
+            catch
+            {
+                // throw new Error();
+            }
+        }
+        public static void DeleteLocacao(int idLocacao)
+        {
+            Context db = new Context();
+            try
+            {
+                LocacaoModels locacao = db.Locacoes.First(locacao => locacao.IdLocacao == idLocacao);
+                db.Remove(locacao);
+            }
+            catch
+            {
+                // thorw new Error();
+            }
+        }
     }
 }

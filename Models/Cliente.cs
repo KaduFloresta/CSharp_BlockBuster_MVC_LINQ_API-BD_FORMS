@@ -2,6 +2,8 @@ using System.Linq;
 using DbRespositorie;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Windows.Forms;
+using System;
 
 namespace Models
 {
@@ -74,6 +76,58 @@ namespace Models
         {
             var db = new Context();
             return db.Clientes.ToList();
+        }
+
+        /// <summary>
+        /// Update customer into the database
+        /// </summary>
+        public static void UpdateCliente(
+            int idCliente,
+            string nomeCliente,
+            string dataNascimento,
+            string cpfCliente,
+            int diasDevolucao
+        )
+        {
+            Context db = new Context();
+            try
+            {
+                ClienteModels cliente = db.Clientes.First(cliente => cliente.IdCliente == idCliente);
+                cliente.NomeCliente = nomeCliente;
+                cliente.DataNascimento = dataNascimento;
+                cliente.CpfCliente = cpfCliente;
+                cliente.DiasDevolucao = diasDevolucao;
+                db.SaveChanges(); // Cria a transação do BD
+            }
+            catch
+            {
+                throw new ArgumentException();
+            }
+        }
+
+        /// <summary>
+        /// Delete customer into the database
+        /// </summary>
+        public static void DeleteCliente(int idCliente)
+        {
+            Context db = new Context();
+            try
+            {
+                ClienteModels cliente = db.Clientes.First(cliente => cliente.IdCliente == idCliente);
+                db.Remove(cliente);
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch
+                {
+                    throw new ArgumentException();
+                }
+            }
+            catch
+            {
+                throw new ArgumentException();
+            }
         }
     }
 }

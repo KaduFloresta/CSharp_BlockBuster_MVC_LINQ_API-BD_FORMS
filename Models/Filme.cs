@@ -2,6 +2,7 @@ using System.Linq;
 using DbRespositorie;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System;
 
 namespace Models
 {
@@ -82,6 +83,52 @@ namespace Models
         {
             var db = new Context();
             return db.Filmes.ToList();
+        }
+        public static void Updatefilme(
+            int idFilme,
+            string titulo,
+            string dataLancamento,
+            string sinopse,
+            double valorLocacaoFilme,
+            int estoqueFilme
+        )
+        {
+            Context db = new Context();
+            try
+            {
+                FilmeModels filme = db.Filmes.First(filme => filme.IdFilme == idFilme);
+                filme.Titulo = titulo;
+                filme.DataLancamento = dataLancamento;
+                filme.Sinopse = sinopse;
+                filme.ValorLocacaoFilme = valorLocacaoFilme;
+                filme.EstoqueFilme = estoqueFilme;
+                db.SaveChanges(); // Cria a transação do BD
+            }
+            catch
+            {
+                throw new ArgumentException();
+            }
+        }
+        public static void DeleteFilme(int idFilme)
+        {
+            Context db = new Context();
+            try
+            {
+                FilmeModels filme = db.Filmes.First(filme => filme.IdFilme == idFilme);
+                db.Remove(filme);
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch
+                {
+                    throw new ArgumentException();
+                }
+            }
+            catch
+            {
+                throw new ArgumentException();
+            }
         }
     }
 }
