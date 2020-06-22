@@ -47,10 +47,46 @@ namespace Controllers
         {
             return FilmeModels.GetFilmes();
         }
-        
-        public static FilmeModels GetFilme (int idFilme)
+
+        /// <summary>
+        ///  Access to find a movie by ID
+        /// </summary>
+        public static FilmeModels GetFilme(int idFilme)
         {
             return FilmeModels.GetFilme(idFilme);
+        }
+
+        /// <summary>
+        /// Access to Update movie
+        /// </summary>
+        public static void UpdateFilme(
+            int idFilme,
+            string titulo,
+            int day,
+            int month, 
+            int year, 
+            string sinopse,
+            double valorLocacaoFilme,
+            int estoqueFilme
+            )
+        {
+            string dataLancamento = "" + day + "/" + month + "/" + year;
+            FilmeModels.Updatefilme(
+            idFilme, 
+            titulo, 
+            dataLancamento,
+            sinopse,
+            valorLocacaoFilme,
+            estoqueFilme
+            );
+        }
+
+        /// <summary>
+        /// Access to Delete movie
+        /// </summary>
+        public static void DeleteFilme(int idFilme)
+        {
+            FilmeModels.DeleteFilme(idFilme);
         }
     }
 }

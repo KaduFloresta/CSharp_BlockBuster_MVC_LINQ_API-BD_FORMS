@@ -1,13 +1,10 @@
 using System;
-using Controllers;
 using System.Drawing;
 using System.Windows.Forms;
-using static Locadora_MVC_LINQ_API_BD_IF.Program;
-
 
 namespace Locadora_MVC_LINQ_API_BD_Interface
 {
-    public class CadastroCliente : Form
+    partial class CadastroCliente : Form
     {
         Library.PictureBox pb_Cadastro;
         Library.ToolTip tt_Help;
@@ -26,19 +23,24 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
         Form parent;
 
         // Customer data entry
-        public CadastroCliente(Form parent)
+        public void InitializeComponent(Form parent, bool isUpdate)
         {
             this.BackColor = ColorTranslator.FromHtml("#6d6a75");
             this.Font = new Font(this.Font, FontStyle.Bold);
             this.Size = new Size(500, 400);
             this.parent = parent;
 
-            // PictureBox
+            if (isUpdate)
+            {
+                this.Load += new EventHandler(this.LoadForm);
+            }
+
+            // PictureBox - Using Property Bind
             this.pb_Cadastro = new Library.PictureBox();
             this.pb_Cadastro.Location = new Point(0, 10);
             this.pb_Cadastro.Size = new Size(480, 100);
             this.pb_Cadastro.ClientSize = new Size(480, 80);
-            this.pb_Cadastro.Load("./Views/assets/cadastra.jpg");
+            this.pb_Cadastro.Load($"./Views/assets/{(isUpdate ? "alteracao" : "cadastra")}.jpg");
             this.Controls.Add(pb_Cadastro);
 
             // Fill orientation tip
@@ -98,6 +100,7 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             // MaskedTextBox
             this.mtxt_CpfCLiente = new Library.MaskedTextBox();
             this.mtxt_CpfCLiente.Mask = "000,000,000-00";
+            this.mtxt_CpfCLiente.ReadOnly = isUpdate;
             this.Controls.Add(mtxt_CpfCLiente);
             //mtxt_CpfCLiente.SelectionStart = mtxt_CpfCLiente.Text.Length + 1;
 
@@ -125,75 +128,6 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             this.btn_Cancelar.Location = new Point(260, 280);
             this.btn_Cancelar.Click += new EventHandler(this.btn_CancelarClick);
             this.Controls.Add(btn_Cancelar);
-        }
-
-        /// <summary>
-        /// Event data for number selection
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void num_DataNascimento_Enter(object sender, EventArgs e)
-        {
-            num_DataNascDia.Select(0, num_DataNascDia.Text.Length);
-            num_DataNascMes.Select(0, num_DataNascMes.Text.Length);
-            num_DataNascAno.Select(0, num_DataNascAno.Text.Length);
-        }
-
-        /// <summary>
-        /// Event data button to enter information into the database
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>//
-        private void btn_ConfirmarClick(object sender, EventArgs e)
-        {
-            try
-            {
-                if ((rtxt_NomeCliente.Text != string.Empty)
-                && (num_DataNascDia.Value != 0)
-                && (num_DataNascMes.Value != 0)
-                && (mtxt_CpfCLiente.Text != string.Empty)
-                && (cb_DiasDevol.Text != string.Empty))
-                {
-                    ClienteController.CadastrarCliente(
-                    rtxt_NomeCliente.Text,
-                    (int)num_DataNascDia.Value,
-                    (int)num_DataNascMes.Value,
-                    (int)num_DataNascAno.Value,
-                    mtxt_CpfCLiente.Text,
-                    cb_DiasDevol.Text == "2 Dias"
-                        ? 2
-                        : cb_DiasDevol.Text == "3 Dias"
-                            ? 3
-                            : cb_DiasDevol.Text == "4 Dias"
-                                ? 4
-                                : cb_DiasDevol.Text == "5 Dias"
-                                    ? 5
-                                    : 10
-                    );
-                    MessageBox.Show("CADASTRADO!");
-                    this.Close();
-                    this.parent.Show();
-                }
-                else
-                {
-                    MessageBox.Show("PREENCHA TODOS OS CAMPOS!");
-                }
-            }
-            catch (Exception er)
-            {
-                MessageBox.Show(er.Message, "PREENCHA TODOS OS CAMPOS!");
-            }
-        }
-
-        /// <summary>
-        /// Event button to cancel and back to main window
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btn_CancelarClick(object sender, EventArgs e)
-        {
-            // MessageBox.Show("CANCELADO!");
-            this.Close();
-            this.parent.Show();
         }
     }
 }

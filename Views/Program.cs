@@ -62,6 +62,8 @@ namespace Locadora_MVC_LINQ_API_BD_IF
                 this.btn_CadastroCliente.Text = "CADASTRO DO CLIENTE";
                 this.Controls.Add(btn_CadastroCliente);
                 this.btn_CadastroCliente.Click += new EventHandler(btn_CadastroClienteClick);
+                // this.btn_CadastroCliente.MouseEnter += new EventHandler(btn_MouseEnter);
+                // this.btn_CadastroCliente.MouseLeave += new EventHandler(btn_MouseLeave);
 
                 // Selection button for querying customer data
                 this.btn_ConsultaCliente = new Library.Button();
@@ -220,7 +222,6 @@ namespace Locadora_MVC_LINQ_API_BD_IF
             {
                 this.Close();
             }
-
         }
     }
 }

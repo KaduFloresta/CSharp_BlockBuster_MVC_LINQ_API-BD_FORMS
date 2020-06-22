@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using DbRespositorie;
 using System.Collections.Generic;
@@ -10,7 +11,6 @@ namespace Models
         /* 
             Getters and Setters 
         */
-
         [Key] // Data Annotations - Main key
         public int IdFilme { get; set; }
         [Required] // Data Annotations - Mandatory data entry
@@ -82,6 +82,59 @@ namespace Models
         {
             var db = new Context();
             return db.Filmes.ToList();
+        }
+        public static void Updatefilme(
+            int idFilme,
+            string titulo,
+            string dataLancamento,
+            string sinopse,
+            double valorLocacaoFilme,
+            int estoqueFilme
+        )
+        {
+            Context db = new Context();
+            try
+            {
+                FilmeModels filme = db.Filmes.First(filme => filme.IdFilme == idFilme);
+                filme.Titulo = titulo;
+                filme.DataLancamento = dataLancamento;
+                filme.Sinopse = sinopse;
+                filme.ValorLocacaoFilme = valorLocacaoFilme;
+                filme.EstoqueFilme = estoqueFilme;
+                db.SaveChanges(); // Cria a transação do BD
+            }
+            catch
+            {
+                throw new ArgumentException();
+            }
+        }
+
+        /// <summary>
+        /// Delete movie into the database
+        /// </summary>
+        public static void DeleteFilme(int idFilme)
+        {
+            Context db = new Context();
+            try
+            {
+                FilmeModels filme = db.Filmes.First(filme => filme.IdFilme == idFilme);
+                db.Remove(filme);
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch
+                {
+                    // List<LocacaoModels> locacoes = db.Locacoes.TakeWhile(locacao => locacao.IdFilme == idFilme).ToList();
+                    // locacoes.ForEach(locacao => db.Remove(locacao));
+                    // db.SaveChanges();
+                    throw new ArgumentException();
+                }
+            }
+            catch
+            {
+                throw new ArgumentException();
+            }
         }
     }
 }

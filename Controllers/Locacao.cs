@@ -25,13 +25,33 @@ namespace Controllers
         /// <summary>
         /// Access find a customer rental
         /// </summary>
-        public static List<LocacaoModels> GetLocacoes() 
+        public static List<LocacaoModels> GetLocacoes()
         {
-        return LocacaoModels.GetLocacoes();
+            return LocacaoModels.GetLocacoes();
         }
+
+        /// <summary>
+        /// Access find a customer rental by ID
+        /// </summary>
         public static LocacaoModels GetLocacao(int idLocacao)
         {
             return LocacaoModels.GetLocacao(idLocacao);
+        }
+
+        /// <summary>
+        /// Access to Update rental
+        /// </summary>
+        public static ClienteModels UpdateLocacao()
+        {
+            return UpdateLocacao();
+        }
+
+        /// <summary>
+        /// Access to Delete customer
+        /// </summary>
+        public static void DeleteLocacao(int idLocacao)
+        {
+            LocacaoController.DeleteLocacao(idLocacao);
         }
     }
 }

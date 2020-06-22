@@ -6,11 +6,10 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using static Locadora_MVC_LINQ_API_BD_IF.Program;
 
 namespace Locadora_MVC_LINQ_API_BD_Interface
 {
-    public class ConsultaLocacao : Form
+    partial class ConsultaLocacao : Form
     {
         Library.PictureBox pb_Consulta;
         Library.Label lbl_NomeLocacao;
@@ -24,7 +23,7 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
         Form parent;
 
         // Consult registered rentals
-        public ConsultaLocacao(Form parent)
+        public void InitializeComponent(Form parent)
         {
             // Window parameters
             this.BackColor = ColorTranslator.FromHtml("#6d6a75");
@@ -110,73 +109,6 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             this.btn_ListaSair.Text = "CANCELAR";
             this.btn_ListaSair.Click += new EventHandler(this.btn_ListaSairClick);
             this.Controls.Add(btn_ListaSair);
-        }
-
-        /// <summary>
-        /// RefreshForm to keypress
-        /// </summary>
-        public void RefreshForm()
-        {
-            if (this.InvokeRequired)
-            {
-                this.Invoke(new MethodInvoker(this.RefreshForm));
-            }
-            Application.DoEvents();
-        }
-
-        /// <summary>
-        /// Keypress event to find a rental by customer
-        /// </summary>
-        /// <param name="o"></param>
-        /// <param name="e"></param>
-        private void keypressed(Object o, KeyPressEventArgs e)
-        {
-            lv_ListaLocacoes.Items.Clear();
-            List<ClienteModels> listaCliente = (from cliente in ClienteController.GetClientes() where cliente.NomeCliente.Contains(rtxt_BuscaCliente.Text, StringComparison.OrdinalIgnoreCase) select cliente).ToList();
-            ListViewItem clientes = new ListViewItem();
-            foreach (ClienteModels cliente in listaCliente)
-            {
-                ListViewItem lv_ListaCliente = new ListViewItem(cliente.IdCliente.ToString());
-                lv_ListaCliente.SubItems.Add(cliente.NomeCliente);
-                lv_ListaCliente.SubItems.Add(cliente.DataNascimento);
-                lv_ListaCliente.SubItems.Add(cliente.CpfCliente);
-                lv_ListaCliente.SubItems.Add(cliente.DiasDevolucao.ToString());
-                lv_ListaLocacoes.Items.Add(lv_ListaCliente);
-            }
-            this.Refresh();
-            Application.DoEvents();
-        }
-
-        /// <summary>
-        /// Event button to consult a selected rental
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btn_ListaConsultaClick(object sender, EventArgs e)
-        {
-            try
-            {
-                string IdLocacao = this.lv_ListaLocacoes.SelectedItems[0].Text;
-                LocacaoModels locacao = LocacaoController.GetLocacao(Int32.Parse(IdLocacao));
-                LocacaoDetalhe btn_ListaConsultaClick = new LocacaoDetalhe(this, locacao);
-                btn_ListaConsultaClick.Show();
-            }
-            catch
-            {
-                MessageBox.Show("SELECIONE UMA LOCAÇÃO!");
-            }
-        }
-
-        /// <summary>
-        /// Event button to exit and back to main window
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btn_ListaSairClick(object sender, EventArgs e)
-        {
-            // MessageBox.Show("CONCLUÍDO!");
-            this.Close();
-            this.parent.Show();
         }
     }
 }

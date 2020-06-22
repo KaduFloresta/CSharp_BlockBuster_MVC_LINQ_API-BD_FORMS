@@ -1,17 +1,17 @@
 using System;
 using Models;
+using Library;
 using Controllers;
 using System.Drawing;
 using System.Windows.Forms;
-using static Locadora_MVC_LINQ_API_BD_IF.Program;
 
 namespace Locadora_MVC_LINQ_API_BD_Interface
 {
-    public class LocacaoDetalhe : Form
+    partial class LocacaoDetalhe : Form
     {
         Library.PictureBox pb_Detalhe;
         Library.Label lbl_IdCliente;
-        Label lbl_NomeCliente;
+        Library.Label lbl_NomeCliente;
         Library.Label lbl_DataNascimento;
         Library.Label lbl_CpfCliente;
         Library.Label lbl_IdLocacao;
@@ -23,14 +23,16 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
         Library.GroupBox gb_DadosCliente;
         Library.GroupBox gb_DadosLocacao;
         Library.GroupBox gb_DadosFIlmes;
-        Library.Button btn_SairDetalhe;
+        Library.ButtonDetail btn_SairDetalhe;
+        Library.ButtonDetail btn_UpdateLocacao;
+        Library.ButtonDetail btn_DeleteLocacao;
         Form parent;
 
         int idLocacao;
         LocacaoModels locacaoX;
 
         // Detailed rental window
-        public LocacaoDetalhe(Form parent, LocacaoModels locacao)
+        public void InitializeComponent(Form parent, LocacaoModels locacao)
         {
             // Window parameters
             this.BackColor = ColorTranslator.FromHtml("#6d6a75");
@@ -121,24 +123,29 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             this.gb_DadosFIlmes.Text = "LISTA DE FILMES LOCADOS";
             this.Controls.Add(gb_DadosFIlmes);
 
-            // Buttons
-            this.btn_SairDetalhe = new Library.Button();
+            // Delete Button
+            this.btn_DeleteLocacao = new Library.ButtonDetail(ButtonType.Delete);
+            this.btn_DeleteLocacao.Text = "DELETAR";
+            this.btn_DeleteLocacao.Location = new Point(20, 505);
+            this.btn_DeleteLocacao.BackColor = ColorTranslator.FromHtml("#e98274");
+            this.btn_DeleteLocacao.Click += new EventHandler(this.btn_DeleteLocacaoClick);
+            this.Controls.Add(btn_DeleteLocacao);
+
+            // Update Button
+            this.btn_UpdateLocacao = new Library.ButtonDetail(ButtonType.Update);
+            this.btn_UpdateLocacao.Text = "ALTERAR";
+            this.btn_UpdateLocacao.Location = new Point(215, 505);
+            this.btn_UpdateLocacao.BackColor = ColorTranslator.FromHtml("#efeb7f");
+            this.btn_UpdateLocacao.Click += new EventHandler(this.btn_UpdateLocacaoClick);
+            this.Controls.Add(btn_UpdateLocacao);
+
+            // Exit Button
+            this.btn_SairDetalhe = new Library.ButtonDetail(ButtonType.Sair);
             this.btn_SairDetalhe.Text = "SAIR";
-            this.btn_SairDetalhe.Location = new Point(215, 505);
+            this.btn_SairDetalhe.Location = new Point(410, 505);
+            this.btn_SairDetalhe.BackColor = ColorTranslator.FromHtml("#5de96e");
             this.btn_SairDetalhe.Click += new EventHandler(this.btn_SairDetalheClick);
             this.Controls.Add(btn_SairDetalhe);
-        }
-
-        /// <summary>
-        /// Event button to exit and back to rental "consult" window
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btn_SairDetalheClick(object sender, EventArgs e)
-        {
-            // MessageBox.Show ("CONCLUÍDO!");
-            this.Close();
-            this.parent.Show();
         }
     }
 }

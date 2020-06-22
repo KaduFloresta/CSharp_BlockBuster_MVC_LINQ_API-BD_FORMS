@@ -6,12 +6,10 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using static System.Windows.Forms.View;
-using static Locadora_MVC_LINQ_API_BD_IF.Program;
 
 namespace Locadora_MVC_LINQ_API_BD_Interface
 {
-    public class ConsultaCliente : Form
+    partial class ConsultaCliente : Form
     {
         Library.PictureBox pb_Consulta;
         Library.Label lbl_ConsultaCliente;
@@ -24,7 +22,7 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
         Form parent;
 
         // Consult registered customers 
-        public ConsultaCliente(Form parent)
+        public void InitializeComponent(Form parent)
         {
             // Window parameters
             this.BackColor = ColorTranslator.FromHtml("#6d6a75");
@@ -99,73 +97,6 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             this.btn_ListaSair.Text = "SAIR";
             this.btn_ListaSair.Click += new EventHandler(btn_ListaSairClick);
             this.Controls.Add(btn_ListaSair);
-        }
-
-        /// <summary>
-        /// RefreshForm to keypress
-        /// </summary>
-        public void RefreshForm()
-        {
-            if (this.InvokeRequired)
-            {
-                this.Invoke(new MethodInvoker(this.RefreshForm));
-            }
-            Application.DoEvents();
-        }
-
-        /// <summary>
-        /// Keypress event to find a customer
-        /// </summary>
-        /// <param name="o"></param>
-        /// <param name="e"></param>
-        private void keypressed(Object o, KeyPressEventArgs e)
-        {
-            lv_ListaClientes.Items.Clear();
-            List<ClienteModels> listaCliente = (from cliente in ClienteController.GetClientes() where cliente.NomeCliente.Contains(rtxt_ConsultaCliente.Text, StringComparison.OrdinalIgnoreCase) select cliente).ToList();
-            ListViewItem clientes = new ListViewItem();
-            foreach (ClienteModels cliente in listaCliente)
-            {
-                ListViewItem lv_ListaCliente = new ListViewItem(cliente.IdCliente.ToString());
-                lv_ListaCliente.SubItems.Add(cliente.NomeCliente);
-                lv_ListaCliente.SubItems.Add(cliente.DataNascimento);
-                lv_ListaCliente.SubItems.Add(cliente.CpfCliente);
-                lv_ListaCliente.SubItems.Add(cliente.DiasDevolucao.ToString());
-                lv_ListaClientes.Items.Add(lv_ListaCliente);
-            }
-            this.Refresh();
-            Application.DoEvents();
-        }
-
-        /// <summary>
-        /// Event button to consult a selected customer
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btn_ListaConsultaClick(object sender, EventArgs e)
-        {
-            try
-            {
-                string IdCliente = this.lv_ListaClientes.SelectedItems[0].Text;
-                ClienteModels cliente = ClienteController.GetCliente(Int32.Parse(IdCliente));
-                ClienteDetalhe btn_ListaConsultaClick = new ClienteDetalhe(this, cliente);
-                btn_ListaConsultaClick.Show();
-            }
-            catch
-            {
-                MessageBox.Show("SELECIONE UM CLIENTE!");
-            }
-        }
-
-        /// <summary>
-        /// Event button to exit and back to main window
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btn_ListaSairClick(object sender, EventArgs e)
-        {
-            // MessageBox.Show("CONCLUÍDO!");
-            this.Close();
-            this.parent.Show();
         }
     }
 }

@@ -47,9 +47,43 @@ namespace Controllers
             return ClienteModels.GetClientes();
         }
 
+        /// <summary>
+        ///  Access to find a customer by ID
+        /// </summary>
         public static ClienteModels GetCliente(int idCliente)
         {
             return ClienteModels.GetCliente(idCliente);
+        }
+
+        /// <summary>
+        /// Access to Update customer
+        /// </summary>
+        public static void UpdateCliente(
+            int idCliente, 
+            string nomeCliente, 
+            int day, 
+            int month, 
+            int year, 
+            string cpfCliente, 
+            int diasDevolucao
+            )
+        {
+            string dataNascimento = "" + day + "/" + month + "/" + year;
+            ClienteModels.UpdateCliente(
+            idCliente, 
+            nomeCliente, 
+            dataNascimento,
+            cpfCliente,
+            diasDevolucao
+            );
+        }
+
+        /// <summary>
+        /// Access to Delete customer
+        /// </summary>
+        public static void DeleteCliente(int idCliente)
+        {
+            ClienteModels.DeleteCliente(idCliente);
         }
     }
 }
