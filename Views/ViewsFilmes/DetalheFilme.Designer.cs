@@ -3,7 +3,6 @@ using Models;
 using Library;
 using System.Drawing;
 using System.Windows.Forms;
-using static Locadora_MVC_LINQ_API_BD_IF.Program;
 
 namespace Locadora_MVC_LINQ_API_BD_Interface
 {
@@ -87,15 +86,15 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             this.gb_FilmeDetalhe.Text = "CONSULTA FILMES";
             this.Controls.Add(gb_FilmeDetalhe);
 
-            // Buttons
-            this.btn_SairDetalhe = new Library.ButtonDetail(ButtonType.Sair);
-            this.btn_SairDetalhe.Text = "SAIR";
-            this.btn_SairDetalhe.Location = new Point(10, 460);
-            this.btn_SairDetalhe.Size = new Size(140, 50);
-            this.btn_SairDetalhe.BackColor = ColorTranslator.FromHtml("#5de96e");
-            this.btn_SairDetalhe.Click += new EventHandler(this.btn_SairDetalheClick);
-            this.Controls.Add(btn_SairDetalhe);
-
+            // Delete Button
+            this.btn_DeleteFilme = new Library.ButtonDetail(ButtonType.Delete);
+            this.btn_DeleteFilme.Text = "DELETAR";
+            this.btn_DeleteFilme.Location = new Point(10, 460);
+            this.btn_DeleteFilme.Size = new Size(140, 50);
+            this.btn_DeleteFilme.BackColor = ColorTranslator.FromHtml("#e98274");
+            this.btn_DeleteFilme.Click += new EventHandler(this.btn_DeleteFilmeClick);
+            this.Controls.Add(btn_DeleteFilme);
+            
             // Update Button
             this.btn_UpdateFilme = new Library.ButtonDetail(ButtonType.Update);
             this.btn_UpdateFilme.Text = "ALTERAR";
@@ -105,14 +104,14 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             this.btn_UpdateFilme.Click += new EventHandler(this.btn_UpdateFilmeClick);
             this.Controls.Add(btn_UpdateFilme);
 
-            // Delete Button
-            this.btn_DeleteFilme = new Library.ButtonDetail(ButtonType.Delete);
-            this.btn_DeleteFilme.Text = "DELETAR";
-            this.btn_DeleteFilme.Location = new Point(330, 460);
-            this.btn_DeleteFilme.Size = new Size(140, 50);
-            this.btn_DeleteFilme.BackColor = ColorTranslator.FromHtml("#e98274");
-            this.btn_DeleteFilme.Click += new EventHandler(this.btn_DeleteFilmeClick);
-            this.Controls.Add(btn_DeleteFilme);
+            // Exit Button
+            this.btn_SairDetalhe = new Library.ButtonDetail(ButtonType.Sair);
+            this.btn_SairDetalhe.Text = "SAIR";
+            this.btn_SairDetalhe.Location = new Point(330, 460);
+            this.btn_SairDetalhe.Size = new Size(140, 50);
+            this.btn_SairDetalhe.BackColor = ColorTranslator.FromHtml("#5de96e");
+            this.btn_SairDetalhe.Click += new EventHandler(this.btn_SairDetalheClick);
+            this.Controls.Add(btn_SairDetalhe);
         }
     }
 }

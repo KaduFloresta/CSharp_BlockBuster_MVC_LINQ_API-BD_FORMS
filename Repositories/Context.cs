@@ -23,8 +23,8 @@ namespace DbRespositorie
         /// <param name="options"></param>
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
-            options.UseMySql("Server=localhost;User Id=root;Database=locadorakadu");
-            // options.UseMySql("Server=database-kadu.cssevpc4pptb.us-east-1.rds.amazonaws.com;User Id=admin;Password=admin123;Database=innodb");
+            // options.UseMySql("Server=localhost;User Id=root;Database=locadorakadu");
+            options.UseMySql("Server=database-kadu.cssevpc4pptb.us-east-1.rds.amazonaws.com;User Id=admin;Password=admin123;Database=innodb");
         }
     }
 }

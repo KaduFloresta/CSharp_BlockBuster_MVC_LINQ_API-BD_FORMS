@@ -15,7 +15,7 @@ namespace Models
         */
         [Key] // Data Annotations - Main key
         public int IdLocacao { get; set; }
-        public ClienteModels Cliente { get; set; }
+        public virtual ClienteModels Cliente { get; set; }
         [ForeignKey("clientes")] // Data Annotations - Foreign Key
         public int IdCliente { get; set; }
         [Required] // Data Annotations - Mandatory data entry
@@ -180,9 +180,10 @@ namespace Models
             }
             catch
             {
-                // throw new Error();
+                throw new ArgumentException();
             }
         }
+
         public static void DeleteLocacao(int idLocacao)
         {
             Context db = new Context();
@@ -190,10 +191,10 @@ namespace Models
             {
                 LocacaoModels locacao = db.Locacoes.First(locacao => locacao.IdLocacao == idLocacao);
                 db.Remove(locacao);
-            }
+           }
             catch
             {
-                // thorw new Error();
+                throw new ArgumentException();
             }
         }
     }

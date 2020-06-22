@@ -1,5 +1,6 @@
 using System;
 using Models;
+using Controllers;
 using System.Windows.Forms;
 
 namespace Locadora_MVC_LINQ_API_BD_Interface
@@ -18,7 +19,6 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
         /// <param name="e"></param>
         private void btn_SairDetalheClick(object sender, EventArgs e)
         {
-            // MessageBox.Show ("CONCLUÍDO!");
             this.Close();
             this.parent.Show();
         }
@@ -30,7 +30,9 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
         /// <param name="e"></param>
         private void btn_UpdateLocacaoClick(object sender, EventArgs e)
         {
-            MessageBox.Show("TESTE!");
+            CadastroLocacao btn_UpdateLocacaoClick = new CadastroLocacao(this, idLocacao);
+            btn_UpdateLocacaoClick.Show();
+            this.Close();
         }
 
         /// <summary>
@@ -40,7 +42,12 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
         /// <param name="e"></param>
         private void btn_DeleteLocacaoClick(object sender, EventArgs e)
         {
-            MessageBox.Show("TESTE!");
+            DialogResult result = MessageBox.Show("Deseja Realmente Exluir Essa Locação?", "Exclusão", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+            if (result == DialogResult.Yes)
+            {
+                LocacaoController.DeleteLocacao(idLocacao);
+                this.Close();
+            }
         }
     }
 }

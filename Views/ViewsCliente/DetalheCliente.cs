@@ -1,5 +1,6 @@
 using System;
 using Models;
+using Controllers;
 using System.Windows.Forms;
 
 namespace Locadora_MVC_LINQ_API_BD_Interface
@@ -41,7 +42,12 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
         /// <param name="e"></param>
         private void btn_DeleteClienteClick(object sender, EventArgs e)
         {
-            MessageBox.Show("CLIENTE EXCLUÍDO!");
+            DialogResult result = MessageBox.Show("Deseja Realmente Exluir Esse Cliente?", "Exclusão", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+            if (result == DialogResult.Yes)
+            {
+                ClienteController.DeleteCliente(idCliente);
+                this.Close();
+            }
         }
     }
 }

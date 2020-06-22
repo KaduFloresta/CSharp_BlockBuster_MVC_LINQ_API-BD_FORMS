@@ -27,7 +27,7 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
         Form parent;
 
         // Rent data entry
-        public void InitializeComponent(Form parent)
+        public void InitializeComponent(Form parent, bool isUpdate)
         {
             // Window parameters
             this.BackColor = ColorTranslator.FromHtml("#6d6a75");
@@ -35,9 +35,14 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             this.Size = new Size(500, 580);
             this.parent = parent;
 
+            if (isUpdate)
+            {
+                this.Load += new EventHandler(this.LoadForm);
+            }
+
             // PictureBox
             this.pb_Cadastro = new Library.PictureBox();
-            this.pb_Cadastro.Load("./Views/assets/cadastra.jpg");
+            this.pb_Cadastro.Load($"./Views/assets/{(isUpdate ? "alteracao" : "cadastra")}.jpg");
             this.Controls.Add(pb_Cadastro);
 
             this.lbl_BuscaCliente = new Library.Label();

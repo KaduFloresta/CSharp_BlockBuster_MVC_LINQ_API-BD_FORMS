@@ -1,10 +1,9 @@
 using System;
 using Models;
-using System.Drawing;
+using Controllers;
 using System.Windows.Forms;
-using static Locadora_MVC_LINQ_API_BD_IF.Program;
 
-namespace Locadora_MVC_LINQ_API_BD_IF
+namespace Locadora_MVC_LINQ_API_BD_Interface
 {
     public partial class FilmeDetalhe : Form
     {
@@ -20,7 +19,6 @@ namespace Locadora_MVC_LINQ_API_BD_IF
         /// <param name="e"></param>
         private void btn_SairDetalheClick(object sender, EventArgs e)
         {
-            // MessageBox.Show ("CONCLUÍDO!");
             this.Close();
             this.parent.Show();
         }
@@ -44,7 +42,12 @@ namespace Locadora_MVC_LINQ_API_BD_IF
         /// <param name="e"></param>
         private void btn_DeleteFilmeClick(object sender, EventArgs e)
         {
-            MessageBox.Show("TESTE!");
+            DialogResult result = MessageBox.Show("Deseja Realmente Exluir Esse Filme?", "Exclusão", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+            if (result == DialogResult.Yes)
+            {
+                FilmeController.DeleteFilme(idFilme);
+                this.Close();
+            }
         }
     }
 }

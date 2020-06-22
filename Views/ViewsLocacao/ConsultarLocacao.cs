@@ -65,7 +65,7 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             }
             catch
             {
-                MessageBox.Show("SELECIONE UMA LOCAÇÃO!");
+                MessageBox.Show("Selecione Uma Locação!");
             }
         }
 
@@ -76,7 +76,6 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
         /// <param name="e"></param>
         private void btn_ListaSairClick(object sender, EventArgs e)
         {
-            // MessageBox.Show("CONCLUÍDO!");
             this.Close();
             this.parent.Show();
         }

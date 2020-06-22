@@ -49,9 +49,9 @@ namespace Controllers
         /// <summary>
         /// Access to Delete customer
         /// </summary>
-        public static ClienteModels DeleteLocacao()
+        public static void DeleteLocacao(int idLocacao)
         {
-            return DeleteLocacao();
+            LocacaoController.DeleteLocacao(idLocacao);
         }
     }
 }

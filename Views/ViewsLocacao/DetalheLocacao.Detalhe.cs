@@ -123,13 +123,13 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             this.gb_DadosFIlmes.Text = "LISTA DE FILMES LOCADOS";
             this.Controls.Add(gb_DadosFIlmes);
 
-            // Buttons
-            this.btn_SairDetalhe = new Library.ButtonDetail(ButtonType.Sair);
-            this.btn_SairDetalhe.Text = "SAIR";
-            this.btn_SairDetalhe.Location = new Point(20, 505);
-            this.btn_SairDetalhe.BackColor = ColorTranslator.FromHtml("#5de96e");
-            this.btn_SairDetalhe.Click += new EventHandler(this.btn_SairDetalheClick);
-            this.Controls.Add(btn_SairDetalhe);
+            // Delete Button
+            this.btn_DeleteLocacao = new Library.ButtonDetail(ButtonType.Delete);
+            this.btn_DeleteLocacao.Text = "DELETAR";
+            this.btn_DeleteLocacao.Location = new Point(20, 505);
+            this.btn_DeleteLocacao.BackColor = ColorTranslator.FromHtml("#e98274");
+            this.btn_DeleteLocacao.Click += new EventHandler(this.btn_DeleteLocacaoClick);
+            this.Controls.Add(btn_DeleteLocacao);
 
             // Update Button
             this.btn_UpdateLocacao = new Library.ButtonDetail(ButtonType.Update);
@@ -139,13 +139,13 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             this.btn_UpdateLocacao.Click += new EventHandler(this.btn_UpdateLocacaoClick);
             this.Controls.Add(btn_UpdateLocacao);
 
-            // Delete Button
-            this.btn_DeleteLocacao = new Library.ButtonDetail(ButtonType.Delete);
-            this.btn_DeleteLocacao.Text = "DELETAR";
-            this.btn_DeleteLocacao.Location = new Point(410, 505);
-            this.btn_DeleteLocacao.BackColor = ColorTranslator.FromHtml("#e98274");
-            this.btn_DeleteLocacao.Click += new EventHandler(this.btn_DeleteLocacaoClick);
-            this.Controls.Add(btn_DeleteLocacao);
+            // Exit Button
+            this.btn_SairDetalhe = new Library.ButtonDetail(ButtonType.Sair);
+            this.btn_SairDetalhe.Text = "SAIR";
+            this.btn_SairDetalhe.Location = new Point(410, 505);
+            this.btn_SairDetalhe.BackColor = ColorTranslator.FromHtml("#5de96e");
+            this.btn_SairDetalhe.Click += new EventHandler(this.btn_SairDetalheClick);
+            this.Controls.Add(btn_SairDetalhe);
         }
     }
 }

@@ -30,17 +30,17 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             this.Size = new Size(500, 400);
             this.parent = parent;
 
-            if(isUpdate)
+            if (isUpdate)
             {
                 this.Load += new EventHandler(this.LoadForm);
             }
 
-            // PictureBox
+            // PictureBox - Using Property Bind
             this.pb_Cadastro = new Library.PictureBox();
             this.pb_Cadastro.Location = new Point(0, 10);
             this.pb_Cadastro.Size = new Size(480, 100);
             this.pb_Cadastro.ClientSize = new Size(480, 80);
-            this.pb_Cadastro.Load("./Views/assets/cadastra.jpg");
+            this.pb_Cadastro.Load($"./Views/assets/{(isUpdate ? "alteracao" : "cadastra")}.jpg");
             this.Controls.Add(pb_Cadastro);
 
             // Fill orientation tip

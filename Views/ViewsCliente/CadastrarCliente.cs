@@ -65,7 +65,7 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
                                         ? 5
                                         : 10
                         );
-                        MessageBox.Show("CADASTRADO!");
+                        MessageBox.Show("Cadastrado Com Sucesso!");
 
                     }
                     else
@@ -87,19 +87,19 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
                                         ? 5
                                         : 10
                         );
-                        MessageBox.Show("ATUALIZADO!");
+                        MessageBox.Show("Alteração Feita!");
                     }
                     this.Close();
                     this.parent.Show();
                 }
                 else
                 {
-                    MessageBox.Show("PREENCHA TODOS OS CAMPOS!");
+                    MessageBox.Show("Preencha Todos Os Campos!");
                 }
             }
             catch (Exception er)
             {
-                MessageBox.Show(er.Message, "PREENCHA TODOS OS CAMPOS!");
+                MessageBox.Show(er.Message, "Preencha Todos Os Campos!");
             }
         }
 
@@ -110,9 +110,7 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
         /// <param name="e"></param>
         private void btn_CancelarClick(object sender, EventArgs e)
         {
-            // MessageBox.Show("CANCELADO!");
             this.Close();
-            this.parent.Show();
         }
 
         private void LoadForm(object sender, EventArgs e)

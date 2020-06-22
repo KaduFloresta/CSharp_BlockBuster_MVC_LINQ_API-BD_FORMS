@@ -81,9 +81,9 @@ namespace Controllers
         /// <summary>
         /// Access to Delete customer
         /// </summary>
-        public static void DeleteCliente()
+        public static void DeleteCliente(int idCliente)
         {
-            DeleteCliente();
+            ClienteModels.DeleteCliente(idCliente);
         }
     }
 }

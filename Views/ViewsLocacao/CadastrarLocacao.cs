@@ -9,9 +9,18 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
 {
     public partial class CadastroLocacao : Form
     {
-        public CadastroLocacao(Form parent)
+        LocacaoModels locacao;
+        public CadastroLocacao(Form parent, int id = 0)
         {
-            InitializeComponent(parent);
+           try
+            {
+                locacao = LocacaoController.GetLocacao(id);
+            }
+            catch
+            {
+
+            }
+            InitializeComponent(parent, id > 0);
         }
 
         /// <summary>
@@ -93,18 +102,18 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
                         FilmeModels filme = FilmeController.GetFilme(Int32.Parse(Filme.Text));
                         locacao.AdicionarFilme(filme);
                     }
-                    MessageBox.Show("CADASTRADO!");
+                    MessageBox.Show("Locação Realizada!");
                     this.Close();
                     this.parent.Show();
                 }
                 else
                 {
-                    MessageBox.Show("SELECIONE O CLIENTE E PELO MENOS UM FILME!");
+                    MessageBox.Show("Selecione o Cliente e Pelo Menos Um Filme!");
                 }
             }
             catch (Exception er)
             {
-                MessageBox.Show(er.Message, "SELECIONE O CLIENTE E PELO MENOS UM FILME!");
+                MessageBox.Show(er.Message, "Selecione o Cliente e Pelo Menos Um Filme!");
             }
         }
 
@@ -115,9 +124,17 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
         /// <param name="e"></param>
         private void btn_CancelarClick(object sender, EventArgs e)
         {
-            // MessageBox.Show("CANCELADO!");
             this.Close();
-            this.parent.Show();
+        }
+
+        /// <summary>
+        /// Event to rental update data
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void LoadForm(object sender, EventArgs e)
+        {
+            // Ateração: cliente, data de devolução e filmes locados.
         }
     }
 }

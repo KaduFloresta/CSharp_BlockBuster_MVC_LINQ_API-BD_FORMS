@@ -4,7 +4,6 @@ using Controllers;
 using System.Linq;
 using System.Windows.Forms;
 using System.Collections.Generic;
-using static Locadora_MVC_LINQ_API_BD_IF.Program;
 
 namespace Locadora_MVC_LINQ_API_BD_Interface
 {
@@ -67,7 +66,7 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             }
             catch
             {
-                MessageBox.Show("SELECIONE UM FILME!");
+                MessageBox.Show("Selecione Um Filme!");
             }
         }
 
@@ -78,7 +77,6 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
         /// <param name="e"></param>
         private void btn_ListaSairClick(object sender, EventArgs e)
         {
-            // MessageBox.Show("CONCLUÍDO!");
             this.Close();
             this.parent.Show();
         }

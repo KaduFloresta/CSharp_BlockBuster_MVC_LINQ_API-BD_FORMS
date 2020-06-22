@@ -1,8 +1,8 @@
+using System;
 using System.Linq;
 using DbRespositorie;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System;
 
 namespace Models
 {
@@ -11,7 +11,6 @@ namespace Models
         /* 
             Getters and Setters 
         */
-
         [Key] // Data Annotations - Main key
         public int IdFilme { get; set; }
         [Required] // Data Annotations - Mandatory data entry
@@ -109,6 +108,10 @@ namespace Models
                 throw new ArgumentException();
             }
         }
+
+        /// <summary>
+        /// Delete movie into the database
+        /// </summary>
         public static void DeleteFilme(int idFilme)
         {
             Context db = new Context();
@@ -122,6 +125,9 @@ namespace Models
                 }
                 catch
                 {
+                    // List<LocacaoModels> locacoes = db.Locacoes.TakeWhile(locacao => locacao.IdFilme == idFilme).ToList();
+                    // locacoes.ForEach(locacao => db.Remove(locacao));
+                    // db.SaveChanges();
                     throw new ArgumentException();
                 }
             }

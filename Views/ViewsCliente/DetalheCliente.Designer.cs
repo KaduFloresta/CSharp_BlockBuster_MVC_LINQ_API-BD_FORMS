@@ -82,14 +82,14 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             this.gb_ClienteDetalhe.Text = "CONSULTA CLIENTES";
             this.Controls.Add(gb_ClienteDetalhe);
 
-            // Buttons
-            this.btn_SairDetalhe = new Library.ButtonDetail(ButtonType.Sair);
-            this.btn_SairDetalhe.Text = "SAIR";
-            this.btn_SairDetalhe.Location = new Point(10, 340);
-            this.btn_SairDetalhe.Size = new Size(140, 50);
-            this.btn_SairDetalhe.BackColor = ColorTranslator.FromHtml("#5de96e");
-            this.btn_SairDetalhe.Click += new EventHandler(this.btn_SairDetalheClick);
-            this.Controls.Add(btn_SairDetalhe);
+            // Delete Button
+            this.btn_DeleteCliente = new Library.ButtonDetail(ButtonType.Delete);
+            this.btn_DeleteCliente.Text = "DELETAR";
+            this.btn_DeleteCliente.Location = new Point(10, 340);
+            this.btn_DeleteCliente.Size = new Size(140, 50);
+            this.btn_DeleteCliente.BackColor = ColorTranslator.FromHtml("#e98274");
+            this.btn_DeleteCliente.Click += new EventHandler(this.btn_DeleteClienteClick);
+            this.Controls.Add(btn_DeleteCliente);
 
             // Update Button
             this.btn_UpdateCliente = new Library.ButtonDetail(ButtonType.Update);
@@ -100,14 +100,14 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             this.btn_UpdateCliente.Click += new EventHandler(this.btn_UpdateClienteClick);
             this.Controls.Add(btn_UpdateCliente);
 
-            // Delete Button
-            this.btn_DeleteCliente = new Library.ButtonDetail(ButtonType.Delete);
-            this.btn_DeleteCliente.Text = "DELETAR";
-            this.btn_DeleteCliente.Location = new Point(330, 340);
-            this.btn_DeleteCliente.Size = new Size(140, 50);
-            this.btn_DeleteCliente.BackColor = ColorTranslator.FromHtml("#e98274");
-            this.btn_DeleteCliente.Click += new EventHandler(this.btn_DeleteClienteClick);
-            this.Controls.Add(btn_DeleteCliente);
+            // Exit Button
+            this.btn_SairDetalhe = new Library.ButtonDetail(ButtonType.Sair);
+            this.btn_SairDetalhe.Text = "SAIR";
+            this.btn_SairDetalhe.Location = new Point(330, 340);
+            this.btn_SairDetalhe.Size = new Size(140, 50);
+            this.btn_SairDetalhe.BackColor = ColorTranslator.FromHtml("#5de96e");
+            this.btn_SairDetalhe.Click += new EventHandler(this.btn_SairDetalheClick);
+            this.Controls.Add(btn_SairDetalhe);
         }
     }
 }

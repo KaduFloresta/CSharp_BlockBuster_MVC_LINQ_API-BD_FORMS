@@ -84,9 +84,9 @@ namespace Controllers
         /// <summary>
         /// Access to Delete movie
         /// </summary>
-        public static FilmeModels DeleteFilme()
+        public static void DeleteFilme(int idFilme)
         {
-            return DeleteFilme();
+            FilmeModels.DeleteFilme(idFilme);
         }
     }
 }

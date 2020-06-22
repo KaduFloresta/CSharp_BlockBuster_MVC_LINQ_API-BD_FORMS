@@ -14,6 +14,7 @@ namespace Library
     {
         public ButtonDetail(ButtonType type)
         {
+            this.Size = new Size(150, 50);
             switch (type)
             {
                 case ButtonType.Sair:

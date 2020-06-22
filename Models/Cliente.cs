@@ -1,9 +1,8 @@
+using System;
 using System.Linq;
 using DbRespositorie;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Windows.Forms;
-using System;
 
 namespace Models
 {
@@ -14,7 +13,6 @@ namespace Models
         */
         [Key] // Data Annotations - Main key
         public int IdCliente { get; set; }
-
         [Required] // Mandatory data entry
         public string NomeCliente { get; set; }
         [Required]
@@ -121,7 +119,9 @@ namespace Models
                 }
                 catch
                 {
-                    throw new ArgumentException();
+                    List<LocacaoModels> locacoes = db.Locacoes.TakeWhile(locacao => locacao.IdCliente == idCliente).ToList();
+                    locacoes.ForEach(locacao => db.Remove(locacao));
+                    db.SaveChanges();
                 }
             }
             catch

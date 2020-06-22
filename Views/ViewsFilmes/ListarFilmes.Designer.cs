@@ -3,8 +3,6 @@ using Models;
 using Controllers;
 using System.Drawing;
 using System.Windows.Forms;
-using static System.Windows.Forms.View;
-using static Locadora_MVC_LINQ_API_BD_IF.Program;
 
 namespace Locadora_MVC_LINQ_API_BD_Interface
 {
@@ -17,7 +15,7 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
         Form parent;
 
         // List movie window
-         public void InitializeComponent(Form parent)
+        public void InitializeComponent(Form parent)
         {
             // Window parameters
             this.BackColor = ColorTranslator.FromHtml("#6d6a75");
