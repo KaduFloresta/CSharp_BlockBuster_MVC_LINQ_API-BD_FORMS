@@ -94,7 +94,7 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             this.btn_DeleteFilme.BackColor = ColorTranslator.FromHtml("#e98274");
             this.btn_DeleteFilme.Click += new EventHandler(this.btn_DeleteFilmeClick);
             this.Controls.Add(btn_DeleteFilme);
-            
+
             // Update Button
             this.btn_UpdateFilme = new Library.ButtonDetail(ButtonType.Update);
             this.btn_UpdateFilme.Text = "ALTERAR";

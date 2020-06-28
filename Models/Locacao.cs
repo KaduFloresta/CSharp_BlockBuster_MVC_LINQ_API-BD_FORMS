@@ -20,6 +20,7 @@ namespace Models
         public int IdCliente { get; set; }
         [Required] // Data Annotations - Mandatory data entry
         public DateTime DataLocacao { get; set; }
+
         public List<FilmeModels> filmes = new List<FilmeModels>();
 
         /// <summary>
@@ -162,28 +163,6 @@ namespace Models
                     select locacao).First();
         }
 
-
-        public static void UpdateLocacao(
-            int idLocacao,
-            int idCliente,
-            DateTime dataLocacao
-        )
-        {
-            Context db = new Context();
-            try
-            {
-                LocacaoModels locacao = db.Locacoes.First(locacao => locacao.IdLocacao == idLocacao);
-                locacao.IdLocacao = idLocacao;
-                locacao.IdCliente = idCliente;
-                locacao.DataLocacao = dataLocacao;
-                db.SaveChanges(); // Cria a transação do BD
-            }
-            catch
-            {
-                throw new ArgumentException();
-            }
-        }
-
         public static void DeleteLocacao(int idLocacao)
         {
             Context db = new Context();
@@ -191,11 +170,24 @@ namespace Models
             {
                 LocacaoModels locacao = db.Locacoes.First(locacao => locacao.IdLocacao == idLocacao);
                 db.Remove(locacao);
-           }
+            }
             catch
             {
                 throw new ArgumentException();
             }
+        }
+
+        /// <summary>
+        /// Get customer rentals from the database
+        /// </summary>
+        /// <param name="IdCliente"></param>
+        /// <returns></returns>
+        public static List<LocacaoModels> GetLocacoesByCliente(int IdCliente)
+        {
+            var db = new Context();
+            return (from locacao in db.Locacoes
+                    where locacao.IdCliente == IdCliente
+                    select locacao).ToList();
         }
     }
 }

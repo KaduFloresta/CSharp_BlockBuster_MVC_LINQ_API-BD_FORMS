@@ -119,17 +119,7 @@ namespace Models
             {
                 FilmeModels filme = db.Filmes.First(filme => filme.IdFilme == idFilme);
                 db.Remove(filme);
-                try
-                {
-                    db.SaveChanges();
-                }
-                catch
-                {
-                    // List<LocacaoModels> locacoes = db.Locacoes.TakeWhile(locacao => locacao.IdFilme == idFilme).ToList();
-                    // locacoes.ForEach(locacao => db.Remove(locacao));
-                    // db.SaveChanges();
-                    throw new ArgumentException();
-                }
+                db.SaveChanges();
             }
             catch
             {

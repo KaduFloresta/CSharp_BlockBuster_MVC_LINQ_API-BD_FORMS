@@ -32,7 +32,6 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
         {
             CadastroCliente btn_UpdateClienteClick = new CadastroCliente(this, idCliente);
             btn_UpdateClienteClick.Show();
-            this.Close();
         }
 
         /// <summary>
@@ -45,8 +44,15 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             DialogResult result = MessageBox.Show("Deseja Realmente Exluir Esse Cliente?", "Exclusão", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
             if (result == DialogResult.Yes)
             {
-                ClienteController.DeleteCliente(idCliente);
-                this.Close();
+                try
+                {
+                    ClienteController.DeleteCliente(idCliente);
+                    this.Close();
+                }
+                catch (Exception error)
+                {
+                    MessageBox.Show(error.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
     }

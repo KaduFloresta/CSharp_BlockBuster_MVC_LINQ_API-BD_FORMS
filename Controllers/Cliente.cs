@@ -59,19 +59,19 @@ namespace Controllers
         /// Access to Update customer
         /// </summary>
         public static void UpdateCliente(
-            int idCliente, 
-            string nomeCliente, 
-            int day, 
-            int month, 
-            int year, 
-            string cpfCliente, 
+            int idCliente,
+            string nomeCliente,
+            int day,
+            int month,
+            int year,
+            string cpfCliente,
             int diasDevolucao
             )
         {
             string dataNascimento = "" + day + "/" + month + "/" + year;
             ClienteModels.UpdateCliente(
-            idCliente, 
-            nomeCliente, 
+            idCliente,
+            nomeCliente,
             dataNascimento,
             cpfCliente,
             diasDevolucao
@@ -83,6 +83,10 @@ namespace Controllers
         /// </summary>
         public static void DeleteCliente(int idCliente)
         {
+            if (LocacaoController.GetLocacoesByCliente(idCliente).Count > 0)
+            {
+                throw new Exception("Esse Cliente Possui Locações!");
+            }
             ClienteModels.DeleteCliente(idCliente);
         }
     }

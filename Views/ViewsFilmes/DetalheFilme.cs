@@ -32,7 +32,6 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
         {
             CadastroFilme btn_UpdateFilmeClick = new CadastroFilme(this, idFilme);
             btn_UpdateFilmeClick.Show();
-            this.Close();
         }
 
         /// <summary>
@@ -45,8 +44,15 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             DialogResult result = MessageBox.Show("Deseja Realmente Exluir Esse Filme?", "Exclusão", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
             if (result == DialogResult.Yes)
             {
-                FilmeController.DeleteFilme(idFilme);
-                this.Close();
+                try
+                {
+                    FilmeController.DeleteFilme(idFilme);
+                    this.Close();
+                }
+                catch (Exception error)
+                {
+                    MessageBox.Show(error.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
     }

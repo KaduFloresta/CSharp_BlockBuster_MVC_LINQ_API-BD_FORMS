@@ -23,7 +23,7 @@ namespace Controllers
         }
 
         /// <summary>
-        /// Access find a customer rental
+        /// Access find a rental
         /// </summary>
         public static List<LocacaoModels> GetLocacoes()
         {
@@ -39,11 +39,23 @@ namespace Controllers
         }
 
         /// <summary>
-        /// Access to Update rental
+        /// Get rentals on the list by the customer
         /// </summary>
-        public static ClienteModels UpdateLocacao()
+        /// <param name="IdCliente"></param>
+        /// <returns></returns>
+        public static List<LocacaoModels> GetLocacoesByCliente(int IdCliente)
         {
-            return UpdateLocacao();
+            return LocacaoModels.GetLocacoesByCliente(IdCliente);
+        }
+
+        /// <summary>
+        /// Get rentals on the list by the movie
+        /// </summary>
+        /// <param name="IdFilme"></param>
+        /// <returns></returns>
+        public static List<LocacaoFilmeModels> GetLocacoesByFilme(int IdFilme)
+        {
+            return LocacaoFilmeModels.GetLocacoesByFilme(IdFilme);
         }
 
         /// <summary>

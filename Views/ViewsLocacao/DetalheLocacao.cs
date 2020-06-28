@@ -24,18 +24,6 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
         }
 
         /// <summary>
-        /// Event button to acess update interface
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void btn_UpdateLocacaoClick(object sender, EventArgs e)
-        {
-            CadastroLocacao btn_UpdateLocacaoClick = new CadastroLocacao(this, idLocacao);
-            btn_UpdateLocacaoClick.Show();
-            this.Close();
-        }
-
-        /// <summary>
         /// Event button to movie delete
         /// </summary>
         /// <param name="sender"></param>
@@ -45,8 +33,15 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             DialogResult result = MessageBox.Show("Deseja Realmente Exluir Essa Locação?", "Exclusão", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
             if (result == DialogResult.Yes)
             {
-                LocacaoController.DeleteLocacao(idLocacao);
-                this.Close();
+                try
+                {
+                    LocacaoController.DeleteLocacao(idLocacao);
+                    this.Close();
+                }
+                catch (Exception error)
+                {
+                    MessageBox.Show(error.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
     }
