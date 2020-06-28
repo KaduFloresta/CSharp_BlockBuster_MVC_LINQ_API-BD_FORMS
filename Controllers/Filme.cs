@@ -63,8 +63,8 @@ namespace Controllers
             int idFilme,
             string titulo,
             int day,
-            int month, 
-            int year, 
+            int month,
+            int year,
             string sinopse,
             double valorLocacaoFilme,
             int estoqueFilme
@@ -72,8 +72,8 @@ namespace Controllers
         {
             string dataLancamento = "" + day + "/" + month + "/" + year;
             FilmeModels.Updatefilme(
-            idFilme, 
-            titulo, 
+            idFilme,
+            titulo,
             dataLancamento,
             sinopse,
             valorLocacaoFilme,
@@ -86,6 +86,10 @@ namespace Controllers
         /// </summary>
         public static void DeleteFilme(int idFilme)
         {
+            if (LocacaoController.GetLocacoesByFilme(idFilme).Count > 0)
+            {
+                throw new Exception("Há Locações Com Esse Título!");
+            }
             FilmeModels.DeleteFilme(idFilme);
         }
     }

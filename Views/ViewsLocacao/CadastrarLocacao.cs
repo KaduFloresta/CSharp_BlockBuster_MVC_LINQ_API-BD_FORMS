@@ -9,18 +9,9 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
 {
     public partial class CadastroLocacao : Form
     {
-        LocacaoModels locacao;
-        public CadastroLocacao(Form parent, int id = 0)
+        public CadastroLocacao(Form parent)
         {
-           try
-            {
-                locacao = LocacaoController.GetLocacao(id);
-            }
-            catch
-            {
-
-            }
-            InitializeComponent(parent, id > 0);
+            InitializeComponent(parent);
         }
 
         /// <summary>
@@ -125,16 +116,6 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
         private void btn_CancelarClick(object sender, EventArgs e)
         {
             this.Close();
-        }
-
-        /// <summary>
-        /// Event to rental update data
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void LoadForm(object sender, EventArgs e)
-        {
-            // Ateração: cliente, data de devolução e filmes locados.
         }
     }
 }

@@ -1,5 +1,8 @@
+using System.Collections.Generic;
+using System.Linq;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using DbRespositorie;
 
 namespace Models
 {
@@ -16,6 +19,19 @@ namespace Models
         [ForeignKey("filmes")] // Data Annotations - Foreign Key
         public int IdFilme { get; set; }
         public virtual FilmeModels Filme { get; set; }
+
+        /// <summary>
+        /// Get movie rentals from the database
+        /// </summary>
+        /// <param name="IdFilme"></param>
+        /// <returns></returns>
+        public static List<LocacaoFilmeModels> GetLocacoesByFilme(int IdFilme)
+        {
+            var db = new Context();
+            return (from locacao in db.LocacaoFilme
+                    where locacao.IdFilme == IdFilme
+                    select locacao).ToList();
+        }
 
     }
 }

@@ -113,16 +113,7 @@ namespace Models
             {
                 ClienteModels cliente = db.Clientes.First(cliente => cliente.IdCliente == idCliente);
                 db.Remove(cliente);
-                try
-                {
-                    db.SaveChanges();
-                }
-                catch
-                {
-                    List<LocacaoModels> locacoes = db.Locacoes.TakeWhile(locacao => locacao.IdCliente == idCliente).ToList();
-                    locacoes.ForEach(locacao => db.Remove(locacao));
-                    db.SaveChanges();
-                }
+                db.SaveChanges();
             }
             catch
             {

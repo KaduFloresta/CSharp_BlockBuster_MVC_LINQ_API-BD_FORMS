@@ -24,7 +24,6 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
         Library.GroupBox gb_DadosLocacao;
         Library.GroupBox gb_DadosFIlmes;
         Library.ButtonDetail btn_SairDetalhe;
-        Library.ButtonDetail btn_UpdateLocacao;
         Library.ButtonDetail btn_DeleteLocacao;
         Form parent;
 
@@ -126,23 +125,15 @@ namespace Locadora_MVC_LINQ_API_BD_Interface
             // Delete Button
             this.btn_DeleteLocacao = new Library.ButtonDetail(ButtonType.Delete);
             this.btn_DeleteLocacao.Text = "DELETAR";
-            this.btn_DeleteLocacao.Location = new Point(20, 505);
+            this.btn_DeleteLocacao.Location = new Point(120, 505);
             this.btn_DeleteLocacao.BackColor = ColorTranslator.FromHtml("#e98274");
             this.btn_DeleteLocacao.Click += new EventHandler(this.btn_DeleteLocacaoClick);
             this.Controls.Add(btn_DeleteLocacao);
 
-            // Update Button
-            this.btn_UpdateLocacao = new Library.ButtonDetail(ButtonType.Update);
-            this.btn_UpdateLocacao.Text = "ALTERAR";
-            this.btn_UpdateLocacao.Location = new Point(215, 505);
-            this.btn_UpdateLocacao.BackColor = ColorTranslator.FromHtml("#efeb7f");
-            this.btn_UpdateLocacao.Click += new EventHandler(this.btn_UpdateLocacaoClick);
-            this.Controls.Add(btn_UpdateLocacao);
-
             // Exit Button
             this.btn_SairDetalhe = new Library.ButtonDetail(ButtonType.Sair);
             this.btn_SairDetalhe.Text = "SAIR";
-            this.btn_SairDetalhe.Location = new Point(410, 505);
+            this.btn_SairDetalhe.Location = new Point(320, 505);
             this.btn_SairDetalhe.BackColor = ColorTranslator.FromHtml("#5de96e");
             this.btn_SairDetalhe.Click += new EventHandler(this.btn_SairDetalheClick);
             this.Controls.Add(btn_SairDetalhe);
