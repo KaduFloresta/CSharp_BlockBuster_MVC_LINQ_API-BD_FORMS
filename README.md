@@ -59,6 +59,7 @@ Deverá ser criado um arquivo principal para gerenciamento das informações dos
 **O código fonte deverá ser trabalhando dentro do GitHub, sendo sincronizado e aberto PR ao final do desenvolvimento.**
 
 # Interfaces
+
 <img src="/img/principal.png"/>
 ---
 <img src="/img/cadastroCliente.png"/>
