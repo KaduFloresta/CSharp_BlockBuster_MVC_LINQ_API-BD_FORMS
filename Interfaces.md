@@ -1,5 +1,3 @@
-https://img.shields.io/badge/<blockbuster>-<Senac2020>-<yellowgreen>
-
 ### Autor
 ---
 
