@@ -70,4 +70,3 @@ Deverá ser criado um arquivo principal para gerenciamento das informações dos
 ---
 <img src="/img/consultaLocacao.png.png"/>
 ---
-
