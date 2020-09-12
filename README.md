@@ -94,14 +94,14 @@ CRUD:
 **Locação**
 CR<del>U</del>D:
 - Cadastro
-- Consulta
-- Deleta
 
 <img src="/img/locacao.png"/>
 
 ---
 **Locação**
 CR<del>U</del>D:
+- Consulta
+- Deleta
 - Listagem
 - Detalhes
 
