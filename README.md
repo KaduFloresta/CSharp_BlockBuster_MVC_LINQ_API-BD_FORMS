@@ -59,15 +59,52 @@ Deverá ser criado um arquivo principal para gerenciamento das informações dos
 **O código fonte deverá ser trabalhando dentro do GitHub, sendo sincronizado e aberto PR ao final do desenvolvimento.**
 
 # Interfaces
-**Tela Principal**
+**Principal**
+Acesso a todas as outras interfaces:
+- Cadastro
+- Consulta
+- Listagem
+
 <img src="/img/principal.png"/>
 
 ---
+**Cliente**
+CRUD:
+- Cadastro
+- Consulta
+- Atualiza
+- Deleta
+- Listagem
+- Detalhes
+
 <img src="/img/cadastroCliente.png"/>
+
 ---
+**Filme**
+CRUD:
+- Cadastro
+- Consulta
+- Atualiza
+- Deleta
+- Listagem
+- Detalhes
 <img src="/img/consultaFilme.png"/>
+
 ---
+**Locação**
+CR<del>U</del>D:
+- Cadastro
+- Consulta
+- Deleta
+
 <img src="/img/locacao.png"/>
+
 ---
-<img src="/img/consultaLocacao.png.png"/>
+**Locação**
+CR<del>U</del>D:
+- Listagem
+- Detalhes
+
+<img src="/img/consultaLocacao.png"/>
+
 ---
