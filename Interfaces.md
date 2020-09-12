@@ -1,15 +1,22 @@
-# Interfaces
+# Blockbuster Forms
 **Principal**
 
 Acesso a todas as outras interfaces:
-- Cadastro
-- Consulta
-- Listagem
+
+Cliente | Filme | Locação
+:---:|:---:|:---:
+Cadastro |Cadastro |Cadastro 
+Consulta |Consulta |Consulta 
+Listagem |Listagem |Listagem
+Detalhes |Detalhes |Detalhes 
+Atualiza |Atualiza |X 
+Deleta   |Deleta   |Deleta   
+
 
 <img src="/img/principal.png"/>
 
 ---
-**Cliente**
+**Interfaces Cliente**
 
 CRUD:
 - Cadastro
