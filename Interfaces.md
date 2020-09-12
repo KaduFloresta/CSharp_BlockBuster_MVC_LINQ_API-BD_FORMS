@@ -1,4 +1,4 @@
-/docker/image-size/:user/:repo?sort=date
+docker/image-size/:user/:repo?sort=date
 
 ### Autor
 ---
