@@ -6,7 +6,7 @@
  <code><b>Kadu Floresta</b></code></a>
  
  <code><a href="https://github.com/KaduFloresta" title="HomeGit">🏠 GitHub - Home</a><br></code><br>
- <code><a href="https://github.com/KaduFloresta?tab=repositories" title="RepoGit">📂 GitHub - Repositórios</a><br></code>
+ <code><a href="https://github.com/KaduFloresta?tab=repositories" title="RepoGit">📁 GitHub - Repositórios</a><br></code>
 
 <code>👋🏽 Entre em contato!</code>
 
@@ -27,7 +27,7 @@ Análise e Desenvolvimento de Sistemas - Senac 2020
 - Forms.
 
 ### Interfaces 
-<a href="Interfaces.md">Interfaces do Sistema</a>
+💽 <a href="Interfaces.md">Interfaces Gráficas do Sistema</a>
 
 ## Instruções# 
 
