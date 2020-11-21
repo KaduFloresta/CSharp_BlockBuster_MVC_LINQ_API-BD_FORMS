@@ -42,29 +42,29 @@ No indicador 3. Descreve as estruturas de POO, que tem como critério a Análise
 Para analisar o aprendizado, desenvolva um mini sistema de locação de filmes, estilo Blockbuster, que possui como entidades:
 
 * Cliente
-    - Identificador Único (ID)
-    - Nome
-    - Data de Nascimento
-    - C.P.F.
-    - Dias para Devolução
+    - [X] Identificador Único (ID)
+    - [X] Nome
+    - [X] Data de Nascimento
+    - [X] C.P.F.
+    - [X] Dias para Devolução
     
 * Filme
-    - Identificador Único (ID)
-    - Nome
-    - Data de Lançamento
-    - Sinópse
-    - Valor para Locação
-    - Estoque
+    - [X] Identificador Único (ID)
+    - [X] Nome
+    - [X] Data de Lançamento
+    - [X] Sinópse
+    - [X] Valor para Locação
+    - [X] Estoque
     
 * Locação
-    - Identificador Único (ID)
-    - I.D. do Cliente
-    - Data de Locação
-    - Data de Devolução
+    - [X] Identificador Único (ID)
+    - [X] I.D. do Cliente
+    - [X] Data de Locação
+    - [X] Data de Devolução
     
 * Filmes Locados
-    - I.D. da Locação
-    - I.D. do Filme
+    - [X] I.D. da Locação
+    - [X] I.D. do Filme
 
 Cada arquivo fonte de objeto deverá conter as suas propriedades e deverá respeitar os relacionamentos existentes entre si:
 * Cliente possui relacionamento 1-N com Locação
@@ -73,14 +73,16 @@ Cada arquivo fonte de objeto deverá conter as suas propriedades e deverá respe
 
 Cada arquivo fonte de objeto deverá conter, minimamente:
 * Cliente
-    - Método com a Quantidade de Filmes locados
+    - [X] Método com a Quantidade de Filmes locados
 * Filme
-    - Método com a Quantidade de locações realizadas
+    - [X] Método com a Quantidade de locações realizadas
 * Locação
-    - Método com o Valor total da Locação
-    - Método com a quantidade de filmes locados
-    - A data de devolução deverá ser calculada com base na Data de Locação e a quantidade de dias para Devolução que o cliente tem disponível na locadora.
+    - [X] Método com o Valor total da Locação
+    - [X] Método com a quantidade de filmes locados
+    - [X] A data de devolução deverá ser calculada com base na Data de Locação e a quantidade de dias para Devolução que o cliente tem disponível na locadora.
 
 Deverá ser criado um arquivo principal para gerenciamento das informações dos objetos, onde deverão ser criados 10 filmes (a sua escolha) e 5 clientes. Cada cliente deverá fazer algumas locações de filmes e ao final deverá ser exibida a Quantidade de Filmes locados por cada cliente, a quantidade de Locações dos Filmes e o valor total de locação e a quantidade de filmes por Locação.
 
 **O código fonte deverá ser trabalhando dentro do GitHub, sendo sincronizado e aberto PR ao final do desenvolvimento.**
+
+---
