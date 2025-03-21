@@ -37,7 +37,7 @@
 
 ## Instruções# 
 
-No indicador 3. Descreve as estruturas de POO, que tem como critério a Análise, o objetivo é consolidar a prática em Programação Orientada a Objetos, permitindo ao estudante aplicar as relações da vida real em objetos estruturas em uma linguagem de desenvolvimento orientado a objetos.
+Estruturas POO, que tem como critério a Análise, o objetivo é consolidar a prática em Programação Orientada a Objetos, permitindo aplicar as relações da vida real em objetos estruturas em uma linguagem de desenvolvimento orientado a objetos.
 
 Para analisar o aprendizado, desenvolva um mini sistema de locação de filmes, estilo Blockbuster, que possui como entidades:
 
